@@ -1,37 +1,23 @@
 SystemC Simulation
 *** smaller ***
 
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
 
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
-
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
-In file: <removed by verify.pl>
-
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
-In file: <removed by verify.pl>
-7
 10
-7
 10
+checking bits  .,., good!
+checking bits  .,.,.,., good!
 
 
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
 
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
-
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
-In file: <removed by verify.pl>
-
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
-In file: <removed by verify.pl>
-7
 10
-7
 10
 
 
@@ -46,10 +32,10 @@ In file: <removed by verify.pl>
 
 Warning: (W211) sc_logic value 'Z' cannot be converted to bool
 In file: <removed by verify.pl>
-7
 10
-7
 10
+checking bits  .,., good!
+checking bits  .,.,.,., good!
 
 
 Warning: (W212) sc_logic value 'X' cannot be converted to bool
@@ -63,44 +49,32 @@ In file: <removed by verify.pl>
 
 Warning: (W211) sc_logic value 'Z' cannot be converted to bool
 In file: <removed by verify.pl>
-7
 10
-7
 10
+checking bits  .,., good!
+checking bits  .,.,.,., good!
 *** equal ***
 
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
 
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
-
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
-In file: <removed by verify.pl>
-
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
-In file: <removed by verify.pl>
-7
 -6
-7
 -6
+checking bits  .,., good!
+checking bits  .,.,.,., good!
 
 
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
 
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
-
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
-In file: <removed by verify.pl>
-
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
-In file: <removed by verify.pl>
-7
 10
-7
 10
+checking bits  .,., good!
+checking bits  .,.,.,., good!
 
 
 Warning: (W212) sc_logic value 'X' cannot be converted to bool
@@ -114,10 +88,10 @@ In file: <removed by verify.pl>
 
 Warning: (W211) sc_logic value 'Z' cannot be converted to bool
 In file: <removed by verify.pl>
-7
 -6
-7
 -6
+checking bits  .,., good!
+checking bits  .,.,.,., good!
 
 
 Warning: (W212) sc_logic value 'X' cannot be converted to bool
@@ -131,44 +105,32 @@ In file: <removed by verify.pl>
 
 Warning: (W211) sc_logic value 'Z' cannot be converted to bool
 In file: <removed by verify.pl>
-7
 10
-7
 10
+checking bits  .,., good!
+checking bits  .,.,.,., good!
 *** larger ***
 
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
 
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
-
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
-In file: <removed by verify.pl>
-
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
-In file: <removed by verify.pl>
--1
 -2
--1
 -2
+checking bits   good!
+checking bits  .,., good!
 
 
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
 
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
-
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
-In file: <removed by verify.pl>
-
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
-In file: <removed by verify.pl>
-3
 2
-3
 2
+checking bits   good!
+checking bits  .,., good!
 
 
 Warning: (W212) sc_logic value 'X' cannot be converted to bool
@@ -182,10 +144,10 @@ In file: <removed by verify.pl>
 
 Warning: (W211) sc_logic value 'Z' cannot be converted to bool
 In file: <removed by verify.pl>
--1
 -2
--1
 -2
+checking bits   good!
+checking bits  .,., good!
 
 
 Warning: (W212) sc_logic value 'X' cannot be converted to bool
@@ -199,7 +161,7 @@ In file: <removed by verify.pl>
 
 Warning: (W211) sc_logic value 'Z' cannot be converted to bool
 In file: <removed by verify.pl>
-3
 2
-3
 2
+checking bits   good!
+checking bits  .,., good!
