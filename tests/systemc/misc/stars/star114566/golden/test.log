@@ -1,9 +1,41 @@
 SystemC Simulation
 
-Warning: (W212) sc_logic value 'X' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
+---------------------------------------------------
+mytest, lv a=01ZX
+attempt convert to int: 
 
-Warning: (W211) sc_logic value 'Z' cannot be converted to bool
+Warning: (W206) vector contains 4-value logic
 In file: <removed by verify.pl>
-01ZX
-7
+   int value undefined (has X's or Z's)
+a[0]=X : is_01=0
+a[1]=Z : is_01=0
+a[2]=1 : is_01=1
+b[2]=1
+a[3]=0 : is_01=1
+b[3]=0
+---------------------------------------------------
+mytest, lv a=0101
+attempt convert to int: 
+   int value: 5
+a[0]=1 : is_01=1
+b[0]=1
+a[1]=0 : is_01=1
+b[1]=0
+a[2]=1 : is_01=1
+b[2]=1
+a[3]=0 : is_01=1
+b[3]=0
+---------------------------------------------------
+mytest, lv a=1010
+attempt convert to int: 
+   int value: -6
+a[0]=0 : is_01=1
+b[0]=0
+a[1]=1 : is_01=1
+b[1]=1
+a[2]=0 : is_01=1
+b[2]=0
+a[3]=1 : is_01=1
+b[3]=1
