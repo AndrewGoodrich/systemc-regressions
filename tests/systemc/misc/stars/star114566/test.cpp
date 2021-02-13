@@ -19,7 +19,7 @@
 
 /*****************************************************************************
 
-  test.cpp -- 
+  test.cpp --
 
   Original Author: Martin Janssen, Synopsys, Inc., 2002-02-15
 
@@ -37,13 +37,49 @@
 
 #include "systemc.h"
 
+template<typename LV_T, typename BV_T>
+void mytest(const LV_T& a, const BV_T& b) {
+    cout << "---------------------------------------------------" << endl;
+    cout << "mytest, lv a=" << a << endl;
+    cout << "attempt convert to int: " << endl;
+    int v = a.to_int();
+    if (a.is_01() )  {
+        cout << "   int value: " << v << endl;
+    } else {
+        cout << "   int value undefined (has X's or Z's)" << endl;
+    }
+
+    for (int i=0; i<4; i++) {
+            cout << "a[" << i << "]=" << a[i]
+                 << " : is_01=" << a[i].is_01() << endl;
+        if (a[i].is_01()) {
+            cout << "b[" << i << "]=" << b[i] << endl;
+            // Check consistency:
+            sc_assert(a[i].to_bool()==b[i]);
+        } else {
+            // Translation from X or Z to Boolean is undefined
+        }
+    }
+}
+
+
 int
 sc_main( int, char*[] )
 {
-    sc_lv<4> a = "01ZX";
-    sc_uint<4> b = a;
-    cout << a << endl;
-    cout << b << endl;
+    sc_lv<4>    a = "01ZX";
+    sc_uint<4>  b = a;
+
+    mytest(a, b);
+
+    a = "0101";
+    b = a;
+
+    mytest(a,b);
+
+    a = "1010";
+    b = a;
+
+    mytest(a,b);
 
     return 0;
 }
