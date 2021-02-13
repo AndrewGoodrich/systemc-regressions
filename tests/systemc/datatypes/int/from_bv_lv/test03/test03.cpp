@@ -19,7 +19,7 @@
 
 /*****************************************************************************
 
-  test03.cpp -- 
+  test03.cpp --
 
   Original Author: Martin Janssen, Synopsys, Inc., 2002-02-15
 
@@ -39,6 +39,25 @@
 
 #include "systemc.h"
 
+template<typename T1, typename T2>
+void check_bits(const T1& bv1, const T2& bv2, const sc_lv<4>& lv)
+{
+    cout << "checking bits  " << flush;
+    for (int i=0; i<4; i++) {
+        if (lv[i].is_01()) {
+            if (i<bv1.length()) {
+                sc_assert(bv1[i]==lv[i].to_bool());
+                cout << "." << flush;
+            }
+            if (i<bv2.length()) {
+                sc_assert(bv2[i]==lv[i].to_bool());
+                cout << "," << flush;
+            }
+        }
+    }
+    cout << " good!" << endl;
+}
+
 void
 test_smaller( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
 {
@@ -50,10 +69,16 @@ test_smaller( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_int<8> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
+        check_bits(a,c,lv_one);
+        check_bits(b,d,lv_two);
     }
     cout << endl;
     {
@@ -63,10 +88,14 @@ test_smaller( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_uint<8> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
     }
     cout << endl;
     {
@@ -76,10 +105,16 @@ test_smaller( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_bigint<8> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
+        check_bits(a,c,lv_one);
+        check_bits(b,d,lv_two);
     }
     cout << endl;
     {
@@ -89,10 +124,16 @@ test_smaller( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_biguint<8> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
+        check_bits(a,c,lv_one);
+        check_bits(b,d,lv_two);
     }
 }
 
@@ -107,10 +148,16 @@ test_equal( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_int<4> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
+        check_bits(a,c,lv_one);
+        check_bits(b,d,lv_two);
     }
     cout << endl;
     {
@@ -120,10 +167,16 @@ test_equal( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_uint<4> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
+        check_bits(a,c,lv_one);
+        check_bits(b,d,lv_two);
     }
     cout << endl;
     {
@@ -133,10 +186,16 @@ test_equal( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_bigint<4> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
+        check_bits(a,c,lv_one);
+        check_bits(b,d,lv_two);
     }
     cout << endl;
     {
@@ -146,10 +205,16 @@ test_equal( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_biguint<4> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
+        check_bits(a,c,lv_one);
+        check_bits(b,d,lv_two);
     }
 }
 
@@ -164,10 +229,16 @@ test_larger( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_int<2> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
+        check_bits(a,c,lv_one);
+        check_bits(b,d,lv_two);
     }
     cout << endl;
     {
@@ -177,10 +248,16 @@ test_larger( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_uint<2> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
+        check_bits(a,c,lv_one);
+        check_bits(b,d,lv_two);
     }
     cout << endl;
     {
@@ -190,10 +267,16 @@ test_larger( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_bigint<2> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
+        check_bits(a,c,lv_one);
+        check_bits(b,d,lv_two);
     }
     cout << endl;
     {
@@ -203,10 +286,16 @@ test_larger( const sc_lv<4>& lv_one, const sc_lv<4>& lv_two )
         sc_biguint<2> d;
         c = lv_one;
         d = lv_two;
-        cout << a << endl;
-        cout << b << endl;
-        cout << c << endl;
-        cout << d << endl;
+        if (lv_one.is_01()) {
+            cout << a << endl;
+            cout << c << endl;
+        }
+        if (lv_two.is_01()) {
+            cout << b << endl;
+            cout << d << endl;
+        }
+        check_bits(a,c,lv_one);
+        check_bits(b,d,lv_two);
     }
 }
 
@@ -217,8 +306,8 @@ sc_main( int, char*[] )
     sc_lv<4> lv_two( "1010" );
 
     test_smaller( lv_one, lv_two );
-    test_equal( lv_one, lv_two );
-    test_larger( lv_one, lv_two );
+    test_equal  ( lv_one, lv_two );
+    test_larger ( lv_one, lv_two );
 
     return 0;
 }
