@@ -10,44 +10,113 @@ using std::hex;
 using std::dec;
 #include "systemc.h"
 
-template<int W>
-class Selection : public Selection<W-1>
+template<typename T>
+void dump( const char* prefix, const T& value ) 
+{
+    cout << prefix << hex << value << dec 
+#if defined(SC_VECTOR_UTILS_H)
+         << " hod " << value.get_hod() << " bits "
+	 << value.get_actual_width()
+#endif                       
+	 << endl;
+}
+
+// #define NON_ZERO_CHECK(target) assert(target != 0);
+#define NON_ZERO_CHECK(target) 
+
+template<int W, int D=1>
+class Selection : public Selection<W-D,D>
 {
   public:
-    Selection( unsigned int fill ) : Selection<W-1>(fill)
+    Selection( unsigned int fill ) : Selection<W-D,D>(fill)
     {
-        sc_biguint<W> source;
-	source = fill;
-	if ( W > 32 ) { source = (source << 32) | fill; }
-	if ( W > 64 ) { source = (source << 32) | fill; }
-	if ( W > 96 ) { source = (source << 32) | fill; }
+        sc_biguint<W> biguint_source;
+        sc_unsigned   unsigned_source(W);
+
+	size_t width = (W+31)/32;
+	for ( size_t data_i = 0; data_i < width; ++data_i ) {
+	    biguint_source = (biguint_source << 32) | fill; 
+	    unsigned_source = (unsigned_source << 32) | fill; 
+	}
 	
 	for ( int low = 0; low < W; ++low ) {
 	    for ( int high = low; high < W; ++high ) {
 	        int width = (high-low) + 1;
-		sc_bigint<W> mask = -1;
-		if (0) std::cout << std::endl << "sc_biguint<" << W << ">(" << high << "," << low << "):" << endl;
+		sc_biguint<W> mask = -1; 
+		sc_biguint<W> pre_mask = mask << width;
 		mask = ~(mask << width);
-		sc_unsigned actual = source(high,low);
-		sc_unsigned shift = (source >> low);
-		sc_unsigned expected = (source >> low) & mask;
-		if (0) std::cout << "shift & mask = expected" << std::endl;
-		if (0) std::cout << std::hex << shift << " & " << mask << " = " << expected << std::dec << std::endl;
-		if ( actual != expected ) {
-		    cout << "ERROR sc_biguint<" << W << ">(" << high << "," << low << "):" << endl;
-		    cout << "  expected " << hex << expected << dec << " " << expected.get_hod() << endl;
-		    cout << "  actual   " << hex << actual << dec << " " << actual.get_hod() << endl;
-		    cout << "  mask     " << hex << mask << dec << " " << mask.get_hod() << endl;
-		    cout << "  shift    " << hex << shift << endl;
-		    cout << "  source   " << hex << source << endl;
+		// sc_biguint<W> save_mask = mask;
+		NON_ZERO_CHECK( mask[0] )
+
+		// test sc_biguint<W> selection:
+
+                if ( 1 )
+		{
+		    sc_unsigned actual = biguint_source(high,low);
+		    NON_ZERO_CHECK( actual[0] )
+		    NON_ZERO_CHECK( mask[0] )
+		    sc_unsigned shifted_source = (biguint_source >> low);
+		    NON_ZERO_CHECK( actual[0] )
+		    NON_ZERO_CHECK( mask[0] )
+
+		    sc_unsigned expected = shifted_source & mask;
+		    NON_ZERO_CHECK( actual[0] )
+		    NON_ZERO_CHECK( mask[0] )
+		    if (0) {
+		        std::cout << std::endl << "sc_biguint<" << W << ">(" << high << "," 
+			          << low << "):" << endl;
+		        std::cout << "shift & mask = expected" << std::endl;
+		        std::cout << std::hex << shifted_source << " & " << mask << " = " 
+                                  << expected << std::dec << std::endl;
+                    }
+		    if ( actual != expected ) {
+			cout << "ERROR sc_biguint<" << W << ">(" << high << "," << low << "):" 
+			     << endl;
+			cout << "  width    " << width << endl;
+			dump( "  expected ", expected );
+			dump( "  actual   " ,actual );
+			dump( "  pre_mask ", pre_mask );
+			dump( "  mask     ", mask );
+			dump( "  shift    ", shifted_source );
+			dump( "  source   ", unsigned_source );
+			assert(0);
+		    }
 		}
+
+		// test sc_unsigned selection:
+
+		{
+		    sc_unsigned actual = unsigned_source(high,low);
+		    sc_unsigned shifted_source = (unsigned_source >> low);
+		    sc_unsigned expected = shifted_source & mask;
+		    if (0) {
+		        std::cout << std::endl << "sc_unsigned(" << W << ")(" << high << "," 
+			          << low << "):" << endl;
+		        std::cout << "shift & mask = expected" << std::endl;
+		        std::cout << std::hex << shifted_source << " & " << mask << " = " 
+                                  << expected << std::dec << std::endl;
+                    }
+		    if ( actual != expected ) {
+			cout << "ERROR sc_unsigned(" << W << ")(" << high << "," << low << "):" 
+			     << endl;
+			cout << "  width    " << width << endl;
+			dump( "  expected ", expected );
+			dump( "  actual   " ,actual );
+			dump( "  pre_mask ", pre_mask );
+			dump( "  mask     ", mask );
+			dump( "  shift    ", shifted_source );
+			dump( "  source   ", unsigned_source );
+                        assert(0);
+		    } 
+		}
+
 	    }
         }
     }
 };
 
-template<>
-class Selection<1>
+template<int D>
+class Selection<0,D>
 {
   public:
     Selection(unsigned int fill ) {}
@@ -55,16 +124,36 @@ class Selection<1>
 
 int sc_main( int argc, char* argv[] )
 {
-    cout << "Selection(0x" << std::hex << ~0u << std::dec << ")" << std::endl;
-    Selection<128>(~0u);
-    cout << "Selection(0x" << std::hex << 0x55555555u << std::dec << ")" << std::endl;
-    Selection<128>(0x55555555u);
-    cout << "Selection(0x" << std::hex << 0xaaaaaaaau << std::dec << ")" << std::endl;
-    Selection<128>(0xaaaaaaaau);
-    cout << "Selection(0x" << std::hex << 0x99999999u << std::dec << ")" << std::endl;
-    Selection<128>(0x99999999u);
-    cout << "Selection(0x" << std::hex << 0x66666666u << std::dec << ")" << std::endl;
-    Selection<128>(0x66666666u);
+    if ( true )
+    {
+	cout << "Selection(0x" << std::hex << ~0u << std::dec << ")" << std::endl;
+	Selection<128> x(~0u);
+	Selection<1000,100> y(~0u);
+    }
+    if ( true )
+    {
+	cout << "Selection(0x" << std::hex << 0x55555555u << std::dec << ")" << std::endl;
+	Selection<128> x1(0x55555555u);
+	Selection<2000,200> y1(~0u);
+    }
+    if ( true )
+    {
+	cout << "Selection(0x" << std::hex << 0xaaaaaaaau << std::dec << ")" << std::endl;
+	Selection<128> x2(0xaaaaaaaau);
+	Selection<1200,120> y2(0xaaaaaaaau);
+    }
+    if ( true )
+    {
+	cout << "Selection(0x" << std::hex << 0x99999999u << std::dec << ")" << std::endl;
+	Selection<128> x1(0x99999999u);
+	Selection<1200,120> y2(0x99999999u);
+    }
+    if ( true )
+    {
+	cout << "Selection(0x" << std::hex << 0x66666666u << std::dec << ")" << std::endl;
+	Selection<128> x1(0x66666666u);
+	Selection<1200,120> y2(0x66666666u);
+    }
     cout << "Program completed" << endl;
 
     return 0;
