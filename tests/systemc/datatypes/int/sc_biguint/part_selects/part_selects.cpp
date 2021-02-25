@@ -128,13 +128,13 @@ int sc_main( int argc, char* argv[] )
     {
 	cout << "Selection(0x" << std::hex << ~0u << std::dec << ")" << std::endl;
 	Selection<128> x(~0u);
-	Selection<1000,100> y(~0u);
+	Selection<2000,200> y1(~0u);
     }
     if ( true )
     {
 	cout << "Selection(0x" << std::hex << 0x55555555u << std::dec << ")" << std::endl;
 	Selection<128> x1(0x55555555u);
-	Selection<2000,200> y1(~0u);
+	Selection<2000,200> y1(0x55555555u);
     }
     if ( true )
     {

@@ -21,9 +21,8 @@ void dump( const char* prefix, const T& value )
 	 << endl;
 }
 
-// #define NON_ZERO_CHECK(target) assert(target != 0);
-#define NON_ZERO_CHECK(target) assert(save_actual == actual );
-// #define NON_ZERO_CHECK(target) 
+// #define OVERFLOW_CHECK(target) assert(save_actual == actual );
+#define OVERFLOW_CHECK(target) 
 
 template<int W, int D=1>
 class Selection : public Selection<W-D,D>
@@ -47,7 +46,7 @@ class Selection : public Selection<W-D,D>
 		sc_biguint<W> pre_mask = mask << width;
 		mask = ~(mask << width);
 		// sc_biguint<W> save_mask = mask;
-		// NON_ZERO_CHECK( mask[0] )
+		// OVERFLOW_CHECK( mask[0] )
 
 		// test sc_biguint<W> selection:
 
@@ -55,16 +54,16 @@ class Selection : public Selection<W-D,D>
 		{
 		    sc_unsigned actual = bigint_source(high,low); 
 		    sc_unsigned save_actual = actual;
-		    NON_ZERO_CHECK( actual[0] )
-		    NON_ZERO_CHECK( mask[0] )
+		    OVERFLOW_CHECK( actual[0] )
+		    OVERFLOW_CHECK( mask[0] )
 		    sc_unsigned shifted_source = (bigint_source >> low);
-		    NON_ZERO_CHECK( actual[0] )
-		    NON_ZERO_CHECK( mask[0] )
+		    OVERFLOW_CHECK( actual[0] )
+		    OVERFLOW_CHECK( mask[0] )
 
 		    // sc_unsigned expected = shifted_source & mask;
 		    sc_biguint<W>  expected = shifted_source & mask;
-		    NON_ZERO_CHECK( actual[0] )
-		    NON_ZERO_CHECK( mask[0] )
+		    OVERFLOW_CHECK( actual[0] )
+		    OVERFLOW_CHECK( mask[0] )
 		    if (0) {
 		        std::cout << std::endl << "sc_bigint<" << W << ">(" << high << "," 
 			          << low << "):" << endl;
@@ -138,7 +137,7 @@ int sc_main( int argc, char* argv[] )
     {
 	cout << "Selection(0x" << std::hex << 0x55555555u << std::dec << ")" << std::endl;
 	Selection<128> x1(0x55555555u);
-	Selection<1000,100> y(~0u);
+	Selection<2000,200> y(0x55555555u);
     }
     if ( true )
     {
