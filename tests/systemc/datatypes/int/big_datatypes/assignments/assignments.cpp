@@ -12,11 +12,11 @@
     } \
 }
 
-template<int W>
-class BigAssignments : public BigAssignments<W-1>
+template<int W, int D>
+class BigAssignments : public BigAssignments<W-D, D>
 {
   public:
-    BigAssignments() : BigAssignments<W-1>() {}
+    BigAssignments() : BigAssignments<W-D,D>() {}
     void test( const sc_signed& value )
     {
         sc_bigint<W>  v_sc_bigint;
@@ -32,7 +32,7 @@ class BigAssignments : public BigAssignments<W-1>
 
         ASSIGN(v_sc_unsigned, v_sc_biguint, value);
         
-	((BigAssignments<W-1>*)this)->test(value);
+	((BigAssignments<W-D,D>*)this)->test(value);
     }
     void test( const sc_unsigned& value )
     {
@@ -49,12 +49,12 @@ class BigAssignments : public BigAssignments<W-1>
 
         ASSIGN(v_sc_unsigned, v_sc_biguint, value);
         
-	((BigAssignments<W-1>*)this)->test(value);
+	((BigAssignments<W-D,D>*)this)->test(value);
     }
 };
 
-template<>
-class BigAssignments<1>
+template<int D>
+class BigAssignments<0,D>
 {
   public:
     BigAssignments() {}
@@ -116,22 +116,67 @@ void load(T& target, int width, unsigned int value )
 
 int sc_main(int argc, char* argv[])
 {
-    BigAssignments<128>   big;
-    LittleAssignments<64> little;
+    BigAssignments<128,1>    big;
+    BigAssignments<1500,100> big_big;
+    LittleAssignments<64>    little;
 
-    uint64 target = 0x965afull;
+    uint64 target;
     for ( int shift = 0; shift < 64; ++shift ) {
-        target = target << shift;
+        target = 0xffffffffffffffffull << shift;
+	little.test( target );
+        target = 0xaaaaaaaaaaaaaaaaull << shift;
+	little.test( target );
+        target = 0x9999999999999999ull << shift;
+	little.test( target );
+        target = 0x6666666666666666ull << shift;
+	little.test( target );
+        target = 0x5555555555555555ull << shift;
+	little.test( target );
+
+        target = 0xffffffffffffffffull >> shift;
+	little.test( target );
+        target = 0xaaaaaaaaaaaaaaaaull >> shift;
+	little.test( target );
+        target = 0x9999999999999999ull >> shift;
+	little.test( target );
+        target = 0x6666666666666666ull >> shift;
+	little.test( target );
+        target = 0x5555555555555555ull >> shift;
 	little.test( target );
     }
 
     for ( int width = 2; width < 129; ++width ) {
         sc_signed   v_signed(width);
         sc_unsigned v_unsigned(width);
+	load(v_signed, width, 0xffffffffu);
 	load(v_signed, width, 0xaaaaaaaau);
-	load(v_unsigned, width, 0xaaaaaaaau);
+	load(v_signed, width, 0x99999999u);
+	load(v_signed, width, 0x66666666u);
+	load(v_signed, width, 0x55555555u);
 	big.test(v_signed);
+	load(v_unsigned, width, 0xffffffffu);
+	load(v_unsigned, width, 0xaaaaaaaau);
+	load(v_unsigned, width, 0x99999999u);
+	load(v_unsigned, width, 0x66666666u);
+	load(v_unsigned, width, 0x55555555u);
 	big.test(v_unsigned);
+    }
+
+    for ( int width = 100; width < 1501; width+=100 ) {
+        sc_signed   v_signed(width);
+        sc_unsigned v_unsigned(width);
+	load(v_signed, width, 0xffffffffu);
+	load(v_signed, width, 0xaaaaaaaau);
+	load(v_signed, width, 0x99999999u);
+	load(v_signed, width, 0x66666666u);
+	load(v_signed, width, 0x55555555u);
+	big_big.test(v_signed);
+	load(v_unsigned, width, 0xffffffffu);
+	load(v_unsigned, width, 0xaaaaaaaau);
+	load(v_unsigned, width, 0x99999999u);
+	load(v_unsigned, width, 0x66666666u);
+	load(v_unsigned, width, 0x55555555u);
+	big_big.test(v_unsigned);
     }
 
 
