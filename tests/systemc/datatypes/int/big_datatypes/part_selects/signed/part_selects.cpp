@@ -100,7 +100,7 @@ class Selection : public Selection<W-D,D>
                                   << expected << std::dec << std::endl;
                     }
 		    if ( actual != expected ) {
-			cout << "ERROR sc_unsigned(" << W << ")(" << high << "," << low << "):" 
+			cout << "ERROR sc_signed(" << W << ")(" << high << "," << low << "):" 
 			     << endl;
 			cout << "  width    " << width << endl;
 			dump( "  expected ", expected );
