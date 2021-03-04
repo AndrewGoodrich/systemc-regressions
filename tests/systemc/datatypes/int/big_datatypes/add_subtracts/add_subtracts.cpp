@@ -4,7 +4,7 @@
 QTIsaac<8> rng;         // Platform independent random number generator.
 
 template<typename T>
-void load( T& target )
+inline void load( T& target )
 {
     int target_n = target.get_digits_n();
 
