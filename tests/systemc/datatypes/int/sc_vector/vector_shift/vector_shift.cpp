@@ -450,7 +450,7 @@ int sc_main( int argc, char* argv[] )
 	ShiftRightSigned<128>      c(0xaaaaaaaau);
 	ShiftRightSigned<128>      d(0x66666666u);
 	ShiftRightSigned<128>      e(0x99999999u);
-	ShiftRightSigned<1500,100> f(~0u);
+	ShiftRightSigned<1550,31>  f(~0u);
     }
     {
 	std::cout << std::endl << "---------- shift right unsigned ----------" << std::endl;
@@ -459,7 +459,7 @@ int sc_main( int argc, char* argv[] )
 	ShiftRightUnsigned<128>      c(0xaaaaaaaau);
 	ShiftRightUnsigned<128>      d(0x66666666u);
 	ShiftRightUnsigned<128>      e(0x99999999u);
-	ShiftRightUnsigned<1500,100> f(~0u);
+	ShiftRightUnsigned<1550,31> f(~0u);
     }
     {
 	std::cout << std::endl << "---------- shift left signed ----------" << std::endl;
@@ -468,8 +468,8 @@ int sc_main( int argc, char* argv[] )
 	ShiftLeftSigned<128>      c(0xaaaaaaaau);
 	ShiftLeftSigned<128>      d(0x66666666u);
 	ShiftLeftSigned<128>      e(0x99999999u);
-	ShiftLeftSigned<1500,100> f(~0u);
-	ShiftLeftSigned<1500,100> g(0x7fffffffu);
+	ShiftLeftSigned<1550,31>  f(~0u);
+	ShiftLeftSigned<1550,31>  g(0x7fffffffu);
     }
     {
 	std::cout << std::endl << "---------- shift left unsigned ----------" << std::endl;
@@ -478,7 +478,7 @@ int sc_main( int argc, char* argv[] )
 	ShiftLeftUnsigned<128>      c(0xaaaaaaaau);
 	ShiftLeftUnsigned<128>      d(0x66666666u);
 	ShiftLeftUnsigned<128>      e(0x99999999u);
-	ShiftLeftUnsigned<1500,100> f(~0u);
+	ShiftLeftUnsigned<1550,31>  f(~0u);
     }
     cout << "Program completed" << endl;
     return 0;
