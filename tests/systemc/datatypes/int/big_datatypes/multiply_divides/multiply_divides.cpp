@@ -162,7 +162,7 @@ class MultiplyDivide : public MultiplyDivide<W-D,D>
 		cout << "  b        " << v_sc_bigint_b << endl;
 		cout << " product " << v_product << endl;
 		cout << " quotient " << v_quotient << endl;
-		assert( v_quotient == v_sc_bigint_b );
+		assert( v_quotient == v_sc_bigint_a );
 	    }
 
 	    // b * a
@@ -175,7 +175,7 @@ class MultiplyDivide : public MultiplyDivide<W-D,D>
 		cout << "  b        " << v_sc_bigint_b << endl;
 		cout << " product " << v_product << endl;
 		cout << " quotient " << v_quotient << endl;
-		assert( v_quotient == v_sc_bigint_a );
+		assert( v_quotient == v_sc_bigint_b );
 	    }
 	}
 
@@ -211,7 +211,7 @@ class MultiplyDivide : public MultiplyDivide<W-D,D>
 		cout << "  b        " << v_sc_biguint_b << endl;
 		cout << " product " << v_product << endl;
 		cout << " quotient " << v_quotient << endl;
-		assert( v_quotient == v_sc_biguint_b );
+		assert( v_quotient == v_sc_biguint_a );
 	    }
 
 	    // b * a
@@ -224,7 +224,7 @@ class MultiplyDivide : public MultiplyDivide<W-D,D>
 		cout << "  b        " << v_sc_biguint_b << endl;
 		cout << " product " << v_product << endl;
 		cout << " quotient " << v_quotient << endl;
-		assert( v_quotient == v_sc_biguint_a );
+		assert( v_quotient == v_sc_biguint_b );
 	    }
 	}
 

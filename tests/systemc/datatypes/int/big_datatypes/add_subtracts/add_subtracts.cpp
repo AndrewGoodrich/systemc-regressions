@@ -47,7 +47,7 @@ void test_mixed( int max_width, int delta_width )
     for ( int left_width = max_width; left_width > 1; left_width -= delta_width ) {
 	for ( int right_width = max_width; right_width > 1; right_width -= delta_width ) {
 	    {
-		sc_signed left(left_width);
+		sc_signed   left(left_width);
 		sc_unsigned right(right_width);
 
 		for ( int count = 0; count < 1000; ++count ) {
@@ -148,7 +148,7 @@ class AddSubtract : public AddSubtract<W-D,D>
 		cout << "  b        " << v_sc_bigint_b << endl;
 		cout << " product " << v_sum << endl;
 		cout << " difference " << v_difference << endl;
-		assert( v_difference == v_sc_bigint_b );
+		assert( v_difference == v_sc_bigint_a );
 	    }
 
 	    // b + a
@@ -161,7 +161,7 @@ class AddSubtract : public AddSubtract<W-D,D>
 		cout << "  b        " << v_sc_bigint_b << endl;
 		cout << " product " << v_sum << endl;
 		cout << " difference " << v_difference << endl;
-		assert( v_difference == v_sc_bigint_a );
+		assert( v_difference == v_sc_bigint_b );
 	    }
 	}
 
@@ -189,7 +189,7 @@ class AddSubtract : public AddSubtract<W-D,D>
 		cout << "  b        " << v_sc_biguint_b << endl;
 		cout << " product " << v_sum << endl;
 		cout << " difference " << v_difference << endl;
-		assert( v_difference == v_sc_biguint_b );
+		assert( v_difference == v_sc_bigint_a );
 	    }
 
 	    // b + a
@@ -202,7 +202,7 @@ class AddSubtract : public AddSubtract<W-D,D>
 		cout << "  b        " << v_sc_biguint_b << endl;
 		cout << " product " << v_sum << endl;
 		cout << " difference " << v_difference << endl;
-		assert( v_difference == v_sc_bigint_a );
+		assert( v_difference == v_sc_biguint_b );
 	    }
 	}
 
@@ -230,7 +230,7 @@ class AddSubtract : public AddSubtract<W-D,D>
 		cout << "  b         " << v_sc_biguint_b << endl;
 		cout << " sum        " << v_sum << endl;
 		cout << " difference " << v_difference << endl;
-		assert( v_difference == v_sc_biguint_b );
+		assert( v_difference == v_sc_biguint_a );
 	    }
 
 	    // b + a
@@ -243,7 +243,7 @@ class AddSubtract : public AddSubtract<W-D,D>
 		cout << "  b         " << v_sc_biguint_b << endl;
 		cout << " sum        " << v_sum << endl;
 		cout << " difference " << v_difference << endl;
-		assert( v_difference == v_sc_biguint_a );
+		assert( v_difference == v_sc_biguint_b );
 	    }
 	}
 
