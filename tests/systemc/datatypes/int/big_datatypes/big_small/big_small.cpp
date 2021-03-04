@@ -4,9 +4,9 @@
 QTIsaac<8> rng;         // Platform independent random number generator.
 
 template<typename T>
-void load( T& target )
+void load( int bits_n, T& target )
 {
-    int target_n = target.get_digits_n();
+    int target_n = DIV_CEIL(bits_n);
 
     target = rng.rand();
     for ( int target_i = 1; target_i < target_n; ++target_i ) {
@@ -21,7 +21,7 @@ void test_add_subtract_signed_int( int max_width, int delta_width )
 	sc_signed left(width);
 	sc_int<W> right;
 	for ( int count = 0; count < 1000; ++count ) {
-	    load(left);
+	    load(width, left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_signed sum = left+right;
@@ -43,7 +43,7 @@ void test_add_subtract_signed_int( int max_width, int delta_width )
 	for ( int count = 0; count < 1000; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
-	    load(right);
+	    load(width, right);
 	    sc_signed sum = right+left;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
@@ -65,7 +65,7 @@ void test_add_subtract_signed_uint( int max_width, int delta_width )
 	sc_signed  left(width);
 	sc_uint<W> right;
 	for ( int count = 0; count < 1000; ++count ) {
-	    load(left);
+	    load(width, left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_signed sum = left+right;
@@ -87,7 +87,7 @@ void test_add_subtract_signed_uint( int max_width, int delta_width )
 	for ( int count = 0; count < 1000; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
-	    load(right);
+	    load(width, right);
 	    sc_signed sum = right+left;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
@@ -110,7 +110,7 @@ void test_add_subtract_unsigned_int( int max_width, int delta_width )
 	sc_unsigned left(width);
 	sc_int<W>   right;
 	for ( int count = 0; count < 1000; ++count ) {
-	    load(left);
+	    load(width+1, left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_signed sum = left+right;
@@ -132,7 +132,7 @@ void test_add_subtract_unsigned_int( int max_width, int delta_width )
 	for ( int count = 0; count < 1000; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
-	    load(right);
+	    load(width+1, right);
 	    sc_signed sum = right+left;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
@@ -154,7 +154,7 @@ void test_add_subtract_unsigned_uint( int max_width, int delta_width )
 	sc_unsigned  left(width);
 	sc_uint<W>   right;
 	for ( int count = 0; count < 1000; ++count ) {
-	    load(left);
+	    load(width+1, left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_unsigned sum = left+right;
@@ -176,7 +176,7 @@ void test_add_subtract_unsigned_uint( int max_width, int delta_width )
 	for ( int count = 0; count < 1000; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
-	    load(right);
+	    load(width+1, right);
 	    sc_unsigned sum = right+left;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
@@ -198,7 +198,7 @@ void test_multiply_divide_signed_int( int max_width, int delta_width )
 	sc_signed left(width);
 	sc_int<W> right;
 	for ( int count = 0; count < 1000; ++count ) {
-	    load(left);
+	    load(width, left);
 	    left |= 1;
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
@@ -222,7 +222,7 @@ void test_multiply_divide_signed_int( int max_width, int delta_width )
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    left |= 1;
-	    load(right);
+	    load(width, right);
 	    sc_signed product = right * left;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {
@@ -244,7 +244,7 @@ void test_multiply_divide_signed_uint( int max_width, int delta_width )
 	sc_signed  left(width);
 	sc_uint<W> right;
 	for ( int count = 0; count < 1000; ++count ) {
-	    load(left);
+	    load(width, left);
 	    left |= 1;
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
@@ -268,7 +268,7 @@ void test_multiply_divide_signed_uint( int max_width, int delta_width )
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    left |= 1;
-	    load(right);
+	    load(width, right);
 	    sc_signed product = right * left;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {
@@ -291,7 +291,7 @@ void test_multiply_divide_unsigned_int( int max_width, int delta_width )
 	sc_unsigned left(width);
 	sc_int<W>   right;
 	for ( int count = 0; count < 1000; ++count ) {
-	    load(left);
+	    load(width+1, left);
 	    left |= 1;
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
@@ -315,7 +315,7 @@ void test_multiply_divide_unsigned_int( int max_width, int delta_width )
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    left |= 1;
-	    load(right);
+	    load(width+1, right);
 	    sc_signed product = right * left;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {
@@ -337,7 +337,7 @@ void test_multiply_divide_unsigned_uint( int max_width, int delta_width )
 	sc_unsigned  left(width);
 	sc_uint<W>   right;
 	for ( int count = 0; count < 1000; ++count ) {
-	    load(left);
+	    load(width+1, left);
 	    left |= 1;
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
@@ -361,7 +361,7 @@ void test_multiply_divide_unsigned_uint( int max_width, int delta_width )
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    left |= 1;
-	    load(right);
+	    load(width+1, right);
 	    sc_unsigned product = right * left;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {

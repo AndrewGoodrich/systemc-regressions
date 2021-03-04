@@ -4,9 +4,9 @@
 QTIsaac<8> rng;         // Platform independent random number generator.
 
 template<typename T>
-inline void load( T& target )
+inline void load( int bits_n, T& target )
 {
-    int target_n = target.get_digits_n();
+    int target_n = DIV_CEIL(bits_n);
 
     target = rng.rand();
     for ( int target_i = 1; target_i < target_n; ++target_i ) {
@@ -23,8 +23,8 @@ void test_signed( int max_width, int delta_width )
 	    sc_signed right(right_width);
 
 	    for ( int count = 0; count < 1000; ++count ) {
-		load(left);
-		load(right);
+		load(left_width, left);
+		load(right_width, right);
 
 		left |= 1; // zero is bad!!!
 		sc_signed product = left*right;
@@ -53,8 +53,8 @@ void test_mixed( int max_width, int delta_width )
 		sc_unsigned right(right_width);
 
 		for ( int count = 0; count < 1000; ++count ) {
-		    load(left);
-		    load(right);
+		    load(left_width, left);
+		    load(right_width+1, right);
 
 		    left |= 1; // zero is bad!!!
 		    sc_signed product = left*right;
@@ -76,8 +76,8 @@ void test_mixed( int max_width, int delta_width )
 		sc_signed right(right_width);
 
 		for ( int count = 0; count < 1000; ++count ) {
-		    load(left);
-		    load(right);
+		    load(left_width+1, left);
+		    load(right_width, right);
 
 		    left |= 1; // zero is bad!!!
 		    sc_signed product = left*right;
@@ -106,8 +106,8 @@ void test_unsigned( int max_width, int delta_width )
 	    sc_unsigned right(right_width);
 
 	    for ( int count = 0; count < 1000; ++count ) {
-		load(left);
-		load(right);
+		load(left_width+1, left);
+		load(right_width+1, right);
 
 		left |= 1; // zero is bad!!!
 		sc_signed product = left*right;
