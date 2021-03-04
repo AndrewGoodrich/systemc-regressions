@@ -127,7 +127,7 @@ class AddSubtract : public AddSubtract<W-D,D>
 {
   public:
     AddSubtract() : AddSubtract<W-D,D>() {}
-    void test_signed_signed()
+    void test_signed()
     {
         sc_bigint<W>     v_sc_bigint_a;
         sc_bigint<W>     v_sc_bigint_b;
@@ -165,10 +165,10 @@ class AddSubtract : public AddSubtract<W-D,D>
 	    }
 	}
 
-	((AddSubtract<W-D,D>*)this)->test_signed_signed();
+	((AddSubtract<W-D,D>*)this)->test_signed();
     }
 
-    void test_signed_unsigned()
+    void test_mixed()
     {
         sc_bigint<W>       v_sc_bigint_a;
         sc_biguint<W>      v_sc_biguint_b;
@@ -206,10 +206,10 @@ class AddSubtract : public AddSubtract<W-D,D>
 	    }
 	}
 
-	((AddSubtract<W-D,D>*)this)->test_signed_signed();
+	((AddSubtract<W-D,D>*)this)->test_signed();
     }
 
-    void test_unsigned_unsigned()
+    void test_unsigned()
     {
         sc_biguint<W>      v_sc_biguint_a;
         sc_biguint<W>      v_sc_biguint_b;
@@ -247,7 +247,7 @@ class AddSubtract : public AddSubtract<W-D,D>
 	    }
 	}
 
-	((AddSubtract<W-D,D>*)this)->test_signed_signed();
+	((AddSubtract<W-D,D>*)this)->test_signed();
     }
 };
 
@@ -256,7 +256,7 @@ class AddSubtract<0,D>
 {
   public:
     AddSubtract() {}
-    void test_signed_signed() {}
+    void test_signed() {}
 };
 
 int sc_main(int argc, char* argv[])
@@ -264,12 +264,12 @@ int sc_main(int argc, char* argv[])
     AddSubtract<128,1> x;
     AddSubtract<3100,31> y;
 
-    x.test_signed_signed();
-    x.test_signed_unsigned();
-    x.test_unsigned_unsigned();
-    y.test_signed_signed();
-    y.test_signed_unsigned();
-    y.test_unsigned_unsigned();
+    x.test_signed();
+    x.test_mixed();
+    x.test_unsigned();
+    y.test_signed();
+    y.test_mixed();
+    y.test_unsigned();
 
     test_signed(128,1);
     test_mixed(128,1);
