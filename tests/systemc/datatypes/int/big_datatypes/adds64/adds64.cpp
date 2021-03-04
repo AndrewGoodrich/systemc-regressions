@@ -14,8 +14,11 @@ class Add : public Add<W-1>
 	int64          v_int_result;
 	uint64         v_uint_result;
 
+
         sc_bigint<64>  v_sc_bigint_result;
+        sc_bigint<64>  v_sc_bigint_source_a;
         sc_biguint<64> v_sc_biguint_result;
+        sc_biguint<64> v_sc_biguint_source_a;
 
 	sc_signed      v_sc_signed_a(W);
 	sc_signed      v_sc_signed_b(W);
@@ -35,6 +38,9 @@ class Add : public Add<W-1>
         sc_uint<W>  v_sc_uint_a;
         sc_uint<W>  v_sc_uint_b;
 
+
+        v_sc_bigint_source_a = a;
+        v_sc_biguint_source_a = a;
 
         v_sc_int_a = a;
         v_sc_int_b = b;
@@ -91,14 +97,37 @@ class Add : public Add<W-1>
 	}
 
 	v_sc_biguint_result = v_sc_unsigned_a + v_sc_unsigned_b;
-	if ( v_sc_bigint_result != v_int_result ) {
+	if ( v_sc_biguint_result != v_uint_result ) {
 	    cout << "ERROR: sc_unsigned(" << W << ") + sc_unsigned(" << W << "):" << endl;
-	    cout << "  a        " << a << endl;
-	    cout << "  b        " << b << endl;
-	    cout << " C++       " << v_uint_result << endl;
-	    cout << " sc_bigint " << v_sc_biguint_result << endl;
+	    cout << "  a         " << a << endl;
+	    cout << "  b         " << b << endl;
+	    cout << " C++        " << v_uint_result << endl;
+	    cout << " sc_biguint " << v_sc_biguint_result << endl;
 	    assert( v_sc_biguint_result == v_uint_result );
 	}
+
+	v_sc_biguint_result = v_sc_bigint_source_a(W-1,0) + v_sc_biguint_b;
+	if ( v_sc_bigint_result != v_int_result ) {
+	    cout << "ERROR: sc_bigint<" << W << ">(" << W-1 << ",0) + sc_biguint<" << W 
+		 << ">:" << endl;
+	    cout << "  a         " << a << endl;
+	    cout << "  b         " << b << endl;
+	    cout << " C++        " << v_uint_result << endl;
+	    cout << " sc_biguint " << v_sc_biguint_result << endl;
+	    assert( v_sc_biguint_result == v_uint_result );
+	}
+	    
+	v_sc_biguint_result = v_sc_biguint_source_a(W-1,0) + v_sc_biguint_b;
+	if ( v_sc_bigint_result != v_int_result ) {
+	    cout << "ERROR: sc_biguint<" << W << ">(" << W-1 << ",0) + sc_biguint<" << W 
+		 << ">:" << endl;
+	    cout << "  a         " << a << endl;
+	    cout << "  b         " << b << endl;
+	    cout << " C++        " << v_uint_result << endl;
+	    cout << " sc_biguint " << v_sc_biguint_result << endl;
+	    assert( v_sc_biguint_result == v_uint_result );
+	}
+	    
 
 	((Add<W-1>*)this)->test(a, b);
     }
