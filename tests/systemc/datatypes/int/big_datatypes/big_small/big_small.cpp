@@ -375,6 +375,192 @@ void test_multiply_divide_unsigned_uint( int max_width, int delta_width )
 	}
     }
 }
+
+template<int W>
+void test_xor_signed_int( int max_width, int delta_width )
+{
+    for ( int width = max_width; width > 1; width -= delta_width ) {
+	sc_signed left(width);
+	sc_int<W> right;
+	for ( int count = 0; count < 1000; ++count ) {
+	    load(width, left);
+	    uint64 source = rng.rand();
+	    right = (source << 32) | rng.rand();
+	    sc_signed before = left ^ right;
+	    sc_signed actual = before ^ left;
+	    if ( actual != right ) {
+		cout << "ERROR: sc_int<" << W << "> ^ sc_signed(" << width << "):" << endl;
+		cout << "  left       " << hex << left << dec << endl;
+		cout << "  right      " << hex << right << dec << endl;
+		cout << "  before     " << hex << before << dec << endl;
+		cout << "  actual     " << hex << actual << dec << endl;
+		cout << "  expected   " << hex << right << dec << endl;
+		assert( actual == right );
+	    }
+	}
+    }
+
+    for ( int width = max_width; width > 1; width -= delta_width ) {
+	sc_int<W> left;
+	sc_signed right(width);
+	for ( int count = 0; count < 1000; ++count ) {
+	    uint64 source = rng.rand();
+	    left = (source << 32) | rng.rand();
+	    load(width, right);
+	    sc_signed before = right ^ left;
+	    sc_signed actual = before ^ left;
+	    if ( actual != right ) {
+		cout << "ERROR: sc_signed(" << width << ") ^ sc_int<" << W << ">:" << endl;
+		cout << "  left       " << hex << left << dec << endl;
+		cout << "  right      " << hex << right << dec << endl;
+		cout << "  before     " << hex << before << dec << endl;
+		cout << "  actual     " << hex << actual << dec << endl;
+		cout << "  expected   " << hex << right << dec << endl;
+		assert( actual == right );
+	    }
+	}
+    }
+}
+
+template<int W>
+void test_xor_signed_uint( int max_width, int delta_width )
+{
+    for ( int width = max_width; width > 1; width -= delta_width ) {
+	sc_signed  left(width);
+	sc_uint<W> right;
+	for ( int count = 0; count < 1000; ++count ) {
+	    load(width, left);
+	    uint64 source = rng.rand();
+	    right = (source << 32) | rng.rand();
+	    sc_signed before = left ^ right;
+	    sc_signed actual = before ^ left;
+	    if ( actual != right ) {
+		cout << "ERROR: sc_signed(" << width << ") ^ sc_uint<" << W << ">:" << endl;
+		cout << "  left       " << hex << left << dec << endl;
+		cout << "  right      " << hex << right << dec << endl;
+		cout << "  before     " << hex << before << dec << endl;
+		cout << "  actual     " << hex << actual << dec << endl;
+		cout << "  expected   " << hex << right << dec << endl;
+		assert( actual == right );
+	    }
+	}
+    }
+
+    for ( int width = max_width; width > 1; width -= delta_width ) {
+	sc_uint<W> left;
+	sc_signed  right(width);
+	for ( int count = 0; count < 1000; ++count ) {
+	    uint64 source = rng.rand();
+	    left = (source << 32) | rng.rand();
+	    load(width, right);
+	    sc_signed before = right ^ left;
+	    sc_signed actual = before ^ left;
+	    if ( actual != right ) {
+		cout << "ERROR: sc_uint<" << W << "> ^ sc_signed(" << width << "):" << endl;
+		cout << "  left       " << hex << left << dec << endl;
+		cout << "  right      " << hex << right << dec << endl;
+		cout << "  before     " << hex << before << dec << endl;
+		cout << "  actual     " << hex << actual << dec << endl;
+		cout << "  expected   " << hex << right << dec << endl;
+		assert( actual == right );
+	    }
+	}
+    }
+}
+
+
+template<int W>
+void test_xor_unsigned_int( int max_width, int delta_width )
+{
+    for ( int width = max_width; width > 1; width -= delta_width ) {
+	sc_unsigned left(width);
+	sc_int<W>   right;
+	for ( int count = 0; count < 1000; ++count ) {
+	    load(width+1,left);
+	    uint64 source = rng.rand();
+	    right = (source << 32) | rng.rand();
+	    sc_signed before = right ^ left;
+	    sc_signed actual = before ^ left;
+	    if ( actual != right ) {
+		cout << "ERROR: sc_int<" << W << "> ^ sc_unsigned(" << width << "):" << endl;
+		cout << "  left     " << hex << left << dec << endl;
+		cout << "  right    " << hex << right << dec << endl;
+		cout << "  before   " << hex << before << dec << endl;
+		cout << "  actual   " << hex << actual << dec << endl;
+		cout << "  expected " << hex << right << dec << endl;
+		assert( actual == right );
+	    }
+	}
+    }
+
+    for ( int width = max_width; width > 1; width -= delta_width ) {
+	sc_uint<W> left;
+	sc_unsigned right(width);
+	for ( int count = 0; count < 1000; ++count ) {
+	    uint64 source = rng.rand();
+	    left = (source << 32) | rng.rand();
+	    load(width+1,right);
+	    sc_signed before = right ^ left;
+	    sc_signed actual = before ^ left;
+	    if ( actual != right ) {
+		cout << "ERROR: sc_unsigned(" << width << ") ^ sc_int<" << W << ">:" << endl;
+		cout << "  left       " << hex << left << dec << endl;
+		cout << "  right      " << hex << right << dec << endl;
+		cout << "  before     " << hex << before << dec << endl;
+		cout << "  actual     " << hex << actual << dec << endl;
+		cout << "  expected   " << hex << right << dec << endl;
+		assert( actual == right );
+	    }
+	}
+    }
+}
+
+template<int W>
+void test_xor_unsigned_uint( int max_width, int delta_width )
+{
+    for ( int width = max_width; width > 1; width -= delta_width ) {
+	sc_unsigned  left(width);
+	sc_uint<W>   right;
+	for ( int count = 0; count < 1000; ++count ) {
+	    load(width+1,left);
+	    uint64 source = rng.rand();
+	    right = (source << 32) | rng.rand();
+	    sc_unsigned before = left ^ right;
+	    sc_unsigned actual = before ^ left;
+	    if ( actual != right ) {
+		cout << "ERROR: sc_uint<" << W << "> ^ sc_unsigned(" << width << "):" << endl;
+		cout << "  left       " << hex << left << dec << endl;
+		cout << "  right      " << hex << right << dec << endl;
+		cout << "  before     " << hex << before << dec << endl;
+		cout << "  actual     " << hex << actual << dec << endl;
+		cout << "  expected   " << hex << right << dec << endl;
+		assert( actual == right );
+	    }
+	}
+    }
+
+    for ( int width = max_width; width > 1; width -= delta_width ) {
+	sc_uint<W>  left;
+	sc_unsigned right(width);
+	for ( int count = 0; count < 1000; ++count ) {
+	    uint64 source = rng.rand();
+	    left = (source << 32) | rng.rand();
+	    load(width+1,right);
+	    sc_unsigned before = right ^ left;
+	    sc_unsigned actual = before ^ left;
+	    if ( actual != right ) {
+		cout << "ERROR: sc_unsigned(" << width << ") ^ sc_uint<" << W << ">:" << endl;
+		cout << "  left       " << hex << left << dec << endl;
+		cout << "  right      " << hex << right << dec << endl;
+		cout << "  before     " << hex << before << dec << endl;
+		cout << "  actual     " << hex << actual << dec << endl;
+		cout << "  expected   " << hex << right << dec << endl;
+		assert( actual == right );
+	    }
+	}
+    }
+}
+
 template<int W>
 class BigSmall : public BigSmall<W-1>
 {
@@ -391,6 +577,11 @@ class BigSmall : public BigSmall<W-1>
         test_multiply_divide_signed_uint<W>( max_width, delta_width );
         test_multiply_divide_unsigned_int<W>( max_width, delta_width );
         test_multiply_divide_unsigned_uint<W>( max_width, delta_width );
+
+        test_xor_signed_int<W>( max_width, delta_width );
+        test_xor_signed_uint<W>( max_width, delta_width );
+        test_xor_unsigned_int<W>( max_width, delta_width );
+        test_xor_unsigned_uint<W>( max_width, delta_width );
 
         ( (BigSmall<W-1>*)this)->test( max_width, delta_width );
     }
