@@ -14,7 +14,8 @@ using std::dec;
 
 int sc_main( int argc, char* argv[] )
 {
-    cout << endl << "Skipping his test because it runs too long with this systemc library"
+    cout << endl 
+         << "Skipping his test because it runs too long with non-2's-complement systemc library"
          << endl << endl;
     return 0;
 }
