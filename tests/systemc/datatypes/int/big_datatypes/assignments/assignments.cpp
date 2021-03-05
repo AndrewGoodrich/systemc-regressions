@@ -1,4 +1,5 @@
 #include "systemc.h"
+#include "isaac.h"
 
 #define ASSIGN(to, from, value) \
 { \
@@ -11,6 +12,10 @@
 	sc_assert( to == from ); \
     } \
 }
+
+#define COUNT_N 2000
+
+QTIsaac<8> rng;         // Platform independent random number generator.
 
 template<int W, int D>
 class BigAssignments : public BigAssignments<W-D, D>
@@ -114,6 +119,15 @@ void load(T& target, int width, unsigned int value )
     }
 }
 
+template<typename T>
+void load_random(T& target, int width )
+{
+    target = rng.rand(); 
+    for ( int load_i = 32; load_i < width; load_i+=32 ) {
+       target = (target << 32) | rng.rand();
+    }
+}
+
 int sc_main(int argc, char* argv[])
 {
     BigAssignments<128,1>    big;
@@ -143,21 +157,37 @@ int sc_main(int argc, char* argv[])
 	little.test( target );
         target = 0x5555555555555555ull >> shift;
 	little.test( target );
+
+	for ( int count_i = 0; count_i < COUNT_N; ++count_i ) {
+	    load_random( target, 64-shift ); 
+	    little.test(target);
+	}
     }
 
     for ( int width = 2; width < 129; ++width ) {
         sc_signed   v_signed(width);
         sc_unsigned v_unsigned(width);
 	load(v_signed, width, 0xffffffffu);
+
+	big.test(v_signed);
 	load(v_signed, width, 0xaaaaaaaau);
+	big.test(v_signed);
+	big.test(v_signed);
 	load(v_signed, width, 0x99999999u);
+	big.test(v_signed);
 	load(v_signed, width, 0x66666666u);
+	big.test(v_signed);
 	load(v_signed, width, 0x55555555u);
 	big.test(v_signed);
+
 	load(v_unsigned, width, 0xffffffffu);
+	big.test(v_unsigned);
 	load(v_unsigned, width, 0xaaaaaaaau);
+	big.test(v_unsigned);
 	load(v_unsigned, width, 0x99999999u);
+	big.test(v_unsigned);
 	load(v_unsigned, width, 0x66666666u);
+	big.test(v_unsigned);
 	load(v_unsigned, width, 0x55555555u);
 	big.test(v_unsigned);
     }
@@ -165,18 +195,41 @@ int sc_main(int argc, char* argv[])
     for ( int width = 100; width < 1501; width+=100 ) {
         sc_signed   v_signed(width);
         sc_unsigned v_unsigned(width);
+
+	// Test signed assignments:
+
 	load(v_signed, width, 0xffffffffu);
+	big_big.test(v_signed);
 	load(v_signed, width, 0xaaaaaaaau);
+	big_big.test(v_signed);
 	load(v_signed, width, 0x99999999u);
+	big_big.test(v_signed);
 	load(v_signed, width, 0x66666666u);
+	big_big.test(v_signed);
 	load(v_signed, width, 0x55555555u);
 	big_big.test(v_signed);
+	for ( int count_i = 0; count_i < COUNT_N; ++count_i ) {
+	    load_random( v_signed, width ); 
+	    big_big.test(v_signed);
+	}
+
+	// Test unsigned assignments:
+
 	load(v_unsigned, width, 0xffffffffu);
+	big_big.test(v_unsigned);
 	load(v_unsigned, width, 0xaaaaaaaau);
+	big_big.test(v_unsigned);
 	load(v_unsigned, width, 0x99999999u);
+	big_big.test(v_unsigned);
 	load(v_unsigned, width, 0x66666666u);
+	big_big.test(v_unsigned);
 	load(v_unsigned, width, 0x55555555u);
 	big_big.test(v_unsigned);
+
+	for ( int count_i = 0; count_i < COUNT_N; ++count_i ) {
+	    load_random( v_unsigned, width ); 
+	    big_big.test(v_unsigned);
+	}
     }
 
 
