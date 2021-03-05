@@ -1,7 +1,7 @@
 #include "systemc.h"
 #include "isaac.h"
 
-#define COUNT_N
+#define COUNT_N 2000
 
 QTIsaac<8> rng;         // Platform independent random number generator.
 
