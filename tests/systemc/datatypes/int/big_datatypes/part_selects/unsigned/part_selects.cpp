@@ -10,6 +10,17 @@ using std::hex;
 using std::dec;
 #include "systemc.h"
 
+#if !defined(SC_VECTOR_UTILS_H)
+
+int sc_main( int argc, char* argv[] )
+{
+    cout << endl << "Skipping his test because it runs too long with this systemc library"
+         << endl << endl;
+    return 0;
+}
+
+#else
+
 template<typename T>
 void dump( const char* prefix, const T& value ) 
 {
@@ -248,3 +259,4 @@ int sc_main( int argc, char* argv[] )
 
     return 0;
 }
+#endif
