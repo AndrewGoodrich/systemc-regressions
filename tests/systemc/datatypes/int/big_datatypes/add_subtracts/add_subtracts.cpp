@@ -1,10 +1,12 @@
 #include "systemc.h"
 #include "isaac.h"
 
+#define COUNT_N 2000
+
 QTIsaac<8> rng;         // Platform independent random number generator.
 
 template<typename T>
-inline void load( int bits_n,  T& target )
+inline void load( int bits_n, T& target )
 {
     int target_n = DIV_CEIL(bits_n);
 
@@ -14,29 +16,136 @@ inline void load( int bits_n,  T& target )
     }
 }
 
-template<int WA, int WB, int D>
-class BigDecrement : public BigDecrement<WA,WB-D,D>
+void test_signed( int max_width, int delta_width )
+{
+    for ( int left_width = max_width; left_width > 1; left_width -= delta_width ) {
+	for ( int right_width = max_width; right_width > 1; right_width -= delta_width ) {
+	    sc_signed left(left_width);
+	    sc_signed right(right_width);
+
+	    for ( int count = 0; count < COUNT_N; ++count ) {
+		load(left_width, left);
+		load(right_width, right);
+
+		sc_signed sum = left+right;
+		sc_signed difference = sum - left;
+		if ( difference != right ) {
+		    cout << "ERROR: sc_signed(" << left_width << ") - sc_signed(" 
+			 << right_width << "):" << endl;
+		    cout << "  left       " << left << endl;
+		    cout << "  right      " << right << endl;
+		    cout << "  sum        " << sum << endl;
+		    cout << "  difference " << difference << endl;
+		    assert( difference == right );
+		}
+	    }
+
+	}
+    }
+}
+
+void test_mixed( int max_width, int delta_width )
+{
+    for ( int left_width = max_width; left_width > 1; left_width -= delta_width ) {
+	for ( int right_width = max_width; right_width > 1; right_width -= delta_width ) {
+	    {
+		sc_signed   left(left_width);
+		sc_unsigned right(right_width);
+
+		for ( int count = 0; count < COUNT_N; ++count ) {
+		    load(left_width, left);
+		    load(right_width, right);
+
+		    sc_signed sum = left+right;
+		    sc_signed difference = sum - left;
+		    if ( difference != right ) {
+			cout << "ERROR: sc_signed(" << left_width << ") - sc_unsigned(" 
+			     << right_width << "):" << endl;
+			cout << "  left       " << left << endl;
+			cout << "  right      " << right << endl;
+			cout << "  sum        " << sum << endl;
+			cout << "  difference " << difference << endl;
+			assert( difference == right );
+		    }
+		}
+	    }
+
+	    {
+		sc_unsigned left(left_width);
+		sc_signed right(right_width);
+
+		for ( int count = 0; count < COUNT_N; ++count ) {
+		    load(left_width, left);
+		    load(right_width, right);
+
+		    sc_signed sum = left+right;
+		    sc_signed difference = sum - left;
+		    if ( difference != right ) {
+			cout << "ERROR: sc_unsigned(" << left_width << ") - sc_signed(" 
+			     << right_width << "):" << endl;
+			cout << "  left       " << left << endl;
+			cout << "  right      " << right << endl;
+			cout << "  sum        " << sum << endl;
+			cout << "  difference " << difference << endl;
+			assert( difference == right );
+		    }
+		}
+	    }
+
+	}
+    }
+}
+
+void test_unsigned( int max_width, int delta_width )
+{
+    for ( int left_width = max_width; left_width > 1; left_width -= delta_width ) {
+	for ( int right_width = max_width; right_width > 1; right_width -= delta_width ) {
+	    sc_unsigned left(left_width);
+	    sc_unsigned right(right_width);
+
+	    for ( int count = 0; count < COUNT_N; ++count ) {
+		load(left_width, left);
+		load(right_width, right);
+
+		sc_signed sum = left+right;
+		sc_signed difference = sum - left;
+		if ( difference != right ) {
+		    cout << "ERROR: sc_unsigned(" << left_width << ") - sc_unsigned(" 
+			 << right_width << "):" << endl;
+		    cout << "  left       " << left << endl;
+		    cout << "  right      " << right << endl;
+		    cout << "  sum        " << sum << endl;
+		    cout << "  difference " << difference << endl;
+		    assert( difference == right );
+		}
+	    }
+
+	}
+    }
+}
+
+template<int W, int D>
+class AddSubtract : public AddSubtract<W-D,D>
 {
   public:
-    BigDecrement() : BigDecrement<WA,WB-D,D>() {}
-
-    void test_add_subtract_signed()
+    AddSubtract() : AddSubtract<W-D,D>() {}
+    void test_signed()
     {
-        sc_bigint<WA>                      v_sc_bigint_a;
-        sc_bigint<WB>                      v_sc_bigint_b;
-        sc_bigint<WA < WB ? WB+1:WA+1>     v_sum;
-        sc_bigint<WA < WB ? WB+1+1:WA+1+1> v_difference;
+        sc_bigint<W>     v_sc_bigint_a;
+        sc_bigint<W>     v_sc_bigint_b;
+        sc_bigint<W+1>   v_sum;
+        sc_bigint<W+1+1> v_difference;
 
-	for ( size_t count = 0; count < 1000; ++count ) {
-	    load( WA, v_sc_bigint_a );
-	    load( WB, v_sc_bigint_b );
+	for ( size_t count = 0; count < COUNT_N; ++count ) {
+	    load( W, v_sc_bigint_a );
+	    load( W, v_sc_bigint_b );
 
 	    // a + b
 
 	    v_sum = v_sc_bigint_a + v_sc_bigint_b;
 	    v_difference = v_sum - v_sc_bigint_b;
 	    if ( v_difference != v_sc_bigint_a ) {
-		cout << "ERROR: sc_bigint<" << WA << "> - sc_bigint<" << WB << ">:" << endl;
+		cout << "ERROR: sc_bigint<" << W << "> - sc_bigint<" << W << ">:" << endl;
 		cout << "  a        " << v_sc_bigint_a << endl;
 		cout << "  b        " << v_sc_bigint_b << endl;
 		cout << " product " << v_sum << endl;
@@ -49,7 +158,7 @@ class BigDecrement : public BigDecrement<WA,WB-D,D>
 	    v_sum = v_sc_bigint_b + v_sc_bigint_a;
 	    v_difference = v_sum - v_sc_bigint_a;
 	    if ( v_difference != v_sc_bigint_b ) {
-		cout << "ERROR: sc_bigint<" << WB << "> - sc_bigint<" << WA << ">:" << endl;
+		cout << "ERROR: sc_bigint<" << W << "> - sc_bigint<" << W << ">:" << endl;
 		cout << "  a        " << v_sc_bigint_a << endl;
 		cout << "  b        " << v_sc_bigint_b << endl;
 		cout << " product " << v_sum << endl;
@@ -58,26 +167,26 @@ class BigDecrement : public BigDecrement<WA,WB-D,D>
 	    }
 	}
 
-	((BigDecrement<WA,WB-D,D>*)this)->test_add_subtract_signed();
+	((AddSubtract<W-D,D>*)this)->test_signed();
     }
 
-    void test_add_subtract_mixed()
+    void test_mixed()
     {
-        sc_bigint<WA>                            v_sc_bigint_a;
-        sc_biguint<WB>                           v_sc_biguint_b;
-	sc_bigint<WA < WB ? WB+1+1 : WA+1+1>     v_sum;
-	sc_bigint<WA < WB ? WB+1+1+1 : WA+1+1+1> v_difference;
+        sc_bigint<W>       v_sc_bigint_a;
+        sc_biguint<W>      v_sc_biguint_b;
+        sc_bigint<W+1+1>   v_sum;
+        sc_bigint<W+1+1+1> v_difference;
 
-	for ( size_t count = 0; count < 1000; ++count ) {
-	    load(WA, v_sc_bigint_a);
-	    load(WB+1, v_sc_biguint_b);
+	for ( size_t count = 0; count < COUNT_N; ++count ) {
+	    load(W, v_sc_bigint_a);
+	    load(W+1, v_sc_biguint_b);
 
 	    // a + b
 
 	    v_sum = v_sc_bigint_a + v_sc_biguint_b;
 	    v_difference = v_sum - v_sc_biguint_b;
 	    if ( v_difference != v_sc_bigint_a ) {
-		cout << "ERROR: sc_bigint<" << WA << "> - sc_biguint<" << WB << ">:" << endl;
+		cout << "ERROR: sc_bigint<" << W << "> - sc_biguint<" << W << ">:" << endl;
 		cout << "  a        " << v_sc_bigint_a << endl;
 		cout << "  b        " << v_sc_biguint_b << endl;
 		cout << " product " << v_sum << endl;
@@ -90,7 +199,7 @@ class BigDecrement : public BigDecrement<WA,WB-D,D>
 	    v_sum = v_sc_biguint_b + v_sc_bigint_a;
 	    v_difference = v_sum - v_sc_bigint_a;
 	    if ( v_difference != v_sc_biguint_b ) {
-		cout << "ERROR: sc_biguint<" << WB << "> - sc_bigint<" << WA << ">:" << endl;
+		cout << "ERROR: sc_biguint<" << W << "> - sc_bigint<" << W << ">:" << endl;
 		cout << "  a        " << v_sc_bigint_a << endl;
 		cout << "  b        " << v_sc_biguint_b << endl;
 		cout << " product " << v_sum << endl;
@@ -99,26 +208,26 @@ class BigDecrement : public BigDecrement<WA,WB-D,D>
 	    }
 	}
 
-	((BigDecrement<WA,WB-D,D>*)this)->test_add_subtract_mixed();
+	((AddSubtract<W-D,D>*)this)->test_signed();
     }
 
-    void test_add_subtract_unsigned()
+    void test_unsigned()
     {
-        sc_biguint<WA>                           v_sc_biguint_a;
-        sc_biguint<WB>                           v_sc_biguint_b;
-        sc_bigint<WA < WB ? WB+2+1 : WA+2+1>     v_sum;
-        sc_bigint<WA < WB ? WB+2+1+1 : WA+2+1+1> v_difference;
+        sc_biguint<W>      v_sc_biguint_a;
+        sc_biguint<W>      v_sc_biguint_b;
+        sc_bigint<W+2+1>   v_sum;
+        sc_bigint<W+2+1+1> v_difference;
 
-	for ( size_t count = 0; count < 1000; ++count ) {
-	    load(WA+1, v_sc_biguint_a);
-	    load(WB+1, v_sc_biguint_b);
+	for ( size_t count = 0; count < COUNT_N; ++count ) {
+	    load(W+1, v_sc_biguint_a);
+	    load(W+1, v_sc_biguint_b);
 
 	    // a + b
 
 	    v_sum = v_sc_biguint_a + v_sc_biguint_b;
 	    v_difference = v_sum - v_sc_biguint_b;
 	    if ( v_difference != v_sc_biguint_a ) {
-		cout << "ERROR: sc_biguint<" << WA << "> - sc_biguint<" << WB << ">:" << endl;
+		cout << "ERROR: sc_biguint<" << W << "> - sc_biguint<" << W << ">:" << endl;
 		cout << "  a         " << v_sc_biguint_a << endl;
 		cout << "  b         " << v_sc_biguint_b << endl;
 		cout << " sum        " << v_sum << endl;
@@ -131,7 +240,7 @@ class BigDecrement : public BigDecrement<WA,WB-D,D>
 	    v_sum = v_sc_biguint_b + v_sc_biguint_a;
 	    v_difference = v_sum - v_sc_biguint_a;
 	    if ( v_difference != v_sc_biguint_b ) {
-		cout << "ERROR: sc_biguint<" << WB << "> - sc_biguint<" << WA << ">:" << endl;
+		cout << "ERROR: sc_biguint<" << W << "> - sc_biguint<" << W << ">:" << endl;
 		cout << "  a         " << v_sc_biguint_a << endl;
 		cout << "  b         " << v_sc_biguint_b << endl;
 		cout << " sum        " << v_sum << endl;
@@ -140,231 +249,34 @@ class BigDecrement : public BigDecrement<WA,WB-D,D>
 	    }
 	}
 
-	((BigDecrement<WA,WB-D,D>*)this)->test_add_subtract_unsigned();
-    }
-    void test_multiply_divide_signed()
-    {
-        sc_bigint<WA>   v_sc_bigint_a;
-        sc_bigint<WB>   v_sc_bigint_b;
-        sc_bigint<WA+WB> v_product;
-        sc_bigint<WA+WB> v_quotient;
-
-	for ( size_t count = 0; count < 1000; ++count ) {
-	    load(WA, v_sc_bigint_a);
-	    load(WB, v_sc_bigint_b);
-
-	    // Make sure no divide by zero:
-
-	    v_sc_bigint_a = v_sc_bigint_a | 1;
-	    v_sc_bigint_b = v_sc_bigint_b | 1;
-
-	    // a * b
-
-	    v_product = v_sc_bigint_a * v_sc_bigint_b;
-	    v_quotient = v_product / v_sc_bigint_b;
-	    if ( v_quotient != v_sc_bigint_a ) {
-		cout << "ERROR: sc_bigint<" << WA << "> / sc_bigint<" << WB << ">:" << endl;
-		cout << "  a        " << v_sc_bigint_a << endl;
-		cout << "  b        " << v_sc_bigint_b << endl;
-		cout << " product " << v_product << endl;
-		cout << " quotient " << v_quotient << endl;
-		assert( v_quotient == v_sc_bigint_a );
-	    }
-
-	    // b * a
-
-	    v_product = v_sc_bigint_b * v_sc_bigint_a;
-	    v_quotient = v_product / v_sc_bigint_a;
-	    if ( v_quotient != v_sc_bigint_b ) {
-		cout << "ERROR: sc_bigint<" << WB << "> / sc_bigint<" << WA << ">:" << endl;
-		cout << "  a       " << v_sc_bigint_a << endl;
-		cout << "  b       " << v_sc_bigint_b << endl;
-		cout << " product  " << v_product << endl;
-		cout << " quotient " << v_quotient << endl;
-		assert( v_quotient == v_sc_bigint_b );
-	    }
-	}
-
-	((BigDecrement<WA,WB-D,D>*)this)->test_multiply_divide_signed();
-    }
-
-    void test_multiply_divide_unsigned()
-    {
-        sc_biguint<WA>   v_sc_biguint_a;
-        sc_biguint<WB>   v_sc_biguint_b;
-        sc_biguint<WA+WB> v_product;
-        sc_biguint<WA+WB> v_quotient;
-
-	for ( size_t count = 0; count < 1000; ++count ) {
-	    load(WA+1, v_sc_biguint_a);
-	    load(WB+1, v_sc_biguint_b);
-
-	    // Make sure no divide by zero:
-
-	    v_sc_biguint_a = v_sc_biguint_a | 1;
-	    v_sc_biguint_b = v_sc_biguint_b | 1;
-
-	    // a * b
-	    v_product = v_sc_biguint_a * v_sc_biguint_b;
-	    v_quotient = v_product / v_sc_biguint_b;
-	    if ( v_quotient != v_sc_biguint_a ) {
-		cout << "ERROR: sc_biguint<" << WA << "> / sc_biguint<" << WB << ">:" << endl;
-		cout << "  a        " << v_sc_biguint_a << endl;
-		cout << "  b        " << v_sc_biguint_b << endl;
-		cout << " product " << v_product << endl;
-		cout << " quotient " << v_quotient << endl;
-		assert( v_quotient == v_sc_biguint_a );
-	    }
-
-	    // b * a
-
-	    v_product = v_sc_biguint_b * v_sc_biguint_a;
-	    v_quotient = v_product / v_sc_biguint_a;
-	    if ( v_quotient != v_sc_biguint_b ) {
-		cout << "ERROR: sc_biguint<" << WA << "> / sc_biguint<" << WB << ">:" << endl;
-		cout << "  a        " << v_sc_biguint_a << endl;
-		cout << "  b        " << v_sc_biguint_b << endl;
-		cout << " product " << v_product << endl;
-		cout << " quotient " << v_quotient << endl;
-		assert( v_quotient == v_sc_biguint_b );
-	    }
-	}
-
-	((BigDecrement<WA,WB-D,D>*)this)->test_multiply_divide_unsigned();
-    }
-
-    void test_multiply_divide_mixed()
-    {
-        sc_bigint<WA>      v_sc_bigint_a;
-        sc_biguint<WB>     v_sc_biguint_b;
-        sc_bigint<WA+WB+1> v_product;
-        sc_bigint<WA+WB>   v_quotient;
-
-	for ( size_t count = 0; count < 1000; ++count ) {
-	    load(WA, v_sc_bigint_a);
-	    load(WB+1, v_sc_biguint_b);
-
-	    // Make sure no divide by zero:
-
-	    v_sc_bigint_a = v_sc_bigint_a | 1;
-	    v_sc_biguint_b = v_sc_biguint_b | 1;
-
-	    // a * b
-
-	    v_product = v_sc_bigint_a * v_sc_biguint_b;
-	    v_quotient = v_product / v_sc_biguint_b;
-	    if ( v_quotient != v_sc_bigint_a ) {
-		cout << "ERROR: sc_bigint<" << WA << "> / sc_biguint<" << WB << ">:" << endl;
-		cout << "  a        " << v_sc_bigint_a 
-		                      << hex << " (" << v_sc_bigint_a << ")" << dec << endl;
-		cout << "  b        " << v_sc_biguint_b << endl;
-		cout << " product " << v_product << endl;
-		cout << " quotient " << v_quotient 
-		                     << hex << " (" << v_quotient << ")" << dec << endl;
-		assert( v_quotient == v_sc_bigint_a );
-	    }
-
-	    // b * a
-
-	    v_product = v_sc_biguint_b * v_sc_bigint_a;
-	    v_quotient = v_product / v_sc_bigint_a;
-	    if ( v_quotient != v_sc_biguint_b ) {
-		cout << "ERROR: sc_biguint<" << WB << "> / sc_bigint<" << WA << ">:" << endl;
-		cout << "  a        " << v_sc_bigint_a << endl;
-		cout << "  b        " << v_sc_biguint_b << endl;
-		cout << " product " << v_product << endl;
-		cout << " quotient " << v_quotient << endl;
-		assert( v_quotient == v_sc_biguint_b );
-	    }
-	}
-
-	((BigDecrement<WA,WB-D,D>*)this)->test_multiply_divide_mixed();
+	((AddSubtract<W-D,D>*)this)->test_signed();
     }
 };
 
-template<int WA, int D>
-class BigDecrement<WA, 0, D> 
+template<int D>
+class AddSubtract<0,D>
 {
   public:
-    BigDecrement() {}
-    void test_add_subtract_signed() {}
-    void test_add_subtract_mixed() {}
-    void test_add_subtract_unsigned() {}
-    void test_multiply_divide_signed() {}
-    void test_multiply_divide_mixed() {}
-    void test_multiply_divide_unsigned() {}
-};
-
-template<int W, int D_ME, int D_DECREMENT>
-class BigTop : public BigTop<W-D_ME,D_ME,D_DECREMENT>
-{
-  public:
-    BigTop() : BigTop<W-D_ME,D_ME,D_DECREMENT>() {}
-    void test()
-    {
-	test_add_subtract_signed();
-        test_add_subtract_mixed();
-        test_add_subtract_unsigned();
-	test_multiply_divide_signed();
-        test_multiply_divide_mixed();
-        test_multiply_divide_unsigned();
-    }
-    void test_add_subtract_signed()
-    {
-	m_decrement.test_add_subtract_signed();
-	((BigTop<W-D_ME,D_ME,D_DECREMENT>*)this)->test_add_subtract_signed();
-    }
-    void test_add_subtract_mixed()
-    {
-	m_decrement.test_add_subtract_mixed();
-	((BigTop<W-D_ME,D_ME,D_DECREMENT>*)this)->test_add_subtract_unsigned();
-    }
-    void test_add_subtract_unsigned()
-    {
-	m_decrement.test_add_subtract_unsigned();
-	((BigTop<W-D_ME,D_ME,D_DECREMENT>*)this)->test_add_subtract_unsigned();
-    }
-    void test_multiply_divide_signed()
-    {
-	m_decrement.test_multiply_divide_signed();
-	((BigTop<W-D_ME,D_ME,D_DECREMENT>*)this)->test_multiply_divide_signed();
-    }
-    void test_multiply_divide_mixed()
-    {
-	m_decrement.test_multiply_divide_mixed();
-	((BigTop<W-D_ME,D_ME,D_DECREMENT>*)this)->test_multiply_divide_unsigned();
-    }
-    void test_multiply_divide_unsigned()
-    {
-	m_decrement.test_multiply_divide_unsigned();
-	((BigTop<W-D_ME,D_ME,D_DECREMENT>*)this)->test_multiply_divide_unsigned();
-    }
-  protected:
-    BigDecrement<W,W,D_DECREMENT> m_decrement;
-};
-
-template<int D_ME, int D_DECREMENT>
-class BigTop<0,D_ME,D_DECREMENT>
-{
-  public:
-    BigTop() {}
-    void test() {}
-    void test_add_subtract_signed() {}
-    void test_add_subtract_mixed() {}
-    void test_add_subtract_unsigned() {}
-    void test_multiply_divide_signed() {}
-    void test_multiply_divide_mixed() {}
-    void test_multiply_divide_unsigned() {}
+    AddSubtract() {}
+    void test_signed() {}
 };
 
 int sc_main(int argc, char* argv[])
 {
-    BigTop<10,10,1> top;
-    // BigTop<310,31,31> top;
-    // BigDecrement<128,128,1> top;
+    AddSubtract<128,1>      x;
+    AddSubtract<3100,31>    y;
 
-    top.test();
+    x.test_signed();
+    x.test_mixed();
+    x.test_unsigned();
+    y.test_signed();
+    y.test_mixed();
+    y.test_unsigned();
 
-    cout << "Program completed" << endl;
+    test_signed(128,1);
+    test_mixed(128,1);
+    test_unsigned(128,1);
+
+    cout << "Big Addition/Subtraction tests completed" << endl;
     return 0;
 }
