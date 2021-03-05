@@ -1,6 +1,8 @@
 #include "systemc.h"
 #include "isaac.h"
 
+#define COUNT_N
+
 QTIsaac<8> rng;         // Platform independent random number generator.
 
 template<typename T>
@@ -22,7 +24,7 @@ void test_signed( int max_width, int delta_width )
 	    sc_signed left(left_width);
 	    sc_signed right(right_width);
 
-	    for ( int count = 0; count < 1000; ++count ) {
+	    for ( int count = 0; count < COUNT_N; ++count ) {
 		load(left_width, left);
 		load(right_width, right);
 
@@ -52,7 +54,7 @@ void test_mixed( int max_width, int delta_width )
 		sc_signed left(left_width);
 		sc_unsigned right(right_width);
 
-		for ( int count = 0; count < 1000; ++count ) {
+		for ( int count = 0; count < COUNT_N; ++count ) {
 		    load(left_width, left);
 		    load(right_width+1, right);
 
@@ -75,7 +77,7 @@ void test_mixed( int max_width, int delta_width )
 		sc_unsigned left(left_width);
 		sc_signed right(right_width);
 
-		for ( int count = 0; count < 1000; ++count ) {
+		for ( int count = 0; count < COUNT_N; ++count ) {
 		    load(left_width+1, left);
 		    load(right_width, right);
 
@@ -105,7 +107,7 @@ void test_unsigned( int max_width, int delta_width )
 	    sc_unsigned left(left_width);
 	    sc_unsigned right(right_width);
 
-	    for ( int count = 0; count < 1000; ++count ) {
+	    for ( int count = 0; count < COUNT_N; ++count ) {
 		load(left_width+1, left);
 		load(right_width+1, right);
 
@@ -139,7 +141,7 @@ class MultiplyDivide : public MultiplyDivide<W-D,D>
         sc_bigint<W+W> v_product;
         sc_bigint<W+W> v_quotient;
 
-	for ( size_t count = 0; count < 1000; ++count ) {
+	for ( size_t count = 0; count < COUNT_N; ++count ) {
 	    v_sc_bigint_a = rng.rand();
 	    v_sc_bigint_b = rng.rand();
 	    for ( int digit_i = 1; digit_i < DIV_CEIL(W); ++digit_i ) {
@@ -189,7 +191,7 @@ class MultiplyDivide : public MultiplyDivide<W-D,D>
         sc_biguint<W+W> v_product;
         sc_biguint<W+W> v_quotient;
 
-	for ( size_t count = 0; count < 1000; ++count ) {
+	for ( size_t count = 0; count < COUNT_N; ++count ) {
 	    v_sc_biguint_a = rng.rand();
 	    v_sc_biguint_b = rng.rand();
 	    for ( int digit_i = 1; digit_i < DIV_CEIL(W); ++digit_i ) {
