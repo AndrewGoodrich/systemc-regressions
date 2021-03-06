@@ -38,6 +38,13 @@ void test_signed( int max_width, int delta_width )
 		    cout << "  difference " << difference << endl;
 		    assert( difference == right );
 		}
+
+		if ( -left != ( ~left + 1 ) ) {
+		    cout << "ERROR: sc_signed(" << left_width << ") complement failure:" << endl;
+		    cout << "  -left      " << -left << endl;
+		    cout << "  ~left+1    " << (~left+1) << endl;
+		    assert( -left == ( ~left + 1 ) );
+		}
 	    }
 
 	}
@@ -89,6 +96,13 @@ void test_mixed( int max_width, int delta_width )
 			cout << "  difference " << difference << endl;
 			assert( difference == right );
 		    }
+		}
+
+		if ( -left != ( ~left + 1 ) ) {
+		    cout << "ERROR: sc_unsigned(" << left_width << ") complement failure:" << endl;
+		    cout << "  -left      " << -left << endl;
+		    cout << "  ~left+1    " << (~left+1) << endl;
+		    assert( -left == ( ~left + 1 ) );
 		}
 	    }
 
