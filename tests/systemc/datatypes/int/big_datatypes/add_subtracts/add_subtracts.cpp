@@ -6,7 +6,7 @@
 QTIsaac<8> rng;         // Platform independent random number generator.
 
 template<typename T>
-inline void load( int bits_n, T& target )
+inline void load_rand( int bits_n, T& target )
 {
     int target_n = DIV_CEIL(bits_n);
 
@@ -24,8 +24,8 @@ void test_signed( int max_width, int delta_width )
 	    sc_signed right(right_width);
 
 	    for ( int count = 0; count < COUNT_N; ++count ) {
-		load(left_width, left);
-		load(right_width, right);
+		load_rand(left_width, left);
+		load_rand(right_width, right);
 
 		sc_signed sum = left+right;
 		sc_signed difference = sum - left;
@@ -60,8 +60,8 @@ void test_mixed( int max_width, int delta_width )
 		sc_unsigned right(right_width);
 
 		for ( int count = 0; count < COUNT_N; ++count ) {
-		    load(left_width, left);
-		    load(right_width, right);
+		    load_rand(left_width, left);
+		    load_rand(right_width, right);
 
 		    sc_signed sum = left+right;
 		    sc_signed difference = sum - left;
@@ -82,8 +82,8 @@ void test_mixed( int max_width, int delta_width )
 		sc_signed right(right_width);
 
 		for ( int count = 0; count < COUNT_N; ++count ) {
-		    load(left_width, left);
-		    load(right_width, right);
+		    load_rand(left_width, left);
+		    load_rand(right_width, right);
 
 		    sc_signed sum = left+right;
 		    sc_signed difference = sum - left;
@@ -118,8 +118,8 @@ void test_unsigned( int max_width, int delta_width )
 	    sc_unsigned right(right_width);
 
 	    for ( int count = 0; count < COUNT_N; ++count ) {
-		load(left_width, left);
-		load(right_width, right);
+		load_rand(left_width, left);
+		load_rand(right_width, right);
 
 		sc_signed sum = left+right;
 		sc_signed difference = sum - left;
@@ -151,8 +151,8 @@ class AddSubtract : public AddSubtract<W-D,D>
         sc_bigint<W+1+1> v_difference;
 
 	for ( size_t count = 0; count < COUNT_N; ++count ) {
-	    load( W, v_sc_bigint_a );
-	    load( W, v_sc_bigint_b );
+	    load_rand( W, v_sc_bigint_a );
+	    load_rand( W, v_sc_bigint_b );
 
 	    // a + b
 
@@ -165,6 +165,13 @@ class AddSubtract : public AddSubtract<W-D,D>
 		cout << " product " << v_sum << endl;
 		cout << " difference " << v_difference << endl;
 		assert( v_difference == v_sc_bigint_a );
+	    }
+
+	    if ( -v_sc_bigint_a != ( ~v_sc_bigint_a + 1 ) ) {
+		cout << "ERROR: sc_biguint<" << W << "> complement failure:" << endl;
+		cout << "  -v_sc_bigint_a   " << -v_sc_bigint_a << endl;
+		cout << "  ~v_sc_bigint_a+1 " << (~v_sc_bigint_a+1) << endl;
+		assert( -v_sc_bigint_a == ( ~v_sc_bigint_a + 1 ) );
 	    }
 
 	    // b + a
@@ -192,8 +199,8 @@ class AddSubtract : public AddSubtract<W-D,D>
         sc_bigint<W+1+1+1> v_difference;
 
 	for ( size_t count = 0; count < COUNT_N; ++count ) {
-	    load(W, v_sc_bigint_a);
-	    load(W+1, v_sc_biguint_b);
+	    load_rand(W, v_sc_bigint_a);
+	    load_rand(W+1, v_sc_biguint_b);
 
 	    // a + b
 
@@ -233,8 +240,8 @@ class AddSubtract : public AddSubtract<W-D,D>
         sc_bigint<W+2+1+1> v_difference;
 
 	for ( size_t count = 0; count < COUNT_N; ++count ) {
-	    load(W+1, v_sc_biguint_a);
-	    load(W+1, v_sc_biguint_b);
+	    load_rand(W+1, v_sc_biguint_a);
+	    load_rand(W+1, v_sc_biguint_b);
 
 	    // a + b
 
@@ -249,6 +256,13 @@ class AddSubtract : public AddSubtract<W-D,D>
 		assert( v_difference == v_sc_biguint_a );
 	    }
 
+	    if ( -v_sc_biguint_a != ( ~v_sc_biguint_a + 1 ) ) {
+		cout << "ERROR: sc_biguint<" << W << "> complement failure:" << endl;
+		cout << "  -v_sc_biguint_a   " << -v_sc_biguint_a << endl;
+		cout << "  ~v_sc_biguint_a+1 " << (~v_sc_biguint_a+1) << endl;
+		assert( -v_sc_biguint_a == ( ~v_sc_biguint_a + 1 ) );
+	    }
+
 	    // b + a
 
 	    v_sum = v_sc_biguint_b + v_sc_biguint_a;
@@ -261,6 +275,7 @@ class AddSubtract : public AddSubtract<W-D,D>
 		cout << " difference " << v_difference << endl;
 		assert( v_difference == v_sc_biguint_b );
 	    }
+
 	}
 
 	((AddSubtract<W-D,D>*)this)->test_signed();
