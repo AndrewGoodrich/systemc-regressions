@@ -33,8 +33,16 @@ void dump( const char* prefix, const T& value )
 	 << endl;
 }
 
-// #define OVERFLOW_CHECK(target) assert(save_actual == actual );
-#define OVERFLOW_CHECK(target) 
+template<typename T>
+inline void load( int bits_n,  T& target, unsigned int fill )
+{
+    int target_n = DIV_CEIL(bits_n);
+
+    target = fill;
+    for ( int target_i = 1; target_i < target_n; ++target_i ) {
+        target = (target << 32) + fill;
+    }
+}
 
 template<int W, int D=1>
 class Selection : public Selection<W-D,D>
@@ -45,11 +53,8 @@ class Selection : public Selection<W-D,D>
         sc_bigint<W> bigint_source;
         sc_signed    signed_source(W);
 
-	size_t width = (W+31)/32;
-	for ( size_t data_i = 0; data_i < width; ++data_i ) {
-	    bigint_source = (bigint_source << 32) | fill; 
-	    signed_source = (signed_source << 32) | fill; 
-	}
+        load( W, bigint_source, fill );
+        load( W, signed_source, fill );
 	
 	for ( int low = 0; low < W; ++low ) {
 	    for ( int high = low; high < W; ++high ) {
@@ -57,25 +62,16 @@ class Selection : public Selection<W-D,D>
 		sc_biguint<W> mask = -1; 
 		sc_biguint<W> pre_mask = mask << width;
 		mask = ~(mask << width);
-		// sc_biguint<W> save_mask = mask;
-		// OVERFLOW_CHECK( mask[0] )
 
 		// test sc_biguint<W> selection:
 
                 if ( 1 )
 		{
 		    sc_unsigned actual = bigint_source(high,low); 
-		    sc_unsigned save_actual = actual;
-		    OVERFLOW_CHECK( actual[0] )
-		    OVERFLOW_CHECK( mask[0] )
 		    sc_unsigned shifted_source = (bigint_source >> low);
-		    OVERFLOW_CHECK( actual[0] )
-		    OVERFLOW_CHECK( mask[0] )
 
 		    // sc_unsigned expected = shifted_source & mask;
 		    sc_biguint<W>  expected = shifted_source & mask;
-		    OVERFLOW_CHECK( actual[0] )
-		    OVERFLOW_CHECK( mask[0] )
 		    if (0) {
 		        std::cout << std::endl << "sc_bigint<" << W << ">(" << high << "," 
 			          << low << "):" << endl;
@@ -93,7 +89,6 @@ class Selection : public Selection<W-D,D>
 			dump( "  mask     ", mask );
 			dump( "  shift    ", shifted_source );
 			dump( "  source   ", signed_source );
-			dump( "  saveact  ", save_actual );
 			assert(0);
 		    }
 		}
@@ -150,11 +145,8 @@ class SelectionWrite : public SelectionWrite<W-D,D>
         sc_signed    signed_expected(W);
         sc_signed    signed_source(W);
 
-	size_t width = (W+31)/32;
-	for ( size_t data_i = 0; data_i < width; ++data_i ) {
-	    bigint_source = (bigint_source << 32) | fill; 
-	    signed_source = (signed_source << 32) | fill; 
-	}
+	load( W, bigint_source, fill );
+        load( W, signed_source, fill );
 	
 	for ( int low = 0; low < W; ++low ) {
 	    for ( int high = low; high < W; ++high ) {

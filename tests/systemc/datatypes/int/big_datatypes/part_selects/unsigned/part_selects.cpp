@@ -33,8 +33,16 @@ void dump( const char* prefix, const T& value )
 	 << endl;
 }
 
-// #define NON_ZERO_CHECK(target) assert(target != 0);
-#define NON_ZERO_CHECK(target) 
+template<typename T>
+inline void load( int bits_n,  T& target, unsigned int fill )
+{
+    int target_n = DIV_CEIL(bits_n);
+
+    target = fill;
+    for ( int target_i = 1; target_i < target_n; ++target_i ) {
+        target = (target << 32) + fill;
+    }
+}
 
 template<int W, int D=1>
 class Selection : public Selection<W-D,D>
@@ -45,11 +53,8 @@ class Selection : public Selection<W-D,D>
         sc_biguint<W> biguint_source;
         sc_unsigned   unsigned_source(W);
 
-	size_t width = (W+31)/32;
-	for ( size_t data_i = 0; data_i < width; ++data_i ) {
-	    biguint_source = (biguint_source << 32) | fill; 
-	    unsigned_source = (unsigned_source << 32) | fill; 
-	}
+        load( W, biguint_source, fill );
+        load( W, unsigned_source, fill );
 	
 	for ( int low = 0; low < W; ++low ) {
 	    for ( int high = low; high < W; ++high ) {
@@ -57,23 +62,15 @@ class Selection : public Selection<W-D,D>
 		sc_biguint<W> mask = -1; 
 		sc_biguint<W> pre_mask = mask << width;
 		mask = ~(mask << width);
-		// sc_biguint<W> save_mask = mask;
-		NON_ZERO_CHECK( mask[0] )
 
 		// test sc_biguint<W> selection:
 
                 if ( 1 )
 		{
 		    sc_unsigned actual = biguint_source(high,low);
-		    NON_ZERO_CHECK( actual[0] )
-		    NON_ZERO_CHECK( mask[0] )
 		    sc_unsigned shifted_source = (biguint_source >> low);
-		    NON_ZERO_CHECK( actual[0] )
-		    NON_ZERO_CHECK( mask[0] )
 
 		    sc_unsigned expected = shifted_source & mask;
-		    NON_ZERO_CHECK( actual[0] )
-		    NON_ZERO_CHECK( mask[0] )
 		    if (0) {
 		        std::cout << std::endl << "sc_biguint<" << W << ">(" << high << "," 
 			          << low << "):" << endl;
@@ -143,16 +140,13 @@ class SelectionWrite : public SelectionWrite<W-D,D>
         sc_biguint<W> biguint_actual;
         sc_biguint<W> biguint_expected;
         sc_biguint<W> biguint_source;
-        sc_unsigned   signed_actual(W);
-        sc_unsigned   signed_expected(W);
-        sc_unsigned   signed_source(W);
+        sc_unsigned   unsigned_actual(W);
+        sc_unsigned   unsigned_expected(W);
+        sc_unsigned   unsigned_source(W);
 
-	size_t width = (W+31)/32;
-	for ( size_t data_i = 0; data_i < width; ++data_i ) {
-	    biguint_source = (biguint_source << 32) | fill; 
-	    signed_source = (signed_source << 32) | fill; 
-	}
-	
+        load( W, biguint_source, fill );
+        load( W, unsigned_source, fill );
+
 	for ( int low = 0; low < W; ++low ) {
 	    for ( int high = low; high < W; ++high ) {
 	        int width = (high-low) + 1;
@@ -182,18 +176,18 @@ class SelectionWrite : public SelectionWrite<W-D,D>
 		// test sc_unsigned selection:
 
 		{
-		    signed_actual = 0;
-		    signed_actual(high,low) = signed_source;
-		    signed_expected = signed_source & mask;
-		    signed_expected = signed_expected << low;
+		    unsigned_actual = 0;
+		    unsigned_actual(high,low) = unsigned_source;
+		    unsigned_expected = unsigned_source & mask;
+		    unsigned_expected = unsigned_expected << low;
 		    if ( biguint_actual != biguint_expected ) {
 			cout << "ERROR write to sc_unsigned(" << W << ")(" << high << "," << low 
                              << "):" << endl;
 			cout << "  width    " << width << endl;
-			dump( "  expected ", signed_expected );
-			dump( "  actual   " , signed_actual );
+			dump( "  expected ", unsigned_expected );
+			dump( "  actual   " , unsigned_actual );
 			dump( "  mask     ", mask );
-			dump( "  source   ", signed_source );
+			dump( "  source   ", unsigned_source );
 			assert(0);
 		    }
 		}
