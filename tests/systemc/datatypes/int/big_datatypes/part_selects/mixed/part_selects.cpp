@@ -71,6 +71,10 @@ void test_big( int width, unsigned int fill )
 	    expected_l_r = unsigned_source >> low;
 
 	    if ( actual_from_signed_l_r != actual_from_unsigned_l_r ||
+#if defined(SC_VECTOR_UTILS_H)
+                 actual_from_signed_l_r.get_width() != sub_width ||
+                 actual_from_unsigned_l_r.get_width() != sub_width ||
+#endif 
 	         actual_from_signed_l_r != expected_l_r ) {
 		cout << "ERROR unsigned=XXsigned(" << width << ")(" << high << "," << low 
 		     << "):" << endl;
@@ -111,6 +115,10 @@ void test_big( int width, unsigned int fill )
 	    expected_l_r = unsigned_source >> low;
 
 	    if ( actual_from_signed_l_r != actual_from_unsigned_l_r ||
+#if defined(SC_VECTOR_UTILS_H)
+                 actual_from_signed_l_r.get_width() != sub_width ||
+                 actual_from_unsigned_l_r.get_width() != sub_width ||
+#endif 
 	         actual_from_signed_l_r != expected_l_r ) {
 		cout << "ERROR signed=XXsigned(" << width << ")(" << high << "," << low 
 		     << "):" << endl;
@@ -126,7 +134,12 @@ void test_big( int width, unsigned int fill )
 
             sc_signed actual_from_signed_r_l( signed_source(low,high) );
             sc_signed actual_from_unsigned_r_l( unsigned_source(low,high) );
-	    if ( actual_from_signed_r_l != actual_from_unsigned_r_l ) {
+	    if ( actual_from_signed_r_l != actual_from_unsigned_r_l 
+#if defined(SC_VECTOR_UTILS_H)
+                 || actual_from_signed_r_l.get_width() != sub_width 
+                 || actual_from_unsigned_r_l.get_width() != sub_width 
+#endif 
+            ) {
 		cout << "ERROR signed=XXsigned(" << width << ")(" << low << "," << high 
 		     << "):" << endl;
 		cout << "  width    " << width << endl;
