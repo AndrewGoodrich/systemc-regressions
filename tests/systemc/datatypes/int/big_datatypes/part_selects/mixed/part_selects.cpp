@@ -62,30 +62,39 @@ void test_big( int width, unsigned int fill )
 
     // Test sc_unsigned destination:
 
-    for ( int right = 0; right < width; ++right ) {
-	for ( int left = right; left < width; ++left ) {
-            sc_unsigned actual_from_signed_l_r = signed_source(left,right);
-            sc_unsigned actual_from_unsigned_l_r = unsigned_source(left,right);
-	    if ( actual_from_signed_l_r != actual_from_unsigned_l_r ) {
-		cout << "ERROR unsigned=XXsigned(" << width << ")(" << left << "," << right 
+    for ( int low = 0; low < width; ++low ) {
+	for ( int high = low; high < width; ++high ) {
+	    int sub_width = (high - low) + 1;
+            sc_unsigned actual_from_signed_l_r = signed_source(high,low);
+            sc_unsigned actual_from_unsigned_l_r = unsigned_source(high,low);
+	    sc_unsigned expected_l_r(sub_width);
+	    expected_l_r = unsigned_source >> low;
+
+	    if ( actual_from_signed_l_r != actual_from_unsigned_l_r ||
+	         actual_from_signed_l_r != expected_l_r ) {
+		cout << "ERROR unsigned=XXsigned(" << width << ")(" << high << "," << low 
 		     << "):" << endl;
-		cout << "  width    " << width << endl;
+                cout << "  width                " << width << endl;
+		cout << "  sub_width            " << sub_width << endl;
 		dump( "  actual from signed   ", actual_from_signed_l_r );
 		dump( "  actual from unsigned ", actual_from_unsigned_l_r );
-		dump( "  signed source        ", unsigned_source );
-		dump( "  unsigned source      ", signed_source );
+		dump( "  expected             ", expected_l_r );
+		dump( "  signed source        ", signed_source );
+		dump( "  unsigned source      ", unsigned_source );
 		assert(0);
 	    }
 
-            sc_unsigned actual_from_signed_r_l = signed_source(right,left);
-            sc_unsigned actual_from_unsigned_r_l = unsigned_source(right,left);
+            sc_unsigned actual_from_signed_r_l = signed_source(low,high);
+            sc_unsigned actual_from_unsigned_r_l = unsigned_source(low,high);
 	    if ( actual_from_signed_r_l != actual_from_unsigned_r_l  ) {
-		cout << "ERROR unsigned=XXsigned(" << width << ")(" << right << "," << left 
+		cout << "ERROR unsigned=XXsigned(" << width << ")(" << low << "," << high 
 		     << "):" << endl;
-		cout << "  width    " << width << endl;
-		dump( "  actual from signed   " , actual_from_signed_r_l );
-		dump( "  actual from unsigned " , actual_from_unsigned_r_l );
-		dump( "  signed source        ", unsigned_source );
+                cout << "  width                " << width << endl;
+		cout << "  sub_width            " << sub_width << endl;
+		dump( "  actual from signed   ", actual_from_signed_r_l );
+		dump( "  actual from unsigned ", actual_from_unsigned_r_l );
+		dump( "  signed source        ", signed_source );
+		dump( "  unsigned source      ", unsigned_source );
 		    assert(0);
 	    }
 	}
@@ -93,31 +102,39 @@ void test_big( int width, unsigned int fill )
 
     // Test sc_signed destination:
 
-    for ( int right = 0; right < width; ++right ) {
-	for ( int left = right; left < width; ++left ) {
-            sc_signed actual_from_signed_l_r( signed_source(left,right) );
-            sc_signed actual_from_unsigned_l_r( unsigned_source(left,right) );
-	    if ( actual_from_signed_l_r != actual_from_unsigned_l_r ) {
-                        cout << "ERROR signed=XXsigned(" << width << ")(" << left << "," << right 
-                             << "):" << endl;
-                        cout << "  width    " << width << endl;
-                        dump( "  actual from signed   " , actual_from_signed_l_r );
-                        dump( "  actual from unsigned " , actual_from_unsigned_l_r );
-                        dump( "  signed source        ", unsigned_source );
-                        dump( "  unsigned source      ", signed_source );
-                        assert(0);
+    for ( int low = 0; low < width; ++low ) {
+	for ( int high = low; high < width; ++high ) {
+	    int sub_width = (high - low) + 1;
+            sc_signed actual_from_signed_l_r( signed_source(high,low) );
+            sc_signed actual_from_unsigned_l_r( unsigned_source(high,low) );
+	    sc_signed expected_l_r(sub_width);
+	    expected_l_r = unsigned_source >> low;
+
+	    if ( actual_from_signed_l_r != actual_from_unsigned_l_r ||
+	         actual_from_signed_l_r != expected_l_r ) {
+		cout << "ERROR signed=XXsigned(" << width << ")(" << high << "," << low 
+		     << "):" << endl;
+                cout << "  width                " << width << endl;
+		cout << "  sub_width            " << sub_width << endl;
+		dump( "  actual from signed   ", actual_from_signed_l_r );
+		dump( "  actual from unsigned ", actual_from_unsigned_l_r );
+		dump( "  expected             ", expected_l_r );
+		dump( "  signed source        ", signed_source );
+		dump( "  unsigned source      ", unsigned_source );
+		assert(0);
 	    }
 
-            sc_signed actual_from_signed_r_l( signed_source(right,left) );
-            sc_signed actual_from_unsigned_r_l( unsigned_source(right,left) );
+            sc_signed actual_from_signed_r_l( signed_source(low,high) );
+            sc_signed actual_from_unsigned_r_l( unsigned_source(low,high) );
 	    if ( actual_from_signed_r_l != actual_from_unsigned_r_l ) {
-                        cout << "ERROR signed=XXsigned(" << width << ")(" << right << "," << left 
-                             << "):" << endl;
-                        cout << "  width    " << width << endl;
-                        dump( "  actual from signed   " , actual_from_signed_r_l );
-                        dump( "  actual from unsigned " , actual_from_unsigned_r_l );
-                        dump( "  signed source        ", unsigned_source );
-                        assert(0);
+		cout << "ERROR signed=XXsigned(" << width << ")(" << low << "," << high 
+		     << "):" << endl;
+		cout << "  width    " << width << endl;
+		dump( "  actual from signed   ", actual_from_signed_r_l );
+		dump( "  actual from unsigned ", actual_from_unsigned_r_l );
+		dump( "  signed source        ", signed_source );
+		dump( "  unsigned source      ", unsigned_source );
+		assert(0);
 	    }
 	}
     }
@@ -135,16 +152,21 @@ void test_small( int width, unsigned int fill )
 
     // Test sc_unsigned destination:
 
-    for ( int right = 0; right < width; ++right ) {
-	for ( int left = right; left < width; ++left ) {
-            sc_unsigned actual_from_int_l_r( int_source(left,right) );
-            sc_unsigned actual_from_uint_l_r( uint_source(left,right) );
-	    if ( actual_from_int_l_r != actual_from_uint_l_r ) {
-		cout << "ERROR unsigned=XXint(" << width << ")(" << left << "," << right 
+    for ( int low = 0; low < width; ++low ) {
+	for ( int high = low; high < width; ++high ) {
+	    int sub_width = (high - low) + 1;
+            sc_unsigned actual_from_int_l_r( int_source(high,low) );
+            sc_unsigned actual_from_uint_l_r( uint_source(high,low) );
+	    sc_unsigned expected_l_r(sub_width);
+	    expected_l_r = uint_source >> low;
+	    if ( actual_from_int_l_r != actual_from_uint_l_r ||
+	         actual_from_uint_l_r != expected_l_r ) {
+		cout << "ERROR unsigned=XXint(" << width << ")(" << high << "," << low 
 		     << "):" << endl;
 		cout << "  width    " << width << endl;
 		dump( "  actual from int      ", actual_from_int_l_r );
 		dump( "  actual from uint     ", actual_from_uint_l_r );
+		dump( "  expected             ", expected_l_r );
 		assert(0);
 	    }
 	}
@@ -152,16 +174,21 @@ void test_small( int width, unsigned int fill )
 
     // Test sc_signed destination:
 
-    for ( int right = 0; right < width; ++right ) {
-	for ( int left = right; left < width; ++left ) {
-            sc_signed actual_from_int_l_r( int_source(left,right) );
-            sc_signed actual_from_uint_l_r( uint_source(left,right) );
-	    if ( actual_from_int_l_r != actual_from_uint_l_r ) {
-		cout << "ERROR signed=XXint(" << width << ")(" << left << "," << right 
+    for ( int low = 0; low < width; ++low ) {
+	for ( int high = low; high < width; ++high ) {
+	    int sub_width = (high - low) + 1;
+            sc_signed actual_from_int_l_r( int_source(high,low) );
+            sc_signed actual_from_uint_l_r( uint_source(high,low) );
+	    sc_signed expected_l_r(sub_width);
+	    expected_l_r = uint_source >> low;
+	    if ( actual_from_int_l_r != actual_from_uint_l_r ||
+	         actual_from_int_l_r != expected_l_r ) {
+		cout << "ERROR signed=XXint(" << width << ")(" << high << "," << low 
 		     << "):" << endl;
 		cout << "  width    " << width << endl;
 		dump( "  actual from int      ", actual_from_int_l_r );
 		dump( "  actual from uint     ", actual_from_uint_l_r );
+		dump( "  expected             ", expected_l_r );
 		assert(0);
 	    }
 	}
