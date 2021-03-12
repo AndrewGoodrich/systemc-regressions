@@ -32,10 +32,10 @@ void test_signed( int max_width, int delta_width )
 		sc_signed product = left*right;
 		sc_signed quotient = product / left;
 		if ( quotient != right ) {
-		    cout << "ERROR: sc_signed(" << left_width << ") / sc_signed(" 
-			 << right_width << "):" << endl;
-		    cout << "  left     " << left << endl;
-		    cout << "  right    " << right << endl;
+		    cout << "ERROR: quotient != right in " << __FILE__ << " at line " << __LINE__ 
+		         << endl;
+		    cout << "  left     " << left << " width " << left_width << endl;
+		    cout << "  right    " << right << " width " << right_width << endl;
 		    cout << "  product  " << product << endl;
 		    cout << "  quotient " << quotient << endl;
 		    assert( quotient == right );
@@ -62,10 +62,10 @@ void test_mixed( int max_width, int delta_width )
 		    sc_signed product = left*right;
 		    sc_signed quotient = product / left;
 		    if ( quotient != right ) {
-			cout << "ERROR: sc_signed(" << left_width << ") / sc_unsigned(" 
-			     << right_width << "):" << endl;
-			cout << "  left     " << left << endl;
-			cout << "  right    " << right << endl;
+			cout << "ERROR: quotient != right in " << __FILE__ << " at line " 
+			     << __LINE__ << endl;
+			cout << "  left     " << left << " width " << left_width << endl;
+			cout << "  right    " << right << " width " << right_width << endl;
 			cout << "  product  " << product << endl;
 			cout << "  quotient " << quotient << endl;
 			assert( quotient == right );
@@ -85,9 +85,10 @@ void test_mixed( int max_width, int delta_width )
 		    sc_signed product = left*right;
 		    sc_signed quotient = product / left;
 		    if ( quotient != right ) {
-			cout << "ERROR: sc_unsigned(" << left_width << ") / sc_signed(" 
-			     << right_width << "):" << endl;
-			cout << "  left     " << left << endl;
+			cout << "ERROR: quotient != right in " << __FILE__ << " at line " 
+			     << __LINE__ << endl;
+			cout << "  left     " << left << " width " << left_width << endl;
+			cout << "  right    " << right << " width " << right_width << endl;
 			cout << "  right    " << right << endl;
 			cout << "  product  " << product << endl;
 			cout << "  quotient " << quotient << endl;
@@ -115,10 +116,10 @@ void test_unsigned( int max_width, int delta_width )
 		sc_signed product = left*right;
 		sc_signed quotient = product / left;
 		if ( quotient != right ) {
-		    cout << "ERROR: sc_unsigned(" << left_width << ") / sc_unsigned(" 
-			 << right_width << "):" << endl;
-		    cout << "  left     " << left << endl;
-		    cout << "  right    " << right << endl;
+		    cout << "ERROR: quotient != right in " << __FILE__ << " at line " 
+			 << __LINE__ << endl;
+		    cout << "  left     " << left << " width " << left_width << endl;
+		    cout << "  right    " << right << " width " << right_width << endl;
 		    cout << "  product  " << product << endl;
 		    cout << "  quotient " << quotient << endl;
 		    assert( quotient == right );
@@ -159,7 +160,9 @@ class MultiplyDivide : public MultiplyDivide<W-D,D>
 	    v_product = v_sc_bigint_a * v_sc_bigint_b;
 	    v_quotient = v_product / v_sc_bigint_b;
 	    if ( v_quotient != v_sc_bigint_a ) {
-		cout << "ERROR: sc_bigint<" << W << "> / sc_bigint<" << W << ">:" << endl;
+		cout << "ERROR: quotient != a in " << __FILE__ << " at line " 
+		     << __LINE__ << endl;
+		cout << "  width    " << W << endl;
 		cout << "  a        " << v_sc_bigint_a << endl;
 		cout << "  b        " << v_sc_bigint_b << endl;
 		cout << " product " << v_product << endl;
@@ -172,7 +175,9 @@ class MultiplyDivide : public MultiplyDivide<W-D,D>
 	    v_product = v_sc_bigint_b * v_sc_bigint_a;
 	    v_quotient = v_product / v_sc_bigint_a;
 	    if ( v_quotient != v_sc_bigint_b ) {
-		cout << "ERROR: sc_bigint<" << W << "> / sc_bigint<" << W << ">:" << endl;
+		cout << "ERROR: quotient != b in " << __FILE__ << " at line " 
+		     << __LINE__ << endl;
+		cout << "  width    " << W << endl;
 		cout << "  a        " << v_sc_bigint_a << endl;
 		cout << "  b        " << v_sc_bigint_b << endl;
 		cout << " product " << v_product << endl;
@@ -208,7 +213,9 @@ class MultiplyDivide : public MultiplyDivide<W-D,D>
 	    v_product = v_sc_biguint_a * v_sc_biguint_b;
 	    v_quotient = v_product / v_sc_biguint_b;
 	    if ( v_quotient != v_sc_biguint_a ) {
-		cout << "ERROR: sc_biguint<" << W << "> / sc_biguint<" << W << ">:" << endl;
+		cout << "ERROR: quotient != a in " << __FILE__ << " at line " 
+		     << __LINE__ << endl;
+		cout << "  width    " << W << endl;
 		cout << "  a        " << v_sc_biguint_a << endl;
 		cout << "  b        " << v_sc_biguint_b << endl;
 		cout << " product " << v_product << endl;
@@ -221,7 +228,9 @@ class MultiplyDivide : public MultiplyDivide<W-D,D>
 	    v_product = v_sc_biguint_b * v_sc_biguint_a;
 	    v_quotient = v_product / v_sc_biguint_a;
 	    if ( v_quotient != v_sc_biguint_b ) {
-		cout << "ERROR: sc_biguint<" << W << "> / sc_biguint<" << W << ">:" << endl;
+		cout << "ERROR: quotient != b in " << __FILE__ << " at line " 
+		     << __LINE__ << endl;
+		cout << "  width    " << W << endl;
 		cout << "  a        " << v_sc_biguint_a << endl;
 		cout << "  b        " << v_sc_biguint_b << endl;
 		cout << " product " << v_product << endl;
