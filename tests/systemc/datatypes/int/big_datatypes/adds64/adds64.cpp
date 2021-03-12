@@ -68,7 +68,9 @@ class Add : public Add<W-1>
 
 	v_sc_bigint_result = v_sc_bigint_a + v_sc_bigint_b;
 	if ( v_sc_bigint_result != v_int_result ) {
-	    cout << "ERROR: sc_bigint<" << W << "> + sc_bigint<" << W << ">:" << endl;
+	    cout << "ERROR: int result != bigint result in " << __FILE__ << " at line " 
+	         << __LINE__ << endl;
+	    cout << "  W        " << W << endl;
 	    cout << "  a        " << a << endl;
 	    cout << "  b        " << b << endl;
 	    cout << " C++       " << v_int_result << endl;
@@ -78,7 +80,9 @@ class Add : public Add<W-1>
 
 	v_sc_bigint_result = v_sc_signed_a + v_sc_signed_b;
 	if ( v_sc_bigint_result != v_int_result ) {
-	    cout << "ERROR: sc_signed(" << W << ") + sc_signed(" << W << "):" << endl;
+	    cout << "ERROR: int result != bigint result in " << __FILE__ << " at line " 
+	         << __LINE__ << endl;
+	    cout << "  W        " << W << endl;
 	    cout << "  a        " << a << endl;
 	    cout << "  b        " << b << endl;
 	    cout << " C++       " << v_int_result << endl;
@@ -88,7 +92,9 @@ class Add : public Add<W-1>
 
 	v_sc_biguint_result = v_sc_biguint_a + v_sc_biguint_b;
 	if ( v_sc_biguint_result != v_uint_result ) {
-	    cout << "ERROR: sc_biguint<" << W << "> + sc_biguint<" << W << ">:" << endl;
+	    cout << "ERROR: uint result != biguint result in " << __FILE__ << " at line " 
+	         << __LINE__ << endl;
+	    cout << "  W        " << W << endl;
 	    cout << "  a         " << a << endl;
 	    cout << "  b         " << b << endl;
 	    cout << " C++        " << v_uint_result << endl;
@@ -98,7 +104,9 @@ class Add : public Add<W-1>
 
 	v_sc_biguint_result = v_sc_unsigned_a + v_sc_unsigned_b;
 	if ( v_sc_biguint_result != v_uint_result ) {
-	    cout << "ERROR: sc_unsigned(" << W << ") + sc_unsigned(" << W << "):" << endl;
+	    cout << "ERROR: uint result != biguint result in " << __FILE__ << " at line " 
+	         << __LINE__ << endl;
+	    cout << "  W        " << W << endl;
 	    cout << "  a         " << a << endl;
 	    cout << "  b         " << b << endl;
 	    cout << " C++        " << v_uint_result << endl;
@@ -108,8 +116,9 @@ class Add : public Add<W-1>
 
 	v_sc_biguint_result = v_sc_bigint_source_a(W-1,0) + v_sc_biguint_b;
 	if ( v_sc_bigint_result != v_int_result ) {
-	    cout << "ERROR: sc_bigint<" << W << ">(" << W-1 << ",0) + sc_biguint<" << W 
-		 << ">:" << endl;
+	    cout << "ERROR: int result != bigint result in " << __FILE__ << " at line " 
+	         << __LINE__ << endl;
+	    cout << "  W        " << W << endl;
 	    cout << "  a         " << a << endl;
 	    cout << "  b         " << b << endl;
 	    cout << " C++        " << v_uint_result << endl;
@@ -119,8 +128,9 @@ class Add : public Add<W-1>
 	    
 	v_sc_biguint_result = v_sc_biguint_source_a(W-1,0) + v_sc_biguint_b;
 	if ( v_sc_bigint_result != v_int_result ) {
-	    cout << "ERROR: sc_biguint<" << W << ">(" << W-1 << ",0) + sc_biguint<" << W 
-		 << ">:" << endl;
+	    cout << "ERROR: int result != bigint(" << (W-1) << "," << ") result in " << __FILE__ 
+	         << " at line " << __LINE__ << endl;
+	    cout << "  W        " << W << endl;
 	    cout << "  a         " << a << endl;
 	    cout << "  b         " << b << endl;
 	    cout << " C++        " << v_uint_result << endl;
