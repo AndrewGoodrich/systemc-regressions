@@ -76,8 +76,9 @@ void test_big( int width, unsigned int fill )
                  actual_from_unsigned_l_r.get_width() != sub_width ||
 #endif 
 	         actual_from_signed_l_r != expected_l_r ) {
-		cout << "ERROR unsigned=XXsigned(" << width << ")(" << high << "," << low 
-		     << "):" << endl;
+		cout << "ERROR: signed != unsigned in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  range                (" << high << "," << low << ")" << endl;
                 cout << "  width                " << width << endl;
 		cout << "  sub_width            " << sub_width << endl;
 		dump( "  actual from signed   ", actual_from_signed_l_r );
@@ -91,8 +92,9 @@ void test_big( int width, unsigned int fill )
             sc_unsigned actual_from_signed_r_l = signed_source(low,high);
             sc_unsigned actual_from_unsigned_r_l = unsigned_source(low,high);
 	    if ( actual_from_signed_r_l != actual_from_unsigned_r_l  ) {
-		cout << "ERROR unsigned=XXsigned(" << width << ")(" << low << "," << high 
-		     << "):" << endl;
+		cout << "ERROR: signed != unsigned in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  range                (" << low << "," << high << ")" << endl;
                 cout << "  width                " << width << endl;
 		cout << "  sub_width            " << sub_width << endl;
 		dump( "  actual from signed   ", actual_from_signed_r_l );
@@ -120,8 +122,9 @@ void test_big( int width, unsigned int fill )
                  actual_from_unsigned_l_r.get_width() != sub_width ||
 #endif 
 	         actual_from_signed_l_r != expected_l_r ) {
-		cout << "ERROR signed=XXsigned(" << width << ")(" << high << "," << low 
-		     << "):" << endl;
+		cout << "ERROR: signed != expected in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  range                (" << high << "," << low << ")" << endl;
                 cout << "  width                " << width << endl;
 		cout << "  sub_width            " << sub_width << endl;
 		dump( "  actual from signed   ", actual_from_signed_l_r );
@@ -140,8 +143,9 @@ void test_big( int width, unsigned int fill )
                  || actual_from_unsigned_r_l.get_width() != sub_width 
 #endif 
             ) {
-		cout << "ERROR signed=XXsigned(" << width << ")(" << low << "," << high 
-		     << "):" << endl;
+		cout << "ERROR: signed != unsigned in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  range                (" << high << "," << low << ")" << endl;
 		cout << "  width    " << width << endl;
 		dump( "  actual from signed   ", actual_from_signed_r_l );
 		dump( "  actual from unsigned ", actual_from_unsigned_r_l );
@@ -174,8 +178,9 @@ void test_small( int width, unsigned int fill )
 	    expected_l_r = uint_source >> low;
 	    if ( actual_from_int_l_r != actual_from_uint_l_r ||
 	         actual_from_uint_l_r != expected_l_r ) {
-		cout << "ERROR unsigned=XXint(" << width << ")(" << high << "," << low 
-		     << "):" << endl;
+		cout << "ERROR: actual != expected in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  range                (" << high << "," << low << ")" << endl;
 		cout << "  width    " << width << endl;
 		dump( "  actual from int      ", actual_from_int_l_r );
 		dump( "  actual from uint     ", actual_from_uint_l_r );
@@ -196,8 +201,9 @@ void test_small( int width, unsigned int fill )
 	    expected_l_r = uint_source >> low;
 	    if ( actual_from_int_l_r != actual_from_uint_l_r ||
 	         actual_from_int_l_r != expected_l_r ) {
-		cout << "ERROR signed=XXint(" << width << ")(" << high << "," << low 
-		     << "):" << endl;
+		cout << "ERROR: actual != expected in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  range                (" << high << "," << low << ")" << endl;
 		cout << "  width    " << width << endl;
 		dump( "  actual from int      ", actual_from_int_l_r );
 		dump( "  actual from uint     ", actual_from_uint_l_r );
