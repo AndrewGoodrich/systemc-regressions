@@ -1,6 +1,8 @@
 #include "systemc.h"
 #include "isaac.h"
 
+#define COUNT_N 2000
+
 QTIsaac<8> rng;         // Platform independent random number generator.
 
 template<typename T>
@@ -20,16 +22,17 @@ void test_add_subtract_signed_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_signed left(width);
 	sc_int<W> right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width, left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_signed sum = left+right;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
-		cout << "ERROR: sc_int<" << W << "> - sc_signed(" << width << "):" << endl;
-		cout << "  left       " << left << endl;
-		cout << "  right      " << right << endl;
+		cout << "ERROR: difference != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << width << endl;
+		cout << "  right      " << right << " width " << W << endl;
 		cout << "  sum        " << sum << endl;
 		cout << "  difference " << difference << endl;
 		assert( difference == right );
@@ -40,14 +43,17 @@ void test_add_subtract_signed_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_int<W> left;
 	sc_signed right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    load(width, right);
 	    sc_signed sum = right+left;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
-		cout << "ERROR: sc_signed(" << width << ") - sc_int<" << W << ">:" << endl;
+		cout << "ERROR: difference != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << W << endl;
+		cout << "  right      " << right << " width " << width << endl;
 		cout << "  left       " << left << endl;
 		cout << "  right      " << right << endl;
 		cout << "  sum        " << sum << endl;
@@ -64,16 +70,17 @@ void test_add_subtract_signed_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_signed  left(width);
 	sc_uint<W> right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width, left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_signed sum = left+right;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
-		cout << "ERROR: sc_uint<" << W << "> - sc_signed(" << width << "):" << endl;
-		cout << "  left       " << left << endl;
-		cout << "  right      " << right << endl;
+		cout << "ERROR: difference != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << width << endl;
+		cout << "  right      " << right << " width " << W << endl;
 		cout << "  sum        " << sum << endl;
 		cout << "  difference " << difference << endl;
 		assert( difference == right );
@@ -84,16 +91,17 @@ void test_add_subtract_signed_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_uint<W> left;
 	sc_signed  right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    load(width, right);
 	    sc_signed sum = right+left;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
-		cout << "ERROR: sc_signed(" << width << ") - sc_uint<" << W << ">:" << endl;
-		cout << "  left       " << left << endl;
-		cout << "  right      " << right << endl;
+		cout << "ERROR: difference != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << W << endl;
+		cout << "  right      " << right << " width " << width << endl;
 		cout << "  sum        " << sum << endl;
 		cout << "  difference " << difference << endl;
 		assert( difference == right );
@@ -109,16 +117,17 @@ void test_add_subtract_unsigned_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_unsigned left(width);
 	sc_int<W>   right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width+1, left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_signed sum = left+right;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
-		cout << "ERROR: sc_int<" << W << "> - sc_signed(" << width << "):" << endl;
-		cout << "  left       " << left << endl;
-		cout << "  right      " << right << endl;
+		cout << "ERROR: difference != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << width << endl;
+		cout << "  right      " << right << " width " << W << endl;
 		cout << "  sum        " << sum << endl;
 		cout << "  difference " << difference << endl;
 		assert( difference == right );
@@ -129,16 +138,17 @@ void test_add_subtract_unsigned_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_int<W>   left;
 	sc_unsigned right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    load(width+1, right);
 	    sc_signed sum = right+left;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
-		cout << "ERROR: sc_signed(" << width << ") - sc_int<" << W << ">:" << endl;
-		cout << "  left       " << left << endl;
-		cout << "  right      " << right << endl;
+		cout << "ERROR: difference != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << W << endl;
+		cout << "  right      " << right << " width " << width << endl;
 		cout << "  sum        " << sum << endl;
 		cout << "  difference " << difference << endl;
 		assert( difference == right );
@@ -153,16 +163,17 @@ void test_add_subtract_unsigned_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_unsigned  left(width);
 	sc_uint<W>   right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width+1, left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_unsigned sum = left+right;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
-		cout << "ERROR: sc_uint<" << W << "> - sc_unsigned(" << width << "):" << endl;
-		cout << "  left       " << left << endl;
-		cout << "  right      " << right << endl;
+		cout << "ERROR: difference != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << width << endl;
+		cout << "  right      " << right << " width " << W << endl;
 		cout << "  sum        " << sum << endl;
 		cout << "  difference " << difference << endl;
 		assert( difference == right );
@@ -173,16 +184,17 @@ void test_add_subtract_unsigned_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_uint<W>  left;
 	sc_unsigned right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    load(width+1, right);
 	    sc_unsigned sum = right+left;
 	    sc_signed difference = sum - left;
 	    if ( difference != right ) {
-		cout << "ERROR: sc_unsigned(" << width << ") - sc_uint<" << W << ">:" << endl;
-		cout << "  left       " << left << endl;
-		cout << "  right      " << right << endl;
+		cout << "ERROR: difference != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << W << endl;
+		cout << "  right      " << right << " width " << width << endl;
 		cout << "  sum        " << sum << endl;
 		cout << "  difference " << difference << endl;
 		assert( difference == right );
@@ -197,7 +209,7 @@ void test_multiply_divide_signed_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_signed left(width);
 	sc_int<W> right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width, left);
 	    left |= 1;
 	    uint64 source = rng.rand();
@@ -205,9 +217,10 @@ void test_multiply_divide_signed_int( int max_width, int delta_width )
 	    sc_signed product = left * right;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {
-		cout << "ERROR: sc_int<" << W << "> / sc_signed(" << width << "):" << endl;
-		cout << "  left     " << left << endl;
-		cout << "  right    " << right << endl;
+		cout << "ERROR: quotient != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << width << endl;
+		cout << "  right      " << right << " width " << W << endl;
 		cout << "  product  " << product << endl;
 		cout << "  quotient " << quotient << endl;
 		assert( quotient == right );
@@ -218,7 +231,7 @@ void test_multiply_divide_signed_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_int<W> left;
 	sc_signed right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    left |= 1;
@@ -226,9 +239,10 @@ void test_multiply_divide_signed_int( int max_width, int delta_width )
 	    sc_signed product = right * left;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {
-		cout << "ERROR: sc_signed(" << width << ") / sc_int<" << W << ">:" << endl;
-		cout << "  left     " << left << endl;
-		cout << "  right    " << right << endl;
+		cout << "ERROR: quotient != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << W << endl;
+		cout << "  right      " << right << " width " << width << endl;
 		cout << "  product  " << product << endl;
 		cout << "  quotient " << quotient << endl;
 		assert( quotient == right );
@@ -243,7 +257,7 @@ void test_multiply_divide_signed_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_signed  left(width);
 	sc_uint<W> right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width, left);
 	    left |= 1;
 	    uint64 source = rng.rand();
@@ -251,9 +265,10 @@ void test_multiply_divide_signed_uint( int max_width, int delta_width )
 	    sc_signed product = left * right;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {
-		cout << "ERROR: sc_uint<" << W << "> / sc_signed(" << width << "):" << endl;
-		cout << "  left     " << left << endl;
-		cout << "  right    " << right << endl;
+		cout << "ERROR: quotient != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << width << endl;
+		cout << "  right      " << right << " width " << W << endl;
 		cout << "  product  " << product << endl;
 		cout << "  quotient " << quotient << endl;
 		assert( quotient == right );
@@ -264,7 +279,7 @@ void test_multiply_divide_signed_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_uint<W> left;
 	sc_signed  right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    left |= 1;
@@ -272,9 +287,10 @@ void test_multiply_divide_signed_uint( int max_width, int delta_width )
 	    sc_signed product = right * left;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {
-		cout << "ERROR: sc_signed(" << width << ") / sc_uint<" << W << ">:" << endl;
-		cout << "  left     " << left << endl;
-		cout << "  right    " << right << endl;
+		cout << "ERROR: quotient != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << W << endl;
+		cout << "  right      " << right << " width " << width << endl;
 		cout << "  product  " << product << endl;
 		cout << "  quotient " << quotient << endl;
 		assert( quotient == right );
@@ -290,7 +306,7 @@ void test_multiply_divide_unsigned_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_unsigned left(width);
 	sc_int<W>   right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width+1, left);
 	    left |= 1;
 	    uint64 source = rng.rand();
@@ -298,9 +314,10 @@ void test_multiply_divide_unsigned_int( int max_width, int delta_width )
 	    sc_signed product = left * right;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {
-		cout << "ERROR: sc_int<" << W << "> / sc_signed(" << width << "):" << endl;
-		cout << "  left     " << left << endl;
-		cout << "  right    " << right << endl;
+		cout << "ERROR: quotient != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << width << endl;
+		cout << "  right      " << right << " width " << W << endl;
 		cout << "  product  " << product << endl;
 		cout << "  quotient " << quotient << endl;
 		assert( quotient == right );
@@ -311,7 +328,7 @@ void test_multiply_divide_unsigned_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_int<W>   left;
 	sc_unsigned right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    left |= 1;
@@ -319,9 +336,10 @@ void test_multiply_divide_unsigned_int( int max_width, int delta_width )
 	    sc_signed product = right * left;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {
-		cout << "ERROR: sc_signed(" << width << ") / sc_int<" << W << ">:" << endl;
-		cout << "  left     " << left << endl;
-		cout << "  right    " << right << endl;
+		cout << "ERROR: quotient != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << W << endl;
+		cout << "  right      " << right << " width " << width << endl;
 		cout << "  product  " << product << endl;
 		cout << "  quotient " << quotient << endl;
 		assert( quotient == right );
@@ -336,7 +354,7 @@ void test_multiply_divide_unsigned_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_unsigned  left(width);
 	sc_uint<W>   right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width+1, left);
 	    left |= 1;
 	    uint64 source = rng.rand();
@@ -344,9 +362,10 @@ void test_multiply_divide_unsigned_uint( int max_width, int delta_width )
 	    sc_unsigned product = left * right;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {
-		cout << "ERROR: sc_uint<" << W << "> / sc_unsigned(" << width << "):" << endl;
-		cout << "  left     " << left << endl;
-		cout << "  right    " << right << endl;
+		cout << "ERROR: quotient != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << width << endl;
+		cout << "  right      " << right << " width " << W << endl;
 		cout << "  product  " << product << endl;
 		cout << "  quotient " << quotient << endl;
 		assert( quotient == right );
@@ -357,7 +376,7 @@ void test_multiply_divide_unsigned_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_uint<W>  left;
 	sc_unsigned right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    left |= 1;
@@ -365,9 +384,10 @@ void test_multiply_divide_unsigned_uint( int max_width, int delta_width )
 	    sc_unsigned product = right * left;
 	    sc_signed quotient = product / left;
 	    if ( quotient != right ) {
-		cout << "ERROR: sc_unsigned(" << width << ") / sc_uint<" << W << ">:" << endl;
-		cout << "  left     " << left << endl;
-		cout << "  right    " << right << endl;
+		cout << "ERROR: quotient != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << left << " width " << W << endl;
+		cout << "  right      " << right << " width " << width << endl;
 		cout << "  product  " << product << endl;
 		cout << "  quotient " << quotient << endl;
 		assert( quotient == right );
@@ -382,16 +402,17 @@ void test_xor_signed_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_signed left(width);
 	sc_int<W> right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width, left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_signed before = left ^ right;
 	    sc_signed actual = before ^ left;
 	    if ( actual != right ) {
-		cout << "ERROR: sc_int<" << W << "> ^ sc_signed(" << width << "):" << endl;
-		cout << "  left       " << hex << left << dec << endl;
-		cout << "  right      " << hex << right << dec << endl;
+		cout << "ERROR: actual != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << hex << left << dec << " width " << width << endl;
+		cout << "  right      " << hex << right << dec << " width " << W << endl;
 		cout << "  before     " << hex << before << dec << endl;
 		cout << "  actual     " << hex << actual << dec << endl;
 		cout << "  expected   " << hex << right << dec << endl;
@@ -403,16 +424,17 @@ void test_xor_signed_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_int<W> left;
 	sc_signed right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    load(width, right);
 	    sc_signed before = right ^ left;
 	    sc_signed actual = before ^ left;
 	    if ( actual != right ) {
-		cout << "ERROR: sc_signed(" << width << ") ^ sc_int<" << W << ">:" << endl;
-		cout << "  left       " << hex << left << dec << endl;
-		cout << "  right      " << hex << right << dec << endl;
+		cout << "ERROR: actual != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << hex << left << dec << " width " << W << endl;
+		cout << "  right      " << hex << right << dec << " width " << width << endl;
 		cout << "  before     " << hex << before << dec << endl;
 		cout << "  actual     " << hex << actual << dec << endl;
 		cout << "  expected   " << hex << right << dec << endl;
@@ -428,16 +450,17 @@ void test_xor_signed_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_signed  left(width);
 	sc_uint<W> right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width, left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_signed before = left ^ right;
 	    sc_signed actual = before ^ left;
 	    if ( actual != right ) {
-		cout << "ERROR: sc_signed(" << width << ") ^ sc_uint<" << W << ">:" << endl;
-		cout << "  left       " << hex << left << dec << endl;
-		cout << "  right      " << hex << right << dec << endl;
+		cout << "ERROR: actual != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << hex << left << dec << " width " << width << endl;
+		cout << "  right      " << hex << right << dec << " width " << W << endl;
 		cout << "  before     " << hex << before << dec << endl;
 		cout << "  actual     " << hex << actual << dec << endl;
 		cout << "  expected   " << hex << right << dec << endl;
@@ -449,16 +472,17 @@ void test_xor_signed_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_uint<W> left;
 	sc_signed  right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    load(width, right);
 	    sc_signed before = right ^ left;
 	    sc_signed actual = before ^ left;
 	    if ( actual != right ) {
-		cout << "ERROR: sc_uint<" << W << "> ^ sc_signed(" << width << "):" << endl;
-		cout << "  left       " << hex << left << dec << endl;
-		cout << "  right      " << hex << right << dec << endl;
+		cout << "ERROR: actual != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << hex << left << dec << " width " << W << endl;
+		cout << "  right      " << hex << right << dec << " width " << width << endl;
 		cout << "  before     " << hex << before << dec << endl;
 		cout << "  actual     " << hex << actual << dec << endl;
 		cout << "  expected   " << hex << right << dec << endl;
@@ -475,16 +499,17 @@ void test_xor_unsigned_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_unsigned left(width);
 	sc_int<W>   right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width+1,left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_signed before = right ^ left;
 	    sc_signed actual = before ^ left;
 	    if ( actual != right ) {
-		cout << "ERROR: sc_int<" << W << "> ^ sc_unsigned(" << width << "):" << endl;
-		cout << "  left     " << hex << left << dec << endl;
-		cout << "  right    " << hex << right << dec << endl;
+		cout << "ERROR: actual != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << hex << left << dec << " width " << width << endl;
+		cout << "  right      " << hex << right << dec << " width " << W << endl;
 		cout << "  before   " << hex << before << dec << endl;
 		cout << "  actual   " << hex << actual << dec << endl;
 		cout << "  expected " << hex << right << dec << endl;
@@ -496,16 +521,17 @@ void test_xor_unsigned_int( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_uint<W> left;
 	sc_unsigned right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    load(width+1,right);
 	    sc_signed before = right ^ left;
 	    sc_signed actual = before ^ left;
 	    if ( actual != right ) {
-		cout << "ERROR: sc_unsigned(" << width << ") ^ sc_int<" << W << ">:" << endl;
-		cout << "  left       " << hex << left << dec << endl;
-		cout << "  right      " << hex << right << dec << endl;
+		cout << "ERROR: actual != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << hex << left << dec << " width " << W << endl;
+		cout << "  right      " << hex << right << dec << " width " << width << endl;
 		cout << "  before     " << hex << before << dec << endl;
 		cout << "  actual     " << hex << actual << dec << endl;
 		cout << "  expected   " << hex << right << dec << endl;
@@ -521,16 +547,17 @@ void test_xor_unsigned_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_unsigned  left(width);
 	sc_uint<W>   right;
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    load(width+1,left);
 	    uint64 source = rng.rand();
 	    right = (source << 32) | rng.rand();
 	    sc_unsigned before = left ^ right;
 	    sc_unsigned actual = before ^ left;
 	    if ( actual != right ) {
-		cout << "ERROR: sc_uint<" << W << "> ^ sc_unsigned(" << width << "):" << endl;
-		cout << "  left       " << hex << left << dec << endl;
-		cout << "  right      " << hex << right << dec << endl;
+		cout << "ERROR: actual != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << hex << left << dec << " width " << width << endl;
+		cout << "  right      " << hex << right << dec << " width " << W << endl;
 		cout << "  before     " << hex << before << dec << endl;
 		cout << "  actual     " << hex << actual << dec << endl;
 		cout << "  expected   " << hex << right << dec << endl;
@@ -542,16 +569,17 @@ void test_xor_unsigned_uint( int max_width, int delta_width )
     for ( int width = max_width; width > 1; width -= delta_width ) {
 	sc_uint<W>  left;
 	sc_unsigned right(width);
-	for ( int count = 0; count < 1000; ++count ) {
+	for ( int count = 0; count < COUNT_N; ++count ) {
 	    uint64 source = rng.rand();
 	    left = (source << 32) | rng.rand();
 	    load(width+1,right);
 	    sc_unsigned before = right ^ left;
 	    sc_unsigned actual = before ^ left;
 	    if ( actual != right ) {
-		cout << "ERROR: sc_unsigned(" << width << ") ^ sc_uint<" << W << ">:" << endl;
-		cout << "  left       " << hex << left << dec << endl;
-		cout << "  right      " << hex << right << dec << endl;
+		cout << "ERROR: actual != right in " << __FILE__ << " at line " << __LINE__ 
+		     << endl;
+		cout << "  left       " << hex << left << dec << " width " << W << endl;
+		cout << "  right      " << hex << right << dec << " width " << width << endl;
 		cout << "  before     " << hex << before << dec << endl;
 		cout << "  actual     " << hex << actual << dec << endl;
 		cout << "  expected   " << hex << right << dec << endl;
@@ -600,6 +628,6 @@ int sc_main(int argc, char* argv[])
 
     x.test( 128, 1 );
 
-    cout << "Program completed" << endl;
+    cout << "Big Small Integer Test Completed" << endl;
     return 0;
 }
