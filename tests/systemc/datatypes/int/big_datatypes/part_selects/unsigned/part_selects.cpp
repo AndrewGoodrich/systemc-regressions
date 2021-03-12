@@ -79,8 +79,9 @@ class Selection : public Selection<W-D,D>
                                   << expected << std::dec << std::endl;
                     }
 		    if ( actual != expected ) {
-			cout << "ERROR sc_biguint<" << W << ">(" << high << "," << low << "):" 
-			     << endl;
+			cout << "ERROR: actual != expected in " << __FILE__ << " at line " 
+			     << __LINE__ << endl;
+			cout << "  range    )" << high << "," << low << "):" << endl;
 			cout << "  width    " << width << endl;
 			dump( "  expected ", expected );
 			dump( "  actual   " ,actual );
@@ -106,8 +107,9 @@ class Selection : public Selection<W-D,D>
                                   << expected << std::dec << std::endl;
                     }
 		    if ( actual != expected ) {
-			cout << "ERROR sc_unsigned(" << W << ")(" << high << "," << low << "):" 
-			     << endl;
+			cout << "ERROR: actual != expected in " << __FILE__ << " at line " 
+			     << __LINE__ << endl;
+			cout << "  range    )" << high << "," << low << "):" << endl;
 			cout << "  width    " << width << endl;
 			dump( "  expected ", expected );
 			dump( "  actual   " ,actual );
@@ -162,8 +164,9 @@ class SelectionWrite : public SelectionWrite<W-D,D>
 		    biguint_expected = biguint_source & mask;
 		    biguint_expected = biguint_expected << low;
 		    if ( biguint_actual != biguint_expected ) {
-			cout << "ERROR write to sc_biguint<" << W << ">(" << high << "," << low 
-                             << "):" << endl;
+			cout << "ERROR: actual != expected in " << __FILE__ << " at line " 
+			     << __LINE__ << endl;
+			cout << "  range    )" << high << "," << low << "):" << endl;
 			cout << "  width    " << width << endl;
 			dump( "  expected ", biguint_expected );
 			dump( "  actual   " , biguint_actual );
@@ -181,8 +184,9 @@ class SelectionWrite : public SelectionWrite<W-D,D>
 		    unsigned_expected = unsigned_source & mask;
 		    unsigned_expected = unsigned_expected << low;
 		    if ( biguint_actual != biguint_expected ) {
-			cout << "ERROR write to sc_unsigned(" << W << ")(" << high << "," << low 
-                             << "):" << endl;
+			cout << "ERROR: actual != expected in " << __FILE__ << " at line " 
+			     << __LINE__ << endl;
+			cout << "  range    )" << high << "," << low << "):" << endl;
 			cout << "  width    " << width << endl;
 			dump( "  expected ", unsigned_expected );
 			dump( "  actual   " , unsigned_actual );
@@ -250,7 +254,7 @@ int sc_main( int argc, char* argv[] )
 	cout << "SelectionWrite(0x" << std::hex << 0x66666666u << std::dec << ")" << std::endl;
 	SelectionWrite<128> x_write(0x66666666u);
     }
-    cout << "Program completed" << endl;
+    cout << "Big unsigned selection completed" << endl;
 
     return 0;
 }
