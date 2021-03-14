@@ -203,13 +203,11 @@ void top::target_thread0()
 
 int sc_main (int argc, char *argv[])
 {
-    sc_core::sc_allow_process_control_corners = true;
     sc_clock clock( "clock", 1.0, SC_NS );
 
     top* top_p = new top("top");
     top_p->m_clk(clock);
 
-    sc_core::sc_allow_process_control_corners = true;
     sc_start();
     return 0;
 }

@@ -386,8 +386,6 @@ struct Top: sc_module
 
 int sc_main(int argc, char* argv[])
 {
-  sc_allow_process_control_corners = true; // Andy's hack to switch on async_reset with method
- 
   Top top("top");
   
   sc_start();

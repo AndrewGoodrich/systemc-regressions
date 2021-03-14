@@ -186,7 +186,6 @@ SC_MODULE(DUT)
 
 int sc_main(int argc, char* argv[])
 {
-    sc_core::sc_allow_process_control_corners = true;
     sc_clock        clock;
     DUT             dut("dut");
     sc_signal<bool> reset;
@@ -194,7 +193,6 @@ int sc_main(int argc, char* argv[])
     dut.m_clk(clock);
     dut.m_reset(reset);
 
-    sc_core::sc_allow_process_control_corners = true;
     reset = true;
     sc_start(1, SC_NS);
     reset = false;

@@ -64,7 +64,13 @@ struct Top: sc_module
     count = 0;
     f1 = f2 = f3 = f4 = f5 = f6 = f7 = f8 = f9 = f10 = 0;
     f11 = f12 = f13 = f14 = f15 = f16 = f17 = f18 = f19 = 0;
-    f20 = f21 = f22 = 0;
+    f20 = f21 = 0;
+
+    // The following cases are now legal with the elimination of the race condition:
+
+    f7 = 1; 
+    f8 = 1; 
+    f21 = 1; 
   }
   
   sc_process_handle t1, t2, t3, t4, t5;
@@ -72,7 +78,7 @@ struct Top: sc_module
   int count;
   int f1, f2, f3, f4, f5, f6, f7, f8, f9, f10;
   int f11, f12, f13, f14, f15, f16, f17, f18, f19;
-  int f20, f21, f22;
+  int f20, f21;
 
   void calling()
   {
@@ -83,20 +89,18 @@ struct Top: sc_module
     count = 2;
     try {
       t1.disable();
-      sc_assert(false);
     }
     catch (sc_exception ex) {
       //cout << "Exception caught at " << sc_time_stamp() << endl;
-      f7 = 1;
+      f7 = 0;
     }
 
     try {
       t2.disable();
-      sc_assert(false);
     }
     catch (sc_exception ex) {
       //cout << "Exception caught at " << sc_time_stamp() << endl;
-      f8 = 1;
+      f8 = 0;
     }
     wait(SC_ZERO_TIME);
     t1.kill();
@@ -194,7 +198,7 @@ struct Top: sc_module
     }
     catch (sc_exception ex) {
       //cout << "Exception caught at " << sc_time_stamp() << endl;
-      f21 = 1;
+      f21 = 0;
     }
     wait(sc_time(500, SC_NS) - sc_time_stamp());
     
@@ -291,7 +295,6 @@ struct Top: sc_module
         case 12: sc_assert( sc_time_stamp() == sc_time(413, SC_NS) ); f19=1; break;
         case 14: sc_assert( sc_time_stamp() == sc_time(424, SC_NS) );        break;
         case 15: sc_assert( sc_time_stamp() == sc_time(500, SC_NS) ); f20=1; break;
-        case 16: sc_assert( sc_time_stamp() == sc_time(510, SC_NS) ); f22=1; break;
         default: sc_assert( false ); break;
     }
     if (count < 12)
@@ -332,7 +335,6 @@ int sc_main(int argc, char* argv[])
   sc_assert( top.f19 );
   sc_assert( top.f20 );
   sc_assert( top.f21 );
-  sc_assert( top.f22 );
   
   cout << endl << "Success" << endl;
   return 0;
