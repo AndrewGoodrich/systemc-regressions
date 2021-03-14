@@ -55,7 +55,6 @@ int sc_main(int argc, char* argv[])
 {
   M4 m("m");
   
-  sc_core::sc_allow_process_control_corners = true;
   sc_start();
   
   return 0;

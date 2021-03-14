@@ -98,7 +98,6 @@ SC_MODULE(Top)
 int sc_main(int argc, char* argv[])
 {
   Top top("top");
-  sc_core::sc_allow_process_control_corners = true;
   sc_start();
 
   cout << endl << "End Of Test" << endl;
