@@ -5,6 +5,17 @@
 
 QTIsaac<8> rng;         // Platform independent random number generator.
 
+#define CHECK(ACTUAL,EXPECTED) \
+    if ( ACTUAL != EXPECTED ) { \
+	cout << "ERROR: " <<  #ACTUAL << " != " << #EXPECTED << " in " << __FILE__ \
+             << " at line " << __LINE__ << endl; \
+	cout << "  left     " << left << " width " << left_width << endl; \
+	cout << "  right    " << right << " width " << right_width << endl; \
+	cout << "  product  " << product << endl; \
+	cout << "  quotient " << quotient << endl; \
+	assert( ACTUAL == EXPECTED ); \
+    }
+
 template<typename T>
 inline void load( int bits_n, T& target )
 {
@@ -31,15 +42,7 @@ void test_signed( int max_width, int delta_width )
 		left |= 1; // zero is bad!!!
 		sc_signed product = left*right;
 		sc_signed quotient = product / left;
-		if ( quotient != right ) {
-		    cout << "ERROR: quotient != right in " << __FILE__ << " at line " << __LINE__ 
-		         << endl;
-		    cout << "  left     " << left << " width " << left_width << endl;
-		    cout << "  right    " << right << " width " << right_width << endl;
-		    cout << "  product  " << product << endl;
-		    cout << "  quotient " << quotient << endl;
-		    assert( quotient == right );
-		}
+		CHECK( quotient , right ) 
 	    }
 
 	}
@@ -61,15 +64,7 @@ void test_mixed( int max_width, int delta_width )
 		    left |= 1; // zero is bad!!!
 		    sc_signed product = left*right;
 		    sc_signed quotient = product / left;
-		    if ( quotient != right ) {
-			cout << "ERROR: quotient != right in " << __FILE__ << " at line " 
-			     << __LINE__ << endl;
-			cout << "  left     " << left << " width " << left_width << endl;
-			cout << "  right    " << right << " width " << right_width << endl;
-			cout << "  product  " << product << endl;
-			cout << "  quotient " << quotient << endl;
-			assert( quotient == right );
-		    }
+		    CHECK( quotient , right ) 
 		}
 	    }
 
@@ -84,16 +79,7 @@ void test_mixed( int max_width, int delta_width )
 		    left |= 1; // zero is bad!!!
 		    sc_signed product = left*right;
 		    sc_signed quotient = product / left;
-		    if ( quotient != right ) {
-			cout << "ERROR: quotient != right in " << __FILE__ << " at line " 
-			     << __LINE__ << endl;
-			cout << "  left     " << left << " width " << left_width << endl;
-			cout << "  right    " << right << " width " << right_width << endl;
-			cout << "  right    " << right << endl;
-			cout << "  product  " << product << endl;
-			cout << "  quotient " << quotient << endl;
-			assert( quotient == right );
-		    }
+		    CHECK( quotient , right ) 
 		}
 	    }
 
@@ -115,15 +101,7 @@ void test_unsigned( int max_width, int delta_width )
 		left |= 1; // zero is bad!!!
 		sc_signed product = left*right;
 		sc_signed quotient = product / left;
-		if ( quotient != right ) {
-		    cout << "ERROR: quotient != right in " << __FILE__ << " at line " 
-			 << __LINE__ << endl;
-		    cout << "  left     " << left << " width " << left_width << endl;
-		    cout << "  right    " << right << " width " << right_width << endl;
-		    cout << "  product  " << product << endl;
-		    cout << "  quotient " << quotient << endl;
-		    assert( quotient == right );
-		}
+		CHECK( quotient , right ) 
 	    }
 
 	}

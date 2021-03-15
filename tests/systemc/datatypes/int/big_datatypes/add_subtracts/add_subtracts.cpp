@@ -5,6 +5,17 @@
 
 QTIsaac<8> rng;         // Platform independent random number generator.
 
+#define CHECK(ACTUAL,EXPECTED) \
+    if ( ACTUAL != EXPECTED ) { \
+	cout << "ERROR: " << #ACTUAL << " != " << #EXPECTED " in " << __FILE__ << " at line " \
+	     << __LINE__ << endl; \
+	cout << "  left       " << left << " width " << left_width << endl; \
+	cout << "  right      " << right << " width " << right_width << endl; \
+	cout << "  sum        " << sum << endl; \
+	cout << "  difference " << difference << endl; \
+	assert( difference == right ); \
+    }
+
 template<typename T>
 inline void load_rand( int bits_n, T& target )
 {
@@ -29,15 +40,7 @@ void test_signed( int max_width, int delta_width )
 
 		sc_signed sum = left+right;
 		sc_signed difference = sum - left;
-		if ( difference != right ) {
-		    cout << "ERROR: actual != expected in " << __FILE__ << " at line " 
-			 << __LINE__ << endl;
-		    cout << "  left       " << left << " width " << left_width << endl;
-		    cout << "  right      " << right << " width " << right_width << endl;
-		    cout << "  sum        " << sum << endl;
-		    cout << "  difference " << difference << endl;
-		    assert( difference == right );
-		}
+		CHECK(difference,right)
 	    }
 
 	    for ( int count = 0; count < COUNT_N; ++count ) {
@@ -46,15 +49,7 @@ void test_signed( int max_width, int delta_width )
 
 		sc_signed sum = -left+right;
 		sc_signed difference = sum + left;
-		if ( difference != right ) {
-		    cout << "ERROR: actual != expected in " << __FILE__ << " at line " 
-			 << __LINE__ << endl;
-		    cout << "  -left      " << -left << " width " << left_width << endl;
-		    cout << "  right      " << right << " width " << right_width << endl;
-		    cout << "  sum        " << sum << endl;
-		    cout << "  difference " << difference << endl;
-		    assert( difference == right );
-		}
+		CHECK( difference, right )
 	    }
 
 	    for ( int count = 0; count < COUNT_N; ++count ) {
@@ -63,15 +58,7 @@ void test_signed( int max_width, int delta_width )
 
 		sc_signed sum = left-right;
 		sc_signed difference = sum - left;
-		if ( difference != -right ) {
-		    cout << "ERROR: actual != expected in " << __FILE__ << " at line " 
-			 << __LINE__ << endl;
-		    cout << "  left       " << left << " width " << left_width << endl;
-		    cout << "  -right     " << -right << " width " << right_width << endl;
-		    cout << "  sum        " << sum << endl;
-		    cout << "  difference " << difference << endl;
-		    assert( difference == right );
-		}
+		CHECK( difference, -right ) 
 
 		if ( -left != ( ~left + 1 ) ) {
 		    cout << "ERROR: actual != expected in " << __FILE__ << " at line " << __LINE__ 
@@ -99,15 +86,7 @@ void test_mixed( int max_width, int delta_width )
 
 		sc_signed sum = left+right;
 		sc_signed difference = sum - left;
-		if ( difference != right ) {
-		    cout << "ERROR: right != difference in " << __FILE__ << " at line " 
-			 << __LINE__ << endl;
-		    cout << "  left       " << left << " width " << left_width << endl;
-		    cout << "  right      " << right << " width " << right_width << endl;
-		    cout << "  sum        " << sum << endl;
-		    cout << "  difference " << difference << endl;
-		    assert( difference == right );
-		}
+		CHECK( difference , right ) 
 	    }
 
 	    for ( int count = 0; count < COUNT_N; ++count ) {
@@ -116,23 +95,7 @@ void test_mixed( int max_width, int delta_width )
 
 		sc_signed sum = left-right;
 		sc_signed difference = sum - left;
-		if ( difference != -right ) {
-		    cout << "ERROR: -right != difference in " << __FILE__ << " at line " 
-			 << __LINE__ << endl;
-		    cout << "  left       " << left << " width " << left_width << endl;
-		    cout << "  -right     " << -right << " width " << right_width << endl;
-		    cout << "  sum        " << sum << endl;
-		    cout << "  difference " << difference << endl;
-		    assert( difference == right );
-		}
-
-		if ( -left != ( ~left + 1 ) ) {
-		    cout << "ERROR: -left != ~left+1 in " << __FILE__ << " at line " << __LINE__ 
-		         << endl;
-		    cout << "  -left      " << -left << endl;
-		    cout << "  ~left+1    " << (~left+1) << endl;
-		    assert( -left == ( ~left + 1 ) );
-		}
+		CHECK( difference , -right )
 	    }
 
 	    for ( int count = 0; count < COUNT_N; ++count ) {
@@ -141,15 +104,7 @@ void test_mixed( int max_width, int delta_width )
 
 		sc_signed sum = -left+right;
 		sc_signed difference = sum + left;
-		if ( difference != right ) {
-		    cout << "ERROR: right != difference in " << __FILE__ << " at line " 
-			 << __LINE__ << endl;
-		    cout << "  -left      " << -left << " width " << left_width << endl;
-		    cout << "  right      " << right << " width " << right_width << endl;
-		    cout << "  sum        " << sum << endl;
-		    cout << "  difference " << difference << endl;
-		    assert( difference == right );
-		}
+		CHECK( difference , right ) 
 	    }
 
 	}
@@ -169,15 +124,7 @@ void test_unsigned( int max_width, int delta_width )
 
 		sc_signed sum = left+right;
 		sc_signed difference = sum - left;
-		if ( difference != right ) {
-		    cout << "ERROR: right != difference in " << __FILE__ << " at line " 
-			 << __LINE__ << endl;
-		    cout << "  left       " << left << " width " << left_width << endl;
-		    cout << "  right      " << right << " width " << right_width << endl;
-		    cout << "  sum        " << sum << endl;
-		    cout << "  difference " << difference << endl;
-		    assert( difference == right );
-		}
+		CHECK( difference , right )
 	    }
 
 	    for ( int count = 0; count < COUNT_N; ++count ) {
@@ -186,15 +133,7 @@ void test_unsigned( int max_width, int delta_width )
 
 		sc_signed sum = -left+right;
 		sc_signed difference = sum + left;
-		if ( difference != right ) {
-		    cout << "ERROR: right != difference in " << __FILE__ << " at line " 
-			 << __LINE__ << endl;
-		    cout << "  -left      " << -left << " width " << left_width << endl;
-		    cout << "  right      " << right << " width " << right_width << endl;
-		    cout << "  sum        " << sum << endl;
-		    cout << "  difference " << difference << endl;
-		    assert( difference == right );
-		}
+		CHECK( difference , right ) 
 	    }
 
 	    for ( int count = 0; count < COUNT_N; ++count ) {
@@ -203,15 +142,7 @@ void test_unsigned( int max_width, int delta_width )
 
 		sc_signed sum = left-right;
 		sc_signed difference = sum - left;
-		if ( difference != -right ) {
-		    cout << "ERROR: -right != difference in " << __FILE__ << " at line " 
-			 << __LINE__ << endl;
-		    cout << "  left       " << left << " width " << left_width << endl;
-		    cout << "  -right     " << -right << " width " << right_width << endl;
-		    cout << "  sum        " << sum << endl;
-		    cout << "  difference " << difference << endl;
-		    assert( difference == right );
-		}
+		CHECK( difference , -right )
 	    }
 
 	}
