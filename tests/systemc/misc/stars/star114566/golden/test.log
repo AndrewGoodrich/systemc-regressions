@@ -30,7 +30,7 @@ b[3]=0
 ---------------------------------------------------
 mytest, lv a=1010
 attempt convert to int: 
-   int value: -6
+   int value: 10
 a[0]=0 : is_01=1
 b[0]=0
 a[1]=1 : is_01=1
