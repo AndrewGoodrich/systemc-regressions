@@ -140,14 +140,14 @@ testbench::entry()
 
         // conversion of x coordinate values to memory column locations
 
-	if (x_coord.to_int() == -8) x = 15;
-	if (x_coord.to_int() == -7) x = 14;
-	if (x_coord.to_int() == -6) x = 13;
-	if (x_coord.to_int() == -5) x = 12;
-	if (x_coord.to_int() == -4) x = 11;
-	if (x_coord.to_int() == -3) x = 10;
-	if (x_coord.to_int() == -2) x = 9;
-	if (x_coord.to_int() == -1) x = 8;
+	if (x_coord.to_int() == 248) x = 15;
+	if (x_coord.to_int() == 249) x = 14;
+	if (x_coord.to_int() == 250) x = 13;
+	if (x_coord.to_int() == 251) x = 12;
+	if (x_coord.to_int() == 252) x = 11;
+	if (x_coord.to_int() == 253) x = 10;
+	if (x_coord.to_int() == 254) x = 9;
+	if (x_coord.to_int() == 255) x = 8;
 	if (x_coord.to_int() == 0) x = 7;
 	if (x_coord.to_int() == 1) x = 6;
 	if (x_coord.to_int() == 2) x = 5;
@@ -159,14 +159,14 @@ testbench::entry()
 
         // conversion of y coordinate values to memory row locations
 
-	if (y_coord.to_int() == -8) y = 16;
-	if (y_coord.to_int() == -7) y = 15;
-	if (y_coord.to_int() == -6) y = 14;
-	if (y_coord.to_int() == -5) y = 13;
-	if (y_coord.to_int() == -4) y = 12;
-	if (y_coord.to_int() == -3) y = 11;
-	if (y_coord.to_int() == -2) y = 10;
-	if (y_coord.to_int() == -1) y = 9;
+	if (y_coord.to_int() == 248) y = 16;
+	if (y_coord.to_int() == 249) y = 15;
+	if (y_coord.to_int() == 250) y = 14;
+	if (y_coord.to_int() == 251) y = 13;
+	if (y_coord.to_int() == 252) y = 12;
+	if (y_coord.to_int() == 253) y = 11;
+	if (y_coord.to_int() == 254) y = 10;
+	if (y_coord.to_int() == 255) y = 9;
 	if (y_coord.to_int() == 0) y = 8;
 	if (y_coord.to_int() == 1) y = 7;
 	if (y_coord.to_int() == 2) y = 6;
