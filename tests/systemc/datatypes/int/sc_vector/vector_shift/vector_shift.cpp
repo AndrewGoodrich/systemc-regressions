@@ -261,7 +261,7 @@ class ShiftLeftSigned : public ShiftLeftSigned<W-D,D>
 	    //                         sc_digit* target_p, int shift_n )
 
 #if defined(SC_VECTOR_UTILS_H)
-	    vector_shift_left( source_digits_n-1, source.get_raw(), result_digits_n-1, actual1, 
+	    vector_shift_left( source_digits_n, source.get_raw(), result_digits_n, actual1, 
                                shift_i );
 	    // @@@@@@@@ adjust_signed_hod( result_width, actual1 );
 	    if ( !equal( result_digits_n, actual1, expected ) ) {
