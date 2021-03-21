@@ -192,7 +192,7 @@ void dump( size_t n, const sc_dt::sc_digit* digits )
     {
         cout << hex << std::setfill('0') << std::setw(8) << digits[digit_i] << " ";
     }
-    cout << endl;
+    cout << " digits_n " << n << endl;
 }
 
 bool equal( size_t n, const sc_dt::sc_digit* left_p, const sc_dt::sc_digit* right_p )
@@ -257,7 +257,7 @@ class ShiftLeftSigned : public ShiftLeftSigned<W-D,D>
 	        assert(0);
 	    }
 
-            // Test vector_shift_left( int source_hod, const sc_digit* source_p, int target_hod,
+            // Test vector_shift_left( int source_n, const sc_digit* source_p, int target_n,
 	    //                         sc_digit* target_p, int shift_n )
 
 #if defined(SC_VECTOR_UTILS_H)
@@ -327,7 +327,7 @@ class ShiftLeftUnsigned : public ShiftLeftUnsigned<W-D,D>
 	    //                         sc_digit* target_p, int shift_n )
 
 #if defined(SC_VECTOR_UTILS_H)
-	    vector_shift_left( source_digits_n-1, source.get_raw(), result_digits_n-1, actual1, 
+	    vector_shift_left( source_digits_n, source.get_raw(), result_digits_n, actual1, 
                                shift_i );
             // adjust_unsigned_hod( W, actual1 );
             if ( !equal( result_digits_n, actual1, expected ) ) {
