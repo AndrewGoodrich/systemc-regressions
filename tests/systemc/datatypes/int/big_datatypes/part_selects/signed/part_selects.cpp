@@ -28,7 +28,7 @@ void dump( const char* prefix, const T& value )
     cout << prefix << hex << value << dec 
 #if defined(SC_VECTOR_UTILS_H)
          << " hod " << value.get_hod() << " bits "
-	 << value.get_actual_width()
+	 << value.get_actual_length()
 #endif                       
 	 << endl;
 }

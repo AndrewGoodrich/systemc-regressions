@@ -34,7 +34,7 @@ void dump( const char* prefix, const T& value )
     cout << prefix << hex << value << dec 
 #if defined(SC_VECTOR_UTILS_H)
          << " hod " << value.get_hod() << " bits "
-	 << value.get_actual_width()
+	 << value.get_actual_length()
 #endif                       
 	 << endl;
 }
@@ -72,8 +72,8 @@ void test_big( int width, unsigned int fill )
 
 	    if ( actual_from_signed_l_r != actual_from_unsigned_l_r ||
 #if defined(SC_VECTOR_UTILS_H)
-                 actual_from_signed_l_r.get_width() != sub_width ||
-                 actual_from_unsigned_l_r.get_width() != sub_width ||
+                 actual_from_signed_l_r.length() != sub_width ||
+                 actual_from_unsigned_l_r.length() != sub_width ||
 #endif 
 	         actual_from_signed_l_r != expected_l_r ) {
 		cout << "ERROR: signed != unsigned in " << __FILE__ << " at line " << __LINE__ 
@@ -118,8 +118,8 @@ void test_big( int width, unsigned int fill )
 
 	    if ( actual_from_signed_l_r != actual_from_unsigned_l_r ||
 #if defined(SC_VECTOR_UTILS_H)
-                 actual_from_signed_l_r.get_width() != sub_width ||
-                 actual_from_unsigned_l_r.get_width() != sub_width ||
+                 actual_from_signed_l_r.length() != sub_width ||
+                 actual_from_unsigned_l_r.length() != sub_width ||
 #endif 
 	         actual_from_signed_l_r != expected_l_r ) {
 		cout << "ERROR: signed != expected in " << __FILE__ << " at line " << __LINE__ 
@@ -139,8 +139,8 @@ void test_big( int width, unsigned int fill )
             sc_signed actual_from_unsigned_r_l( unsigned_source(low,high) );
 	    if ( actual_from_signed_r_l != actual_from_unsigned_r_l 
 #if defined(SC_VECTOR_UTILS_H)
-                 || actual_from_signed_r_l.get_width() != sub_width 
-                 || actual_from_unsigned_r_l.get_width() != sub_width 
+                 || actual_from_signed_r_l.length() != sub_width 
+                 || actual_from_unsigned_r_l.length() != sub_width 
 #endif 
             ) {
 		cout << "ERROR: signed != unsigned in " << __FILE__ << " at line " << __LINE__ 
