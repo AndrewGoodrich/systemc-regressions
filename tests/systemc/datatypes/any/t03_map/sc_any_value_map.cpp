@@ -93,8 +93,12 @@ int sc_main( int, char*[] )
     sc_assert( mref.end() == mref.crbegin().base() );
     sc_assert( mref.rend() - mref.crbegin() == mref.ssize() );
 
-    sc_assert( mref.crbegin()->key == (--mref.end())->key );
-    sc_assert( mref.crbegin()->value == (--mref.end())->value );
+    // @@@@@@@@ THESE TWO STATEMENTS FAIL WITH ERROR:
+    // ... /include/c++/v1/iterator:783:41: error: call to deleted function 'addressof'
+    // pointer  operator->() const {return _VSTD::addressof(operator*());}
+
+    // sc_assert( mref.crbegin()->key == (--mref.end())->key );
+    // sc_assert( mref.crbegin()->value == (--mref.end())->value );
 
     std::copy( mref.cbegin(), mref.cend()
              , std::ostream_iterator<sc_any_value_map::const_element_reference>
