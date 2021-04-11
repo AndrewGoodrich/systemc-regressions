@@ -59,6 +59,18 @@ void test_negative_trims()
 
     x = ~0u;
     x = (x << 32) | ~0u;
+    x = (x << 32) | ~0u;
+    x = (x << 32) | 0xc0000000u;
+    hod = sc_dt::vector_find_significant_hod( 3, x.get_raw() );
+    if ( 0 != hod ) {
+        cout << __FILE__ << ":" << __LINE__ << " : ERROR " << endl;
+	cout << "  value    " << hex << x << dec << endl;
+	cout << "  expected 0" << endl;
+	cout << "  actual   " << hod << endl;
+    }
+
+    x = ~0u;
+    x = (x << 32) | ~0u;
     x = (x << 32) | 0x80000000u;
     x = (x << 32) | 16;
     hod = sc_dt::vector_find_significant_hod( 3, x.get_raw() );
