@@ -247,6 +247,84 @@ class MultiplyDivide<0,D>
     void test_signed_signed() {}
 };
 
+template<typename X, typename Y>
+void test_trim_pair( X& x, Y& y )
+{
+    x = ~0u;
+    x = (x << 32) | ~0u;
+    x = (x << 32) | 8;
+    x = (x << 32) | 0;
+    y = 2;
+    cout << hex << (x*y) << " = " << x << " * " << y << endl;
+
+    x = ~0u;
+    x = (x << 32) | ~0u;
+    x = (x << 32) | 0x80000000;
+    x = (x << 32) | 16;
+    y = 2;
+    cout << hex << (x*y) << " = " << x << " * " << y << endl;
+
+    x = ~0u;
+    x = (x << 32) | ~0u;
+    x = (x << 32) | 0x80000000;
+    x = (x << 32) | 16;
+    y = -2;
+    cout << hex << (x*y) << " = " << x << " * " << y << endl;
+
+    x = 0u;
+    x = (x << 32) | 0u;
+    x = (x << 32) | 0x80000000;
+    x = (x << 32) | 16;
+    y = -2;
+    cout << hex << (x*y) << " = " << x << " * " << y << endl;
+
+    x = 0u;
+    x = (x << 32) | 0u;
+    x = (x << 32) | 0x80000000;
+    x = (x << 32) | 16;
+    y = 8;
+    cout << hex << (x*y) << " = " << x << " * " << y << endl;
+}
+
+void test_trim_pairs()
+{
+    sc_bigint<128>  bigint_128_a;
+    sc_bigint<128>  bigint_128_b;
+
+    sc_biguint<128> biguint_128_a;
+    sc_biguint<128> biguint_128_b;
+
+    sc_signed       signed_128_a(128);
+    sc_signed       signed_128_b(128);
+
+    sc_unsigned     unsigned_128_a(128);
+    sc_unsigned     unsigned_128_b(128);
+
+    test_trim_pair( bigint_128_a, bigint_128_b);
+    cout << endl;
+
+    test_trim_pair( unsigned_128_a, bigint_128_b);
+    cout << endl;
+
+    test_trim_pair( bigint_128_a, unsigned_128_b);
+    cout << endl;
+
+    test_trim_pair( unsigned_128_a, unsigned_128_b);
+    cout << endl;
+
+    test_trim_pair( signed_128_a, signed_128_b);
+    cout << endl;
+
+    test_trim_pair( unsigned_128_a, signed_128_b);
+    cout << endl;
+
+    test_trim_pair( signed_128_a, unsigned_128_b);
+    cout << endl;
+
+    test_trim_pair( unsigned_128_a, unsigned_128_b);
+    cout << endl;
+}
+
 int sc_main(int argc, char* argv[])
 {
     MultiplyDivide<128,1> x;
@@ -260,6 +338,8 @@ int sc_main(int argc, char* argv[])
     test_signed(128,1);
     test_mixed(128,1);
     test_unsigned(128,1);
+
+    test_trim_pairs();
 
     cout << "Big multiply/divide tests completed" << endl;
     return 0;
