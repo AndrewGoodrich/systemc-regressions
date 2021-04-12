@@ -43,7 +43,11 @@ int sc_main( int argc, char* argv[] )
 void test_negative_trims()
 {
     int            hod;
+    sc_bigint<130> result;
     sc_bigint<128> x;
+    sc_bigint<2>   y;
+
+    y = 1;
 
     x = ~0u;
     x = (x << 32) | ~0u;
@@ -55,6 +59,13 @@ void test_negative_trims()
 	cout << "  value    " << hex << x << dec << endl;
 	cout << "  expected 0" << endl;
 	cout << "  actual   " << hod << endl;
+    }
+    result = x * y;
+    if ( result != x ) {
+        cout << __FILE__ << ":" << __LINE__ << " : ERROR " << endl;
+	cout << "  value    " << hex << x << dec << endl;
+	cout << "  expected " << x << endl;
+	cout << "  actual   " << result << endl;
     }
 
     x = ~0u;
@@ -68,6 +79,14 @@ void test_negative_trims()
 	cout << "  expected 0" << endl;
 	cout << "  actual   " << hod << endl;
     }
+    result = x * y;
+    if ( result != x ) {
+        cout << __FILE__ << ":" << __LINE__ << " : ERROR " << endl;
+	cout << "  value    " << hex << x << dec << endl;
+	cout << "  expected " << x << endl;
+	cout << "  actual   " << result << endl;
+    }
+
 
     x = ~0u;
     x = (x << 32) | ~0u;
@@ -80,6 +99,14 @@ void test_negative_trims()
 	cout << "  expected 0" << endl;
 	cout << "  actual   " << hod << endl;
     }
+    result = x * y;
+    if ( result != x ) {
+        cout << __FILE__ << ":" << __LINE__ << " : ERROR " << endl;
+	cout << "  value    " << hex << x << dec << endl;
+	cout << "  expected " << x << endl;
+	cout << "  actual   " << result << endl;
+    }
+
 
     x = ~0u;
     x = (x << 32) | ~0u;
@@ -92,6 +119,14 @@ void test_negative_trims()
 	cout << "  expected 0" << endl;
 	cout << "  actual   " << hod << endl;
     }
+    result = x * y;
+    if ( result != x ) {
+        cout << __FILE__ << ":" << __LINE__ << " : ERROR " << endl;
+	cout << "  value    " << hex << x << dec << endl;
+	cout << "  expected " << x << endl;
+	cout << "  actual   " << result << endl;
+    }
+
 
     x = ~0u;
     x = (x << 32) | 0;
@@ -104,12 +139,24 @@ void test_negative_trims()
 	cout << "  expected 0" << endl;
 	cout << "  actual   " << hod << endl;
     }
+    result = x * y;
+    if ( result != x ) {
+        cout << __FILE__ << ":" << __LINE__ << " : ERROR " << endl;
+	cout << "  value    " << hex << x << dec << endl;
+	cout << "  expected " << x << endl;
+	cout << "  actual   " << result << endl;
+    }
+
 }
 
 void test_positive_trims()
 {
     int            hod;
+    sc_bigint<130> result;
     sc_bigint<128> x;
+    sc_bigint<2>   y;
+
+    y = 1;
 
     x = 0;
     x = (x << 32) | 0;
@@ -122,6 +169,14 @@ void test_positive_trims()
 	cout << "  expected 0" << endl;
 	cout << "  actual   " << hod << endl;
     }
+    result = x * y;
+    if ( result != x ) {
+        cout << __FILE__ << ":" << __LINE__ << " : ERROR " << endl;
+	cout << "  value    " << hex << x << dec << endl;
+	cout << "  expected " << x << endl;
+	cout << "  actual   " << result << endl;
+    }
+
 
     x = 0;
     x = (x << 32) | 0;
@@ -134,6 +189,14 @@ void test_positive_trims()
 	cout << "  expected 0" << endl;
 	cout << "  actual   " << hod << endl;
     }
+    result = x * y;
+    if ( result != x ) {
+        cout << __FILE__ << ":" << __LINE__ << " : ERROR " << endl;
+	cout << "  value    " << hex << x << dec << endl;
+	cout << "  expected " << x << endl;
+	cout << "  actual   " << result << endl;
+    }
+
 
     x = 0;
     x = (x << 32) | 0;
@@ -146,18 +209,14 @@ void test_positive_trims()
 	cout << "  expected 0" << endl;
 	cout << "  actual   " << hod << endl;
     }
-
-    x = ~0u;
-    x = (x << 32) | ~0xffffffffu;
-    x = (x << 32) | 0;
-    x = (x << 32) | 16;
-    hod = sc_dt::vector_find_significant_hod( 3, x.get_raw() );
-    if ( 3 != hod ) {
+    result = x * y;
+    if ( result != x ) {
         cout << __FILE__ << ":" << __LINE__ << " : ERROR " << endl;
 	cout << "  value    " << hex << x << dec << endl;
-	cout << "  expected 0" << endl;
-	cout << "  actual   " << hod << endl;
+	cout << "  expected " << x << endl;
+	cout << "  actual   " << result << endl;
     }
+
 }
 
 int sc_main(int argc, char* argv[])
