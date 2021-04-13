@@ -43,7 +43,7 @@ int sc_main( int argc, char* argv[] )
 void test_negative_trims()
 {
     int            hod;
-    sc_bigint<130> result;
+    sc_bigint<132> result;
     sc_bigint<128> x;
     sc_bigint<2>   y;
 
