@@ -7,100 +7,100 @@ sc_bigint shift @ file line : 32 ffffff8 = fffffff << 3
 sc_bigint shift @ file line : 35 fffffff = ffffffff >> 3
 sc_bigint shift @ file line : 38 ffffff8 = ffffffff << 3
 sc_bigint shift @ file line : 42 07fffff
-sc_bigint shift @ file line : 46 07fffff
 
-sc_bigint shift @ file line : 50 fffffff
-sc_bigint shift @ file line : 54 fffffff
+sc_bigint shift @ file line : 48 07fffff
+sc_bigint shift @ file line : 52 fffffff
+sc_bigint shift @ file line : 56 fffffff
 
 sc_biguint shift @ file line : 29 fffffff = fffffff >> 3
 sc_biguint shift @ file line : 32 ffffff8 = fffffff << 3
 sc_biguint shift @ file line : 35 fffffff = ffffffff >> 3
 sc_biguint shift @ file line : 38 ffffff8 = ffffffff << 3
 sc_biguint shift @ file line : 42 07fffff
-sc_biguint shift @ file line : 46 07fffff
 
-sc_biguint shift @ file line : 50 fffffff
-sc_biguint shift @ file line : 54 fffffff
+sc_biguint shift @ file line : 48 07fffff
+sc_biguint shift @ file line : 52 fffffff
+sc_biguint shift @ file line : 56 fffffff
 
 int shift @ file line : 29 fffffff = fffffff >> 3
 int shift @ file line : 32 ffffff8 = fffffff << 3
 int shift @ file line : 35 fffffff = ffffffff >> 3
 int shift @ file line : 38 ffffff8 = ffffffff << 3
 int shift @ file line : 42 07fffff
-int shift @ file line : 46 07fffff
 
-int shift @ file line : 50 fffffff
-int shift @ file line : 54 fffffff
+int shift @ file line : 48 07fffff
+int shift @ file line : 52 fffffff
+int shift @ file line : 56 fffffff
 
 int64 shift @ file line : 29 fffffff = fffffff >> 3
 int64 shift @ file line : 32 ffffff8 = fffffff << 3
 int64 shift @ file line : 35 fffffff = ffffffff >> 3
 int64 shift @ file line : 38 ffffff8 = ffffffff << 3
 int64 shift @ file line : 42 07fffff
-int64 shift @ file line : 46 07fffff
 
-int64 shift @ file line : 50 fffffff
-int64 shift @ file line : 54 fffffff
+int64 shift @ file line : 48 07fffff
+int64 shift @ file line : 52 fffffff
+int64 shift @ file line : 56 fffffff
 
 long shift @ file line : 29 fffffff = fffffff >> 3
 long shift @ file line : 32 ffffff8 = fffffff << 3
 long shift @ file line : 35 fffffff = ffffffff >> 3
 long shift @ file line : 38 ffffff8 = ffffffff << 3
 long shift @ file line : 42 07fffff
-long shift @ file line : 46 07fffff
 
-long shift @ file line : 50 fffffff
-long shift @ file line : 54 fffffff
+long shift @ file line : 48 07fffff
+long shift @ file line : 52 fffffff
+long shift @ file line : 56 fffffff
 
 sc_signed shift @ file line : 29 fffffff = fffffff >> 3
 sc_signed shift @ file line : 32 ffffff8 = fffffff << 3
 sc_signed shift @ file line : 35 fffffff = ffffffff >> 3
 sc_signed shift @ file line : 38 ffffff8 = ffffffff << 3
 sc_signed shift @ file line : 42 07fffff
-sc_signed shift @ file line : 46 07fffff
 
-sc_signed shift @ file line : 50 fffffff
-sc_signed shift @ file line : 54 fffffff
+sc_signed shift @ file line : 48 07fffff
+sc_signed shift @ file line : 52 fffffff
+sc_signed shift @ file line : 56 fffffff
 
 unsigned int shift @ file line : 29 fffffff = fffffff >> 3
 unsigned int shift @ file line : 32 ffffff8 = fffffff << 3
 unsigned int shift @ file line : 35 fffffff = ffffffff >> 3
 unsigned int shift @ file line : 38 ffffff8 = ffffffff << 3
 unsigned int shift @ file line : 42 07fffff
-unsigned int shift @ file line : 46 07fffff
 
-unsigned int shift @ file line : 50 fffffff
-unsigned int shift @ file line : 54 fffffff
+unsigned int shift @ file line : 48 07fffff
+unsigned int shift @ file line : 52 fffffff
+unsigned int shift @ file line : 56 fffffff
 
 uint64 shift @ file line : 29 fffffff = fffffff >> 3
 uint64 shift @ file line : 32 ffffff8 = fffffff << 3
 uint64 shift @ file line : 35 fffffff = ffffffff >> 3
 uint64 shift @ file line : 38 ffffff8 = ffffffff << 3
 uint64 shift @ file line : 42 07fffff
-uint64 shift @ file line : 46 07fffff
 
-uint64 shift @ file line : 50 fffffff
-uint64 shift @ file line : 54 fffffff
+uint64 shift @ file line : 48 07fffff
+uint64 shift @ file line : 52 fffffff
+uint64 shift @ file line : 56 fffffff
 
 unsigned long shift @ file line : 29 fffffff = fffffff >> 3
 unsigned long shift @ file line : 32 ffffff8 = fffffff << 3
 unsigned long shift @ file line : 35 fffffff = ffffffff >> 3
 unsigned long shift @ file line : 38 ffffff8 = ffffffff << 3
 unsigned long shift @ file line : 42 07fffff
-unsigned long shift @ file line : 46 07fffff
 
-unsigned long shift @ file line : 50 fffffff
-unsigned long shift @ file line : 54 fffffff
+unsigned long shift @ file line : 48 07fffff
+unsigned long shift @ file line : 52 fffffff
+unsigned long shift @ file line : 56 fffffff
 
 sc_unsigned shift @ file line : 29 fffffff = fffffff >> 3
 sc_unsigned shift @ file line : 32 ffffff8 = fffffff << 3
 sc_unsigned shift @ file line : 35 fffffff = ffffffff >> 3
 sc_unsigned shift @ file line : 38 ffffff8 = ffffffff << 3
 sc_unsigned shift @ file line : 42 07fffff
-sc_unsigned shift @ file line : 46 07fffff
 
-sc_unsigned shift @ file line : 50 fffffff
-sc_unsigned shift @ file line : 54 fffffff
+sc_unsigned shift @ file line : 48 07fffff
+sc_unsigned shift @ file line : 52 fffffff
+sc_unsigned shift @ file line : 56 fffffff
 
 
 test_signed_shifts(aaaaaaaa)
@@ -110,304 +110,384 @@ sc_bigint shift @ file line : 32 f555550 = 0aaaaaa << 3
 sc_bigint shift @ file line : 35 0155555 = aaaaaaaa >> 3
 sc_bigint shift @ file line : 38 f555550 = aaaaaaaa << 3
 sc_bigint shift @ file line : 42 02aaaaa
-sc_bigint shift @ file line : 46 02aaaaa
 
-sc_bigint shift @ file line : 50 02aaaaa
-sc_bigint shift @ file line : 54 02aaaaa
+sc_bigint shift @ file line : 48 02aaaaa
+sc_bigint shift @ file line : 52 02aaaaa
+sc_bigint shift @ file line : 56 02aaaaa
 
 sc_biguint shift @ file line : 29 0155555 = 0aaaaaa >> 3
 sc_biguint shift @ file line : 32 f555550 = 0aaaaaa << 3
 sc_biguint shift @ file line : 35 0155555 = aaaaaaaa >> 3
 sc_biguint shift @ file line : 38 f555550 = aaaaaaaa << 3
 sc_biguint shift @ file line : 42 02aaaaa
-sc_biguint shift @ file line : 46 02aaaaa
 
-sc_biguint shift @ file line : 50 02aaaaa
-sc_biguint shift @ file line : 54 02aaaaa
+sc_biguint shift @ file line : 48 02aaaaa
+sc_biguint shift @ file line : 52 02aaaaa
+sc_biguint shift @ file line : 56 02aaaaa
 
 int shift @ file line : 29 0155555 = 0aaaaaa >> 3
 int shift @ file line : 32 f555550 = 0aaaaaa << 3
 int shift @ file line : 35 0155555 = aaaaaaaa >> 3
 int shift @ file line : 38 f555550 = aaaaaaaa << 3
 int shift @ file line : 42 02aaaaa
-int shift @ file line : 46 02aaaaa
 
-int shift @ file line : 50 02aaaaa
-int shift @ file line : 54 02aaaaa
+int shift @ file line : 48 02aaaaa
+int shift @ file line : 52 02aaaaa
+int shift @ file line : 56 02aaaaa
 
 int64 shift @ file line : 29 0155555 = 0aaaaaa >> 3
 int64 shift @ file line : 32 f555550 = 0aaaaaa << 3
 int64 shift @ file line : 35 0155555 = aaaaaaaa >> 3
 int64 shift @ file line : 38 f555550 = aaaaaaaa << 3
 int64 shift @ file line : 42 02aaaaa
-int64 shift @ file line : 46 02aaaaa
 
-int64 shift @ file line : 50 02aaaaa
-int64 shift @ file line : 54 02aaaaa
+int64 shift @ file line : 48 02aaaaa
+int64 shift @ file line : 52 02aaaaa
+int64 shift @ file line : 56 02aaaaa
 
 long shift @ file line : 29 0155555 = 0aaaaaa >> 3
 long shift @ file line : 32 f555550 = 0aaaaaa << 3
 long shift @ file line : 35 0155555 = aaaaaaaa >> 3
 long shift @ file line : 38 f555550 = aaaaaaaa << 3
 long shift @ file line : 42 02aaaaa
-long shift @ file line : 46 02aaaaa
 
-long shift @ file line : 50 02aaaaa
-long shift @ file line : 54 02aaaaa
+long shift @ file line : 48 02aaaaa
+long shift @ file line : 52 02aaaaa
+long shift @ file line : 56 02aaaaa
 
 sc_signed shift @ file line : 29 0155555 = 0aaaaaa >> 3
 sc_signed shift @ file line : 32 f555550 = 0aaaaaa << 3
 sc_signed shift @ file line : 35 0155555 = aaaaaaaa >> 3
 sc_signed shift @ file line : 38 f555550 = aaaaaaaa << 3
 sc_signed shift @ file line : 42 02aaaaa
-sc_signed shift @ file line : 46 02aaaaa
 
-sc_signed shift @ file line : 50 02aaaaa
-sc_signed shift @ file line : 54 02aaaaa
+sc_signed shift @ file line : 48 02aaaaa
+sc_signed shift @ file line : 52 02aaaaa
+sc_signed shift @ file line : 56 02aaaaa
 
 unsigned int shift @ file line : 29 0155555 = 0aaaaaa >> 3
 unsigned int shift @ file line : 32 f555550 = 0aaaaaa << 3
 unsigned int shift @ file line : 35 0155555 = aaaaaaaa >> 3
 unsigned int shift @ file line : 38 f555550 = aaaaaaaa << 3
 unsigned int shift @ file line : 42 02aaaaa
-unsigned int shift @ file line : 46 02aaaaa
 
-unsigned int shift @ file line : 50 02aaaaa
-unsigned int shift @ file line : 54 02aaaaa
+unsigned int shift @ file line : 48 02aaaaa
+unsigned int shift @ file line : 52 02aaaaa
+unsigned int shift @ file line : 56 02aaaaa
 
 uint64 shift @ file line : 29 0155555 = 0aaaaaa >> 3
 uint64 shift @ file line : 32 f555550 = 0aaaaaa << 3
 uint64 shift @ file line : 35 0155555 = aaaaaaaa >> 3
 uint64 shift @ file line : 38 f555550 = aaaaaaaa << 3
 uint64 shift @ file line : 42 02aaaaa
-uint64 shift @ file line : 46 02aaaaa
 
-uint64 shift @ file line : 50 02aaaaa
-uint64 shift @ file line : 54 02aaaaa
+uint64 shift @ file line : 48 02aaaaa
+uint64 shift @ file line : 52 02aaaaa
+uint64 shift @ file line : 56 02aaaaa
 
 unsigned long shift @ file line : 29 0155555 = 0aaaaaa >> 3
 unsigned long shift @ file line : 32 f555550 = 0aaaaaa << 3
 unsigned long shift @ file line : 35 0155555 = aaaaaaaa >> 3
 unsigned long shift @ file line : 38 f555550 = aaaaaaaa << 3
 unsigned long shift @ file line : 42 02aaaaa
-unsigned long shift @ file line : 46 02aaaaa
 
-unsigned long shift @ file line : 50 02aaaaa
-unsigned long shift @ file line : 54 02aaaaa
+unsigned long shift @ file line : 48 02aaaaa
+unsigned long shift @ file line : 52 02aaaaa
+unsigned long shift @ file line : 56 02aaaaa
 
 sc_unsigned shift @ file line : 29 0155555 = 0aaaaaa >> 3
 sc_unsigned shift @ file line : 32 f555550 = 0aaaaaa << 3
 sc_unsigned shift @ file line : 35 0155555 = aaaaaaaa >> 3
 sc_unsigned shift @ file line : 38 f555550 = aaaaaaaa << 3
 sc_unsigned shift @ file line : 42 02aaaaa
-sc_unsigned shift @ file line : 46 02aaaaa
 
-sc_unsigned shift @ file line : 50 02aaaaa
-sc_unsigned shift @ file line : 54 02aaaaa
+sc_unsigned shift @ file line : 48 02aaaaa
+sc_unsigned shift @ file line : 52 02aaaaa
+sc_unsigned shift @ file line : 56 02aaaaa
 
 
 test_unsigned_shifts(ffffffff)
 
-sc_bigint shift @ file line : 99 03fffff = 1ffffff >> 3
-sc_bigint shift @ file line : 102 1fffff8 = 1ffffff << 3
-sc_bigint shift @ file line : 105 1ffffff = 0ffffffff >> 3
-sc_bigint shift @ file line : 108 1fffff8 = 0ffffffff << 3
-sc_bigint shift @ file line : 112 07fffff
+sc_bigint shift @ file line : 101 03fffff = 1ffffff >> 3
+sc_bigint shift @ file line : 104 1fffff8 = 1ffffff << 3
+sc_bigint shift @ file line : 107 1ffffff = 0ffffffff >> 3
+sc_bigint shift @ file line : 110 1fffff8 = 0ffffffff << 3
 
 sc_bigint shift @ file line : 116 07fffff
 sc_bigint shift @ file line : 120 07fffff
 sc_bigint shift @ file line : 124 07fffff
+sc_bigint shift @ file line : 128 07fffff
 
-sc_biguint shift @ file line : 99 03fffff = 1ffffff >> 3
-sc_biguint shift @ file line : 102 1fffff8 = 1ffffff << 3
-sc_biguint shift @ file line : 105 1ffffff = 0ffffffff >> 3
-sc_biguint shift @ file line : 108 1fffff8 = 0ffffffff << 3
-sc_biguint shift @ file line : 112 07fffff
+sc_bigint shift @ file line : 131 1fffff8
+
+sc_bigint shift @ file line : 134 03fffff
+
+sc_biguint shift @ file line : 101 03fffff = 1ffffff >> 3
+sc_biguint shift @ file line : 104 1fffff8 = 1ffffff << 3
+sc_biguint shift @ file line : 107 1ffffff = 0ffffffff >> 3
+sc_biguint shift @ file line : 110 1fffff8 = 0ffffffff << 3
 
 sc_biguint shift @ file line : 116 07fffff
 sc_biguint shift @ file line : 120 07fffff
 sc_biguint shift @ file line : 124 07fffff
+sc_biguint shift @ file line : 128 07fffff
 
-int shift @ file line : 99 03fffff = 1ffffff >> 3
-int shift @ file line : 102 1fffff8 = 1ffffff << 3
-int shift @ file line : 105 1ffffff = 0ffffffff >> 3
-int shift @ file line : 108 1fffff8 = 0ffffffff << 3
-int shift @ file line : 112 07fffff
+sc_biguint shift @ file line : 131 1fffff8
+
+sc_biguint shift @ file line : 134 03fffff
+
+int shift @ file line : 101 03fffff = 1ffffff >> 3
+int shift @ file line : 104 1fffff8 = 1ffffff << 3
+int shift @ file line : 107 1ffffff = 0ffffffff >> 3
+int shift @ file line : 110 1fffff8 = 0ffffffff << 3
 
 int shift @ file line : 116 07fffff
 int shift @ file line : 120 07fffff
 int shift @ file line : 124 07fffff
+int shift @ file line : 128 07fffff
 
-int64 shift @ file line : 99 03fffff = 1ffffff >> 3
-int64 shift @ file line : 102 1fffff8 = 1ffffff << 3
-int64 shift @ file line : 105 1ffffff = 0ffffffff >> 3
-int64 shift @ file line : 108 1fffff8 = 0ffffffff << 3
-int64 shift @ file line : 112 07fffff
+int shift @ file line : 131 1fffff8
+
+int shift @ file line : 134 03fffff
+
+int64 shift @ file line : 101 03fffff = 1ffffff >> 3
+int64 shift @ file line : 104 1fffff8 = 1ffffff << 3
+int64 shift @ file line : 107 1ffffff = 0ffffffff >> 3
+int64 shift @ file line : 110 1fffff8 = 0ffffffff << 3
 
 int64 shift @ file line : 116 07fffff
 int64 shift @ file line : 120 07fffff
 int64 shift @ file line : 124 07fffff
+int64 shift @ file line : 128 07fffff
 
-long shift @ file line : 99 03fffff = 1ffffff >> 3
-long shift @ file line : 102 1fffff8 = 1ffffff << 3
-long shift @ file line : 105 1ffffff = 0ffffffff >> 3
-long shift @ file line : 108 1fffff8 = 0ffffffff << 3
-long shift @ file line : 112 07fffff
+int64 shift @ file line : 131 1fffff8
+
+int64 shift @ file line : 134 03fffff
+
+long shift @ file line : 101 03fffff = 1ffffff >> 3
+long shift @ file line : 104 1fffff8 = 1ffffff << 3
+long shift @ file line : 107 1ffffff = 0ffffffff >> 3
+long shift @ file line : 110 1fffff8 = 0ffffffff << 3
 
 long shift @ file line : 116 07fffff
 long shift @ file line : 120 07fffff
 long shift @ file line : 124 07fffff
+long shift @ file line : 128 07fffff
 
-sc_signed shift @ file line : 99 03fffff = 1ffffff >> 3
-sc_signed shift @ file line : 102 1fffff8 = 1ffffff << 3
-sc_signed shift @ file line : 105 1ffffff = 0ffffffff >> 3
-sc_signed shift @ file line : 108 1fffff8 = 0ffffffff << 3
-sc_signed shift @ file line : 112 07fffff
+long shift @ file line : 131 1fffff8
+
+long shift @ file line : 134 03fffff
+
+sc_signed shift @ file line : 101 03fffff = 1ffffff >> 3
+sc_signed shift @ file line : 104 1fffff8 = 1ffffff << 3
+sc_signed shift @ file line : 107 1ffffff = 0ffffffff >> 3
+sc_signed shift @ file line : 110 1fffff8 = 0ffffffff << 3
 
 sc_signed shift @ file line : 116 07fffff
 sc_signed shift @ file line : 120 07fffff
 sc_signed shift @ file line : 124 07fffff
+sc_signed shift @ file line : 128 07fffff
 
-unsigned int shift @ file line : 99 03fffff = 1ffffff >> 3
-unsigned int shift @ file line : 102 1fffff8 = 1ffffff << 3
-unsigned int shift @ file line : 105 1ffffff = 0ffffffff >> 3
-unsigned int shift @ file line : 108 1fffff8 = 0ffffffff << 3
-unsigned int shift @ file line : 112 07fffff
+sc_signed shift @ file line : 131 1fffff8
+
+sc_signed shift @ file line : 134 03fffff
+
+unsigned int shift @ file line : 101 03fffff = 1ffffff >> 3
+unsigned int shift @ file line : 104 1fffff8 = 1ffffff << 3
+unsigned int shift @ file line : 107 1ffffff = 0ffffffff >> 3
+unsigned int shift @ file line : 110 1fffff8 = 0ffffffff << 3
 
 unsigned int shift @ file line : 116 07fffff
 unsigned int shift @ file line : 120 07fffff
 unsigned int shift @ file line : 124 07fffff
+unsigned int shift @ file line : 128 07fffff
 
-uint64 shift @ file line : 99 03fffff = 1ffffff >> 3
-uint64 shift @ file line : 102 1fffff8 = 1ffffff << 3
-uint64 shift @ file line : 105 1ffffff = 0ffffffff >> 3
-uint64 shift @ file line : 108 1fffff8 = 0ffffffff << 3
-uint64 shift @ file line : 112 07fffff
+unsigned int shift @ file line : 131 1fffff8
+
+unsigned int shift @ file line : 134 03fffff
+
+uint64 shift @ file line : 101 03fffff = 1ffffff >> 3
+uint64 shift @ file line : 104 1fffff8 = 1ffffff << 3
+uint64 shift @ file line : 107 1ffffff = 0ffffffff >> 3
+uint64 shift @ file line : 110 1fffff8 = 0ffffffff << 3
 
 uint64 shift @ file line : 116 07fffff
 uint64 shift @ file line : 120 07fffff
 uint64 shift @ file line : 124 07fffff
+uint64 shift @ file line : 128 07fffff
 
-unsigned long shift @ file line : 99 03fffff = 1ffffff >> 3
-unsigned long shift @ file line : 102 1fffff8 = 1ffffff << 3
-unsigned long shift @ file line : 105 1ffffff = 0ffffffff >> 3
-unsigned long shift @ file line : 108 1fffff8 = 0ffffffff << 3
-unsigned long shift @ file line : 112 07fffff
+uint64 shift @ file line : 131 1fffff8
+
+uint64 shift @ file line : 134 03fffff
+
+unsigned long shift @ file line : 101 03fffff = 1ffffff >> 3
+unsigned long shift @ file line : 104 1fffff8 = 1ffffff << 3
+unsigned long shift @ file line : 107 1ffffff = 0ffffffff >> 3
+unsigned long shift @ file line : 110 1fffff8 = 0ffffffff << 3
 
 unsigned long shift @ file line : 116 07fffff
 unsigned long shift @ file line : 120 07fffff
 unsigned long shift @ file line : 124 07fffff
+unsigned long shift @ file line : 128 07fffff
 
-sc_unsigned shift @ file line : 99 03fffff = 1ffffff >> 3
-sc_unsigned shift @ file line : 102 1fffff8 = 1ffffff << 3
-sc_unsigned shift @ file line : 105 1ffffff = 0ffffffff >> 3
-sc_unsigned shift @ file line : 108 1fffff8 = 0ffffffff << 3
-sc_unsigned shift @ file line : 112 07fffff
+unsigned long shift @ file line : 131 1fffff8
+
+unsigned long shift @ file line : 134 03fffff
+
+sc_unsigned shift @ file line : 101 03fffff = 1ffffff >> 3
+sc_unsigned shift @ file line : 104 1fffff8 = 1ffffff << 3
+sc_unsigned shift @ file line : 107 1ffffff = 0ffffffff >> 3
+sc_unsigned shift @ file line : 110 1fffff8 = 0ffffffff << 3
 
 sc_unsigned shift @ file line : 116 07fffff
 sc_unsigned shift @ file line : 120 07fffff
 sc_unsigned shift @ file line : 124 07fffff
+sc_unsigned shift @ file line : 128 07fffff
+
+sc_unsigned shift @ file line : 131 1fffff8
+
+sc_unsigned shift @ file line : 134 03fffff
 
 
 test_unsigned_shifts(aaaaaaaa)
 
-sc_bigint shift @ file line : 99 0155555 = 0aaaaaa >> 3
-sc_bigint shift @ file line : 102 1555550 = 0aaaaaa << 3
-sc_bigint shift @ file line : 105 1555555 = 0aaaaaaaa >> 3
-sc_bigint shift @ file line : 108 1555550 = 0aaaaaaaa << 3
-sc_bigint shift @ file line : 112 02aaaaa
+sc_bigint shift @ file line : 101 0155555 = 0aaaaaa >> 3
+sc_bigint shift @ file line : 104 1555550 = 0aaaaaa << 3
+sc_bigint shift @ file line : 107 1555555 = 0aaaaaaaa >> 3
+sc_bigint shift @ file line : 110 1555550 = 0aaaaaaaa << 3
 
 sc_bigint shift @ file line : 116 02aaaaa
 sc_bigint shift @ file line : 120 02aaaaa
 sc_bigint shift @ file line : 124 02aaaaa
+sc_bigint shift @ file line : 128 02aaaaa
 
-sc_biguint shift @ file line : 99 0155555 = 0aaaaaa >> 3
-sc_biguint shift @ file line : 102 1555550 = 0aaaaaa << 3
-sc_biguint shift @ file line : 105 1555555 = 0aaaaaaaa >> 3
-sc_biguint shift @ file line : 108 1555550 = 0aaaaaaaa << 3
-sc_biguint shift @ file line : 112 02aaaaa
+sc_bigint shift @ file line : 131 1555550
+
+sc_bigint shift @ file line : 134 0155555
+
+sc_biguint shift @ file line : 101 0155555 = 0aaaaaa >> 3
+sc_biguint shift @ file line : 104 1555550 = 0aaaaaa << 3
+sc_biguint shift @ file line : 107 1555555 = 0aaaaaaaa >> 3
+sc_biguint shift @ file line : 110 1555550 = 0aaaaaaaa << 3
 
 sc_biguint shift @ file line : 116 02aaaaa
 sc_biguint shift @ file line : 120 02aaaaa
 sc_biguint shift @ file line : 124 02aaaaa
+sc_biguint shift @ file line : 128 02aaaaa
 
-int shift @ file line : 99 0155555 = 0aaaaaa >> 3
-int shift @ file line : 102 1555550 = 0aaaaaa << 3
-int shift @ file line : 105 1555555 = 0aaaaaaaa >> 3
-int shift @ file line : 108 1555550 = 0aaaaaaaa << 3
-int shift @ file line : 112 02aaaaa
+sc_biguint shift @ file line : 131 1555550
+
+sc_biguint shift @ file line : 134 0155555
+
+int shift @ file line : 101 0155555 = 0aaaaaa >> 3
+int shift @ file line : 104 1555550 = 0aaaaaa << 3
+int shift @ file line : 107 1555555 = 0aaaaaaaa >> 3
+int shift @ file line : 110 1555550 = 0aaaaaaaa << 3
 
 int shift @ file line : 116 02aaaaa
 int shift @ file line : 120 02aaaaa
 int shift @ file line : 124 02aaaaa
+int shift @ file line : 128 02aaaaa
 
-int64 shift @ file line : 99 0155555 = 0aaaaaa >> 3
-int64 shift @ file line : 102 1555550 = 0aaaaaa << 3
-int64 shift @ file line : 105 1555555 = 0aaaaaaaa >> 3
-int64 shift @ file line : 108 1555550 = 0aaaaaaaa << 3
-int64 shift @ file line : 112 02aaaaa
+int shift @ file line : 131 1555550
+
+int shift @ file line : 134 0155555
+
+int64 shift @ file line : 101 0155555 = 0aaaaaa >> 3
+int64 shift @ file line : 104 1555550 = 0aaaaaa << 3
+int64 shift @ file line : 107 1555555 = 0aaaaaaaa >> 3
+int64 shift @ file line : 110 1555550 = 0aaaaaaaa << 3
 
 int64 shift @ file line : 116 02aaaaa
 int64 shift @ file line : 120 02aaaaa
 int64 shift @ file line : 124 02aaaaa
+int64 shift @ file line : 128 02aaaaa
 
-long shift @ file line : 99 0155555 = 0aaaaaa >> 3
-long shift @ file line : 102 1555550 = 0aaaaaa << 3
-long shift @ file line : 105 1555555 = 0aaaaaaaa >> 3
-long shift @ file line : 108 1555550 = 0aaaaaaaa << 3
-long shift @ file line : 112 02aaaaa
+int64 shift @ file line : 131 1555550
+
+int64 shift @ file line : 134 0155555
+
+long shift @ file line : 101 0155555 = 0aaaaaa >> 3
+long shift @ file line : 104 1555550 = 0aaaaaa << 3
+long shift @ file line : 107 1555555 = 0aaaaaaaa >> 3
+long shift @ file line : 110 1555550 = 0aaaaaaaa << 3
 
 long shift @ file line : 116 02aaaaa
 long shift @ file line : 120 02aaaaa
 long shift @ file line : 124 02aaaaa
+long shift @ file line : 128 02aaaaa
 
-sc_signed shift @ file line : 99 0155555 = 0aaaaaa >> 3
-sc_signed shift @ file line : 102 1555550 = 0aaaaaa << 3
-sc_signed shift @ file line : 105 1555555 = 0aaaaaaaa >> 3
-sc_signed shift @ file line : 108 1555550 = 0aaaaaaaa << 3
-sc_signed shift @ file line : 112 02aaaaa
+long shift @ file line : 131 1555550
+
+long shift @ file line : 134 0155555
+
+sc_signed shift @ file line : 101 0155555 = 0aaaaaa >> 3
+sc_signed shift @ file line : 104 1555550 = 0aaaaaa << 3
+sc_signed shift @ file line : 107 1555555 = 0aaaaaaaa >> 3
+sc_signed shift @ file line : 110 1555550 = 0aaaaaaaa << 3
 
 sc_signed shift @ file line : 116 02aaaaa
 sc_signed shift @ file line : 120 02aaaaa
 sc_signed shift @ file line : 124 02aaaaa
+sc_signed shift @ file line : 128 02aaaaa
 
-unsigned int shift @ file line : 99 0155555 = 0aaaaaa >> 3
-unsigned int shift @ file line : 102 1555550 = 0aaaaaa << 3
-unsigned int shift @ file line : 105 1555555 = 0aaaaaaaa >> 3
-unsigned int shift @ file line : 108 1555550 = 0aaaaaaaa << 3
-unsigned int shift @ file line : 112 02aaaaa
+sc_signed shift @ file line : 131 1555550
+
+sc_signed shift @ file line : 134 0155555
+
+unsigned int shift @ file line : 101 0155555 = 0aaaaaa >> 3
+unsigned int shift @ file line : 104 1555550 = 0aaaaaa << 3
+unsigned int shift @ file line : 107 1555555 = 0aaaaaaaa >> 3
+unsigned int shift @ file line : 110 1555550 = 0aaaaaaaa << 3
 
 unsigned int shift @ file line : 116 02aaaaa
 unsigned int shift @ file line : 120 02aaaaa
 unsigned int shift @ file line : 124 02aaaaa
+unsigned int shift @ file line : 128 02aaaaa
 
-uint64 shift @ file line : 99 0155555 = 0aaaaaa >> 3
-uint64 shift @ file line : 102 1555550 = 0aaaaaa << 3
-uint64 shift @ file line : 105 1555555 = 0aaaaaaaa >> 3
-uint64 shift @ file line : 108 1555550 = 0aaaaaaaa << 3
-uint64 shift @ file line : 112 02aaaaa
+unsigned int shift @ file line : 131 1555550
+
+unsigned int shift @ file line : 134 0155555
+
+uint64 shift @ file line : 101 0155555 = 0aaaaaa >> 3
+uint64 shift @ file line : 104 1555550 = 0aaaaaa << 3
+uint64 shift @ file line : 107 1555555 = 0aaaaaaaa >> 3
+uint64 shift @ file line : 110 1555550 = 0aaaaaaaa << 3
 
 uint64 shift @ file line : 116 02aaaaa
 uint64 shift @ file line : 120 02aaaaa
 uint64 shift @ file line : 124 02aaaaa
+uint64 shift @ file line : 128 02aaaaa
 
-unsigned long shift @ file line : 99 0155555 = 0aaaaaa >> 3
-unsigned long shift @ file line : 102 1555550 = 0aaaaaa << 3
-unsigned long shift @ file line : 105 1555555 = 0aaaaaaaa >> 3
-unsigned long shift @ file line : 108 1555550 = 0aaaaaaaa << 3
-unsigned long shift @ file line : 112 02aaaaa
+uint64 shift @ file line : 131 1555550
+
+uint64 shift @ file line : 134 0155555
+
+unsigned long shift @ file line : 101 0155555 = 0aaaaaa >> 3
+unsigned long shift @ file line : 104 1555550 = 0aaaaaa << 3
+unsigned long shift @ file line : 107 1555555 = 0aaaaaaaa >> 3
+unsigned long shift @ file line : 110 1555550 = 0aaaaaaaa << 3
 
 unsigned long shift @ file line : 116 02aaaaa
 unsigned long shift @ file line : 120 02aaaaa
 unsigned long shift @ file line : 124 02aaaaa
+unsigned long shift @ file line : 128 02aaaaa
 
-sc_unsigned shift @ file line : 99 0155555 = 0aaaaaa >> 3
-sc_unsigned shift @ file line : 102 1555550 = 0aaaaaa << 3
-sc_unsigned shift @ file line : 105 1555555 = 0aaaaaaaa >> 3
-sc_unsigned shift @ file line : 108 1555550 = 0aaaaaaaa << 3
-sc_unsigned shift @ file line : 112 02aaaaa
+unsigned long shift @ file line : 131 1555550
+
+unsigned long shift @ file line : 134 0155555
+
+sc_unsigned shift @ file line : 101 0155555 = 0aaaaaa >> 3
+sc_unsigned shift @ file line : 104 1555550 = 0aaaaaa << 3
+sc_unsigned shift @ file line : 107 1555555 = 0aaaaaaaa >> 3
+sc_unsigned shift @ file line : 110 1555550 = 0aaaaaaaa << 3
 
 sc_unsigned shift @ file line : 116 02aaaaa
 sc_unsigned shift @ file line : 120 02aaaaa
 sc_unsigned shift @ file line : 124 02aaaaa
+sc_unsigned shift @ file line : 128 02aaaaa
+
+sc_unsigned shift @ file line : 131 1555550
+
+sc_unsigned shift @ file line : 134 0155555
 

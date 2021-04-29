@@ -41,9 +41,11 @@ void test_signed( unsigned int value, T& shift, const std::string& shifter )
     v_bigint_right_shift >>= (shift-1);
     PREFIX << hex << v_bigint_right_shift << endl;
 
+    cout << endl;
+
     v_bigint_left_shift = v_signed;
     v_bigint_left_shift >>= (shift-1);
-    PREFIX << hex << v_bigint_left_shift << endl << endl;
+    PREFIX << hex << v_bigint_left_shift << endl;
 
     v_signed_right_shift = v_signed;
     v_signed_right_shift >>= (shift-1);
@@ -107,9 +109,11 @@ void test_unsigned( unsigned int value, T& shift, const std::string& shifter )
     v_unsigned_left_shift = v_unsigned << shift;
     PREFIX << hex << v_unsigned_left_shift << " = " << v_unsigned << " << " << dec << shift << endl;
 
+    cout << endl;
+
     v_biguint_left_shift = v_unsigned;
     v_biguint_left_shift >>= (shift-1);
-    PREFIX << hex << v_biguint_left_shift << endl << endl;
+    PREFIX << hex << v_biguint_left_shift << endl;
 
     v_biguint_right_shift = v_unsigned;
     v_biguint_right_shift >>= (shift-1);
@@ -122,6 +126,12 @@ void test_unsigned( unsigned int value, T& shift, const std::string& shifter )
     v_unsigned_left_shift = v_unsigned;
     v_unsigned_left_shift >>= (shift-1);
     PREFIX << hex << v_unsigned_left_shift << endl << endl;
+
+    v_unsigned_left_shift = v_unsigned(24,0) << shift;
+    PREFIX << hex << v_unsigned_left_shift << endl << endl;
+
+    v_unsigned_right_shift = v_unsigned(24,0) >> shift;
+    PREFIX << hex << v_unsigned_right_shift << endl << endl;
 }
 
 void test_unsigned_shifts( unsigned int value ) 
